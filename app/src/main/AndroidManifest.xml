@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mingxuan.huaji">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 读写SD卡权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".layout.HomePageViewPagerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".layout.LoginActivity" android:launchMode="singleTask"/><!--登录页面-->
+        <activity android:name=".layout.RegisitActivity" android:launchMode="singleTask"/><!--注册页面-->
+        <activity android:name=".layout.four.activity.MyFriendActivity"/><!--我的伙伴-->
+        <activity android:name=".layout.two.activity.ListOfGoodsActivity"/><!--商品列表-->
+        <activity android:name=".layout.two.activity.CommodityDetailsActivity"/><!--商品详情-->
+        <activity android:name=".layout.four.activity.MyShoppingCartActivity"/><!--我的购物车-->
+        <activity android:name=".layout.four.activity.MyAdressActivity" android:launchMode="singleTask"/><!--我的地址-->
+        <activity android:name=".layout.four.activity.AddAddressActivity"/><!--编辑收货地址-->
+        <activity android:name=".layout.four.activity.MyIntergralActivity"/><!--我的积分-->
+        <activity android:name=".layout.four.activity.BalanceActivity"/><!--余额-->
+        <activity android:name=".layout.four.activity.MyBankCardActivity"/><!--我的银行卡-->
+        <activity android:name=".layout.four.activity.AddBankCardActivity"/><!--添加银行卡-->
+        <activity android:name=".layout.four.activity.MyInformationActivity"/><!--我的信息-->
+        <activity android:name=".layout.four.activity.MyOrderActivity" android:launchMode="singleTask"/><!--我的订单-->
+        <activity android:name=".layout.four.activity.ProductsReviewsActivity"/><!--商品评论-->
+        <activity android:name=".layout.two.activity.ConfirmAnOrderActivity"/><!--确认订单-->
+    </application>
+
+</manifest>

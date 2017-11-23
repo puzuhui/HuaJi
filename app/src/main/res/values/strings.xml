@@ -1,0 +1,123 @@
+<resources>
+    <string name="app_name">华记</string>
+    <string name="action_settings">Settings</string>
+    <!--登录页面-->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="more">更多</string>
+    <string name="submit">提交</string>
+    <string name="please_enter_proof_of_identity">请输入身份证号和手机号</string>
+    <string name="please_enter_possword">请输入密码</string>
+
+    <!--注册页面-->
+    <string name="please_enter_username">请输入用户名</string>
+    <string name="please_enter_id_number">请输入身份证号</string>
+    <string name="please_enter_id_name">请输入身份证姓名</string>
+    <string name="please_enter_phone_number">请输入11位手机号</string>
+    <string name="please_enter_verification_code">请输入验证码</string>
+    <string name="get_code">获取验证码</string>
+    <string name="set_possword">请设置6-20数字或字母密码</string>
+    <string name="please_enter_possword_two">请再次输入密码</string>
+
+    <!--我的页面-->
+    <string name="my_friends">我的伙伴</string>
+    <string name="my_integral">我的积分</string>
+    <string name="my_shopping_cart">我的购物车</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_address">我的地址</string>
+    <string name="balance">余额</string>
+    <string name="bank_card">我的银行卡</string>
+    <string name="my_information">我的信息</string>
+    <string name="login_back">退出登录</string>
+
+    <!--我的积分-->
+    <string name="to_earn_points">赚积分</string>
+    <string name="credits_exchange">兑换积分</string>
+    <string name="credits_log">积分记录</string>
+
+    <!--我的购物车-->
+    <string name="check_all">全选</string>
+    <string name="total">合计：￥</string>
+    <string name="close_an_account">结算</string>
+
+    <!--我的地址-->
+    <string name="compile">编辑</string>
+    <string name="delete">删除</string>
+    <string name="set_default">设为默认</string>
+    <string name="choose">请选择</string>
+
+    <!--我的银行卡-->
+    <string name="add_bank_card">添加银行卡</string>
+    <string name="risk">请使用支持身份证认证的银行卡</string>
+    <string name="bank_account">银行卡账号</string>
+    <string name="belongs_to_the_bank">所属银行</string>
+    <string name="card_type">银行卡类型</string>
+    <string name="card_person">持有人</string>
+    <string name="reserved_phone_number">预留手机号</string>
+    <string name="binding_acknowledgement">确认绑定</string>
+
+    <!--我的订单-->
+    <string name="obligation">待付款</string>
+    <string name="payment">付款</string>
+    <string name="to_send_the_goods">待发货</string>
+    <string name="wait_for_receiving">待收货</string>
+    <string name="confirm_receipt">确认收货</string>
+    <string name="off_the_stocks">已完成</string>
+    <string name="check_the_logistics">查看物流</string>
+    <string name="additional_comments">追加评论</string>
+    <string name="delete_order">删除订单</string>
+    <string name="cancellation_of_order">取消订单</string>
+    <string name="products_reviews">商品评论</string>
+    <string name="reviews_edit">长度在10-500字之间 \n \n 写下购买体会或使用过程中带来的帮助等，可以为其他小伙伴提供参考</string>
+
+    <!--确认订单-->
+    <string name="confrim_an_order">确认订单</string>
+    <string name="no_receiving_address">暂无收货地址</string>
+    <string name="delivery_method">配送方式</string>
+    <string name="bbs">买家留言:</string>
+    <string name="optional">(选填)请填写对卖家的备注</string>
+    <string name="icash">含运费</string>
+    <string name="submit_order">提交订单</string>
+
+    <!--我的信息-->
+    <string name="real_name">真实姓名:</string>
+    <string name="phonenumber">手机号:</string>
+    <string name="national_identification_number">身份证号码:</string>
+
+    <!--编辑收货地址-->
+    <string name="compile_address">编辑收货地址</string>
+    <string name="consignee">收货人:</string>
+    <string name="phone_number">手机号码:</string>
+    <string name="address">所在地区:</string>
+    <string name="detailed_address">详细地址:</string>
+    <string name="save">保存</string>
+
+    <!--充值页面-->
+    <string name="recharge">充值</string>
+
+    <!--首页-->
+    <string name="huaji_shop">华记商铺</string>
+
+    <!--商城页面-->
+    <string name="huaji_store">华记商城</string>
+    <string name="home_life">家居生活</string>
+    <string name="mother_to_child_toy">母婴玩具</string>
+    <string name="clothes_and_bags">服饰箱包</string>
+    <string name="food_drink">食品饮料</string>
+    <string name="digital_technology">数码科技</string>
+
+    <!--商城列表-->
+    <string name="store_list">商城列表</string>
+    <string name="all_commodity">全部</string>
+
+    <!--商品详情-->
+    <string name="commodity_details">商品详情</string>
+    <string name="repertory">库存：</string>
+    <string name="size">尺码:</string>
+    <string name="evaluate">评价</string>
+    <string name="good_reputation">好评</string>
+    <string name="all_evaluate">所有评价</string>
+    <string name="add_to_shopping_cart">加入购物车</string>
+    <string name="settle_accounts">结账</string>
+
+</resources>

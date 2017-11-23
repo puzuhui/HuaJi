@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/shop_name"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="后台管理员"
+            android:textSize="14sp"
+            android:textColor="@color/transparent80"
+            android:drawableLeft="@mipmap/del"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/order_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/redDark"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:background="@color/grey">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:id="@+id/content"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="考个会计埃里克噶结构胶离开家噶过来金刚狼科技噶机构"
+                android:lines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="共" />
+                <TextView
+                    android:id="@+id/number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="件商品  需付款：￥" />
+                <TextView
+                    android:id="@+id/money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6000" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/cancellation_of_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/size_red"
+            android:padding="5dp"
+            android:text="@string/cancellation_of_order"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/delete_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/size_red"
+            android:padding="5dp"
+            android:text="@string/delete_order"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/additional_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/size_red"
+            android:padding="5dp"
+            android:text="@string/additional_comments"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/evaluate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/size_red"
+            android:padding="5dp"
+            android:text="@string/evaluate"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/size_red"
+            android:padding="5dp"
+            android:text="@string/check_the_logistics"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/size_red"
+            android:padding="5dp"
+            android:text="@string/payment"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/confirm_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/size_red"
+            android:padding="5dp"
+            android:text="@string/confirm_receipt"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
