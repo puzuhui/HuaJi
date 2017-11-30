@@ -51,16 +51,16 @@ public class HomePageViewPagerActivity extends FragmentActivity{
     private void initView() {
         homepagebtn = (RadioGroup) findViewById(R.id.homepage_btn);
         me = (RadioButton) findViewById(R.id.me);
-        homepage = (RadioButton) findViewById(R.id.homepage);
+//        homepage = (RadioButton) findViewById(R.id.homepage);
         shopping_mall = (RadioButton) findViewById(R.id.shopping_mall);
         recharge = (RadioButton) findViewById(R.id.recharge);
         viewPager = (ViewPager) findViewById(R.id.id_viewpage);
         fragmentArrayList = new ArrayList<>();
-        homePageFragment = new HomePageFragment();
+//        homePageFragment = new HomePageFragment();
         mineFragment = new MineFragment();
         rechargeFragment = new RechargeFragment();
         shoppingFragment = new ShoppingMallFragment();
-        fragmentArrayList.add(homePageFragment);
+       // fragmentArrayList.add(homePageFragment);
         fragmentArrayList.add(shoppingFragment);
         fragmentArrayList.add(rechargeFragment);
         fragmentArrayList.add(mineFragment);
@@ -68,10 +68,10 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         HuaJiPagerAdapter instantaneousPagerAdapter = new HuaJiPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(instantaneousPagerAdapter);
         viewPager.setCurrentItem(0);//设置默认显示
-        homepage.setChecked(true);
+        shopping_mall.setChecked(true);
         viewPager.setOffscreenPageLimit(fragmentArrayList.size());
-        homepage.setTextColor(getResources().getColor(R.color.red));
-        homepage.setOnClickListener(onClickListener);
+        shopping_mall.setTextColor(getResources().getColor(R.color.red));
+        shopping_mall.setOnClickListener(onClickListener);
         shopping_mall.setOnClickListener(onClickListener);
         recharge.setOnClickListener(onClickListener);
         me.setOnClickListener(onClickListener);
@@ -98,32 +98,31 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.homepage:
-                    viewPager.setCurrentItem(0);
-                    homepage.setTextColor(getResources().getColor(R.color.red));
-                    recharge.setTextColor(getResources().getColor(R.color.transparent80));
-                    me.setTextColor(getResources().getColor(R.color.transparent80));
-                    shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
-                    break;
+//                case R.id.homepage:
+//                    viewPager.setCurrentItem(0);
+//                    homepage.setTextColor(getResources().getColor(R.color.red));
+//                    recharge.setTextColor(getResources().getColor(R.color.transparent80));
+//                    me.setTextColor(getResources().getColor(R.color.transparent80));
+//                    shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
+//                    break;
                 case R.id.shopping_mall:
-                    viewPager.setCurrentItem(1);
+                    viewPager.setCurrentItem(0);
                     shopping_mall.setTextColor(getResources().getColor(R.color.red));
-                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
+//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     break;
                 case R.id.recharge:
-                    viewPager.setCurrentItem(2);
+                    viewPager.setCurrentItem(1);
                     recharge.setTextColor(getResources().getColor(R.color.red));
-                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
+//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
                     break;
-
                 case R.id.me:
-                    viewPager.setCurrentItem(3);
+                    viewPager.setCurrentItem(2);
                     me.setTextColor(getResources().getColor(R.color.red));
-                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
+//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
                     break;

@@ -18,11 +18,11 @@ import java.util.List;
  */
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
-    private List<PictureModel> list;
+    private List<PictureModel.ResultBean> list;
     private Context context;
     private LayoutInflater layoutInflater;
     private OnItemClickListener mOnItemClickListener;
-    public PictureAdapter(List<PictureModel> list,Context context){
+    public PictureAdapter(List<PictureModel.ResultBean> list,Context context){
         this.list = list;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -43,7 +43,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        PictureModel pictureModel = list.get(position);
+        PictureModel.ResultBean pictureModel = list.get(position);
         //holder.imageView.setImageBitmap(pictureModel.getBitmap());
         Glide.with(context).load(pictureModel.getImagePath()).centerCrop().placeholder(R.mipmap.ic_launcher).into(holder.imageView);
         if(mOnItemClickListener != null){

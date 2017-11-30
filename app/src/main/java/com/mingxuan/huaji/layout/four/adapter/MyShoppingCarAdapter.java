@@ -143,7 +143,7 @@ public class MyShoppingCarAdapter extends RecyclerView.Adapter<MyShoppingCarAdap
         holder.numberAddSubView.setMaxValue(myShoppingCarModel.getProduct_inventory());//库存
         String[] imageurl = myShoppingCarModel.getProduct_intr().split(",");
         Log.e("=====",""+imageurl[0]);
-        Glide.with(context).load("http://118.190.204.1"+imageurl[0]).into(holder.image);
+        Glide.with(context).load("http://125.65.82.219:8080"+imageurl[0]).into(holder.image);
         holder.checkbox.setTag(position);
         if(onItemClickListener != null){
             holder.checkbox.setOnClickListener(new View.OnClickListener() {

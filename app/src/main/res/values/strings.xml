@@ -69,6 +69,7 @@
     <string name="cancellation_of_order">取消订单</string>
     <string name="products_reviews">商品评论</string>
     <string name="reviews_edit">长度在10-500字之间 \n \n 写下购买体会或使用过程中带来的帮助等，可以为其他小伙伴提供参考</string>
+    <string name="reviews_edit_two">对评价进行补充，更客观，更全面</string>
 
     <!--确认订单-->
     <string name="confrim_an_order">确认订单</string>

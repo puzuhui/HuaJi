@@ -46,16 +46,31 @@
             android:layout_height="80dp"
             android:src="@mipmap/ic_launcher"
             android:layout_margin="5dp"/>
-        <TextView
-            android:id="@+id/shop_name"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:layout_gravity="center"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:padding="2dp"/>
+            android:padding="2dp"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:maxLines="2"
+                android:ellipsize="end" />
+            <RatingBar
+                android:id="@+id/ratinBar"
+                android:layout_below="@id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="1"
+                android:rating="0"
+                style="@style/star"/>
+        </RelativeLayout>
+
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,6 +80,7 @@
         android:layout_marginTop="10dp"
         android:padding="10dp">
         <TextView
+            android:id="@+id/evaluate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/evaluate"
@@ -90,15 +106,16 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/grey"
-            android:layout_marginTop="15dp"
-            />
+            android:layout_marginTop="15dp" />
 
         <ImageView
             android:id="@+id/popup_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_margin="5dp" />
+            android:src="@mipmap/creama"
+            android:layout_margin="5dp"
+            android:padding="15dp"
+            android:background="@drawable/size_background"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
@@ -106,8 +123,6 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

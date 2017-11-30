@@ -33,7 +33,6 @@ public class LoadingDialog extends Dialog {
                     LoadingDialog.super.dismiss();
                 }
             },200);
-
     }
 
     //可设置加载文字提示,可不传，默认加载中

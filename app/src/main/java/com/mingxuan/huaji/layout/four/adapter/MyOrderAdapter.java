@@ -13,7 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.api.BaseApi;
+import com.mingxuan.huaji.api.FourApi;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.four.model.MyOrderModel;
+import com.mingxuan.huaji.utils.Constants;
 
 import java.util.List;
 /**
@@ -26,7 +30,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     private MyOnItemClickListener myOnItemClickListener;
     private final int NORMAL_TYPE = 0;
     private final int FOOT_TYPE = 11;
-
+    private String id;
     public interface MyOnItemClickListener{
         void onItemClickListener(View view,int i);
     }
@@ -57,7 +61,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             MyOrderModel.ResultBean myOrderModel = list.get(position);
             String[] imageurl = myOrderModel.getProduct_intr().split(",");
             //Log.e("",imageurl[position]);
-            Glide.with(context).load("http://118.190.204.1" + imageurl[0]).into(holder.image);
+            Glide.with(context).load("http://125.65.82.219:8080" + imageurl[0]).into(holder.image);
             holder.content.setText(myOrderModel.getProducts_name());
             holder.number.setText("" + myOrderModel.getProducts_num());
             holder.money.setText("" + myOrderModel.getProducts_money() * myOrderModel.getProducts_num());
@@ -118,9 +122,19 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
                 holder.cancellation_of_order.setVisibility(View.GONE);
             } else if (myOrderModel.getOrders_flag().equals("6")) {
                 holder.order_type.setText("交易成功");
+                id = list.get(position).getId();
                 //删除订单和追加评论
                 holder.delete_order.setVisibility(View.VISIBLE);
                 holder.additional_comments.setVisibility(View.VISIBLE);
+                FourApi.getInstance(context).gethjhp_products_commentApi(id , new GetResultCallBack() {
+                    @Override
+                    public void getResult(String result, int type) {
+                        if (type == Constants.TYPE_SUCCESS) {
+                            holder.additional_comments.setVisibility(View.GONE);
+                        } else
+                            holder.additional_comments.setVisibility(View.VISIBLE);
+                    }
+                });
 
                 holder.confirm_receipt.setVisibility(View.GONE);
                 holder.see_btn.setVisibility(View.GONE);

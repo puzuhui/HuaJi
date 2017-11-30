@@ -81,12 +81,12 @@ public class MineFragment extends Fragment {
         public void onClick(View v) {
             Intent intent;
             switch (v.getId()) {
-                case R.id.my_integral:
-                    intent = new Intent(getActivity(), MyIntergralActivity.class);
-                    startActivity(intent);
-                    break;
                 case R.id.my_friends:
                     intent = new Intent(getActivity(), MyFriendActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.my_integral:
+                    intent = new Intent(getActivity(), MyIntergralActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.my_shopping_cart:

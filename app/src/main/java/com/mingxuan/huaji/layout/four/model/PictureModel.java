@@ -1,58 +1,93 @@
 package com.mingxuan.huaji.layout.four.model;
 
-import android.graphics.Bitmap;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/11/8 0008.
  */
 
 public class PictureModel {
-    public String imageId; //图片id
-    public String thumbnailPath;
-    public String imagePath; //图片路径
-    private Bitmap bitmap;
-    public boolean isSelected = false;
 
-    public String getImageId() {
-        return imageId;
+    /**
+     * status : 200
+     * message : 获取成功
+     * result : [{"id":"54","comment_content":"收到货了，非常的棒！","comment_level":"4"}]
+     */
+
+    private int status;
+    private String message;
+    private List<ResultBean> result;
+
+    public int getStatus() {
+        return status;
     }
 
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getThumbnailPath() {
-        return thumbnailPath;
+    public String getMessage() {
+        return message;
     }
 
-    public void setThumbnailPath(String thumbnailPath) {
-        this.thumbnailPath = thumbnailPath;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public List<ResultBean> getResult() {
+        return result;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setResult(List<ResultBean> result) {
+        this.result = result;
     }
 
-    public Bitmap getBitmap() {
-//        if(bitmap != null){
-//            bitmap = Bimp.revitionImageSize(imagePath);
-//        }
-        return bitmap;
-    }
+    public static class ResultBean {
+        /**
+         * id : 54
+         * comment_content : 收到货了，非常的棒！
+         * comment_level : 4
+         */
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
+        private String id;
+        public String imagePath; //图片路径
+        private String comment_content;
+        private int comment_level;
 
-    public boolean isSelected() {
-        return isSelected;
-    }
+        public String getComment_content() {
+            return comment_content;
+        }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+        public void setComment_content(String comment_content) {
+            this.comment_content = comment_content;
+        }
+
+        public int getComment_level() {
+            return comment_level;
+        }
+
+        public void setComment_level(int comment_level) {
+            this.comment_level = comment_level;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getImagePath() {
+            return imagePath;
+        }
+
+        public void setImagePath(String imagePath) {
+            this.imagePath = imagePath;
+        }
+
+
     }
 }

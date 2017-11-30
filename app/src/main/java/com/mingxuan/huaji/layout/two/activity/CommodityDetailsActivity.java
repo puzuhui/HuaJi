@@ -135,4 +135,6 @@ public class CommodityDetailsActivity extends Activity {
             }
         }
     };
+
+
 }

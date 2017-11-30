@@ -22,8 +22,11 @@ import com.mingxuan.huaji.layout.four.model.MyOrderModel;
 import com.mingxuan.huaji.layout.two.activity.CommodityDetailsActivity;
 import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.LoadingDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +65,7 @@ public class MyOrderActivity extends Activity {
     private List<MyOrderModel.ResultBean> list,list1,list2,list3,list4,list5;
     private MyOrderAdapter myOrderAdapter;
     int index = 0;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +73,8 @@ public class MyOrderActivity extends Activity {
         setContentView(R.layout.activity_my_order);
         ButterKnife.bind(this);
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        update_time = simpleDateFormat.format(new Date());
         initView();
         getOrder();
     }
@@ -80,6 +86,7 @@ public class MyOrderActivity extends Activity {
     }
 
     private void initView() {
+        loadingDialog = new LoadingDialog(this);
         list =new ArrayList<>();
         list1 =new ArrayList<>();
         list2 =new ArrayList<>();
@@ -100,7 +107,7 @@ public class MyOrderActivity extends Activity {
                         intent.putExtra("index",1);
                         intent.putExtra("id", list5.get(i).getId());
                         intent.putExtra("pid", list5.get(i).getProducts_id());
-                        intent.putExtra("imageurl", "http://118.190.204.1"+imageurl[0]);
+                        intent.putExtra("imageurl", "http://125.65.82.219:8080"+imageurl[0]);
                         intent.putExtra("content", list5.get(i).getProducts_name());
                         startActivity(intent);
                         break;
@@ -109,7 +116,7 @@ public class MyOrderActivity extends Activity {
                         intent.putExtra("index",2);
                         intent.putExtra("id", list5.get(i).getId());
                         intent.putExtra("pid", list5.get(i).getProducts_id());
-                        intent.putExtra("imageurl", "http://118.190.204.1"+imageurl[0]);
+                        intent.putExtra("imageurl", "http://125.65.82.219:8080"+imageurl[0]);
                         intent.putExtra("content", list5.get(i).getProducts_name());
                         startActivity(intent);
                         break;
@@ -117,15 +124,24 @@ public class MyOrderActivity extends Activity {
                         Toast.makeText(MyOrderActivity.this, "你点击了物流", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.delete_order://删除订单
+                        del_flag = "1";
+                        list5.remove(i);
+                        id = list5.get(i).getId();
+                        updateOrderType();
                         break;
                     case R.id.cancellation_of_order://取消订单
+                        orders_flag = "5";
+                        list5.remove(i);
+                        id = list5.get(i).getId();
+                        updateOrderType();
                         break;
                     case R.id.payment://付款
                         break;
-                    case R.id.confirm_receipt://付款
+                    case R.id.confirm_receipt://确认收货
                         break;
                     case R.id.layout:
                         intent = new Intent(MyOrderActivity.this, CommodityDetailsActivity.class);
+                        intent.putExtra("id",list5.get(i).getProducts_id());
                         startActivity(intent);
                         break;
 
@@ -232,12 +248,18 @@ public class MyOrderActivity extends Activity {
         myOrderAdapter.notifyDataSetChanged();
     }
 
-    String create_id = "56c9f9556b2e46428bb53f85bbc1b234";
+    /**
+     * 获取订单数据
+     */
+    String create_id = "d1e964159cd04e0d909677bd72ab89e6";
     private void getOrder(){
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
         FourApi.getInstance(this).getproducts_ordersApi(create_id, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
                 if (type == Constants.TYPE_SUCCESS) {
+                    loadingDialog.dismiss();
                     List<MyOrderModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(), result, MyOrderModel.ResultBean.class);
                     list.clear();
                     list1.clear();
@@ -266,6 +288,27 @@ public class MyOrderActivity extends Activity {
                     Log.e("====",""+list3.size());
                     Log.e("====",""+list4.size());
                     setListData();
+                } else BaseApi.showErrMsg(MyOrderActivity.this, result);
+            }
+        });
+    }
+
+    /**
+     * 更新订单数据（删除、取消订单）
+     */
+    String id;
+    String del_flag;
+    String orders_flag;
+    String update_id = "d1e964159cd04e0d909677bd72ab89e6";
+    String update_name = "th";
+    String update_time;
+    private void updateOrderType() {
+        FourApi.getInstance(this).updateOrderTypeApi(id, orders_flag, update_id, update_name, update_time,del_flag, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if (type == Constants.TYPE_SUCCESS) {
+                    Log.e("", "删除成功");
+                    myOrderAdapter.notifyDataSetChanged();
                 } else BaseApi.showErrMsg(MyOrderActivity.this, result);
             }
         });

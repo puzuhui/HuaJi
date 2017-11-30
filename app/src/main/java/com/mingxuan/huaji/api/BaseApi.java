@@ -73,7 +73,7 @@ public class BaseApi {
         OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
-                ToastUtil.makeToast(mContext, "网络异常");
+                ToastUtil.makeToast(mContext, "暂时没有数据...");
                 mCallBack.getResult(request.toString(), Constants.TYPE_FAIL);
             }
 
