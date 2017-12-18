@@ -233,7 +233,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
         private TextView money;
         private TextView see_btn,delete_order,additional_comments,evaluate,cancellation_of_order,payment,confirm_receipt;
         private TextView order_type;
-
         public ViewHolder(View itemView,int viewType) {
             super(itemView);
             if(viewType == FOOT_TYPE){

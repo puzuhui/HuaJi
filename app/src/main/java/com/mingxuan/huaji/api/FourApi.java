@@ -298,6 +298,15 @@ public class FourApi extends BaseApi {
     }
 
 
-
+    //https://apimg.alipay.com/combo.png?d=cashier&t=CCB 查询银行logo
+    //支付宝 https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=银行卡卡号&cardBinCheck=true
+    //       DC:借记卡，CC:信用卡 ,SCC: "准贷记卡",PC: "预付费卡"
+    public void bankcardApi(String _input_charset,String cardNo,boolean cardBinCheck,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("_input_charset", _input_charset);
+        map.put("cardNo", cardNo);
+        map.put("cardBinCheck", ""+cardBinCheck);
+        getLoad(BaseUrl.bankcard, map, callBack);
+    }
 
 }

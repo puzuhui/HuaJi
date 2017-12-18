@@ -11,6 +11,7 @@
         android:background="@color/redDark"
         android:padding="10dp">
         <ImageView
+            android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/back_left"
@@ -42,6 +43,7 @@
                 android:layout_height="180dp" />
 
             <TextView
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey"
@@ -50,7 +52,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:text="agagaggagagag" />
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,9 +68,10 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000"
+                    android:text=""
                     android:textColor="@color/red"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -86,9 +89,10 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:text=""
                     android:textSize="14sp" />
 
                 <TextView
@@ -131,7 +135,8 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="5dp">
+                android:paddingTop="5dp"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,10 +145,11 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/comment_numb"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="(4)"
+                    android:text=""
                     android:textSize="12sp" />
 
                 <TextView
@@ -153,6 +159,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/comment_good"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(100%)"
@@ -162,44 +169,62 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="10dp"
                 android:background="@color/grey" />
 
             <LinearLayout
+                android:id="@+id/comment_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <RatingBar
+                        android:id="@+id/ratinBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:rating="0"
+                        style="@style/star"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/comment_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/comment_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="4"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text=""
                     android:textSize="12sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="后台管理员"
-                    android:textSize="12sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/grey" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:text="好评"
-                android:textSize="12sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/grey" />
 
             <TextView
                 android:id="@+id/all_evaluate"
@@ -207,7 +232,8 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@mipmap/back"
                 android:gravity="center"
-                android:text="@string/all_evaluate" />
+                android:text="@string/all_evaluate"
+                android:layout_marginTop="2dp"/>
 
             <View
                 android:layout_width="match_parent"

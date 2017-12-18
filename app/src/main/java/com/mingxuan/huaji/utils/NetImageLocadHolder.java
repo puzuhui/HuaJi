@@ -25,7 +25,7 @@ public class NetImageLocadHolder implements Holder<String> {
 //    加载网络图片
     @Override
     public void UpdateUI(Context context, int position, String data) {
-        //                             预加载
-        Glide.with(context).load(data).placeholder(R.mipmap.ic_launcher).into(image_lv);
+        //
+        Glide.with(context).load(data).into(image_lv);
     }
 }

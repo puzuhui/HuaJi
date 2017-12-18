@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="后台管理员"
+            android:text=""
             android:textSize="14sp"
             android:textColor="@color/transparent80"
             android:drawableLeft="@mipmap/del"

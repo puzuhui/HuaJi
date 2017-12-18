@@ -5,11 +5,31 @@ package com.mingxuan.huaji.url;
  */
 public class BaseUrl {
 
-    public final static String baseurl = "http://192.168.188.122:88/huaji/index.php/Home/index/";//根地址
+    public final static String baseurl = "http://192.168.188.123:88/huaji/index.php/Home/index/";//根地址
+
+    public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
+
+    public final static String login = javaurl+"login?";//登录
+
+    public final static String shoppinglisttop = baseurl+"shoppinglisttop?";//商品列表顶部标签
+
+    public final static String shoppinglist = baseurl+"shoppinglist?";//商品列表
+
+    public final static String shoppingevaluate = baseurl+"shoppingevaluate?";//商品评价
+
+    public final static String evaluate = baseurl+"evaluate?";//商品评价
+
+    public final static String searchdefaultaddress = baseurl+"searchdefaultaddress?";//默认地址
 
     public final static String myfridends = baseurl+"myfridends?";//我的伙伴
 
     public final static String myproducts_cart = baseurl+"myproducts_cart?";//我的购物车
+
+    public final static String searchshoppingcar = baseurl+"searchshoppingcar?";//添加购物车
+
+    public final static String insertshoppingcar = baseurl+"insertshoppingcar?";//添加购物车
+
+    public final static String addshoppingcar = baseurl+"addshoppingcar?";//添加购物车
 
     public final static String delproducts_cart = baseurl+"delproducts_cart?";//编辑我的购物车
 
@@ -38,4 +58,6 @@ public class BaseUrl {
     public final static String province = baseurl+"province?";//地区（省市县乡镇）
 
     public final static String myinformation = baseurl+"myinformation?";//我的信息
+
+    public final static String bankcard = "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?";//查询银行卡信息
 }

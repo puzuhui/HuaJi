@@ -10,12 +10,6 @@ import java.util.List;
 
 public class PictureModel {
 
-    /**
-     * status : 200
-     * message : 获取成功
-     * result : [{"id":"54","comment_content":"收到货了，非常的棒！","comment_level":"4"}]
-     */
-
     private int status;
     private String message;
     private List<ResultBean> result;
@@ -44,17 +38,87 @@ public class PictureModel {
         this.result = result;
     }
 
+
     public static class ResultBean {
         /**
-         * id : 54
-         * comment_content : 收到货了，非常的棒！
+         * contingency_id : 76
+         * pic_dz : 1/2017112912451338.jpg
+         * comment_content : 真的非常棒，推荐购买！
+         * comment_type : 1
          * comment_level : 4
+         * create_name : th
          */
-
+        private String pic_dz;
+        private String create_name;
         private String id;
         public String imagePath; //图片路径
         private String comment_content;
         private int comment_level;
+        private String contingency_id;
+        private String comment_type;
+        private String create_time;
+        private List<PictureModel.ResultBean> list;
+
+        public List<ResultBean> getList() {
+            return list;
+        }
+
+        public void setList(List<ResultBean> list) {
+            this.list = list;
+        }
+
+        public ResultBean getReplyTo() {
+            return replyTo;
+        }
+
+        public void setReplyTo(ResultBean replyTo) {
+            this.replyTo = replyTo;
+        }
+
+        private ResultBean replyTo;
+
+        public String getCreate_time(){
+            return create_time;
+        }
+
+        public void setCreate_time(String create_time){
+            this.create_time = create_time;
+        }
+
+        public String getContingency_id() {
+            return contingency_id;
+        }
+
+        public void setContingency_id(String contingency_id) {
+            this.contingency_id = contingency_id;
+        }
+
+        public String getComment_type() {
+            return comment_type;
+        }
+
+        public void setComment_type(String comment_type) {
+            this.comment_type = comment_type;
+        }
+
+
+        public String getPic_dz() {
+            return pic_dz;
+        }
+
+        public void setPic_dz(String pic_dz) {
+            this.pic_dz = pic_dz;
+        }
+
+
+        public String getCreate_name() {
+            return create_name;
+        }
+
+        public void setCreate_name(String create_name) {
+            this.create_name = create_name;
+        }
+
 
         public String getComment_content() {
             return comment_content;
@@ -90,4 +154,5 @@ public class PictureModel {
 
 
     }
+
 }

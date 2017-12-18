@@ -156,50 +156,5 @@ public class MyShoppingCarModel {
         }
 
     }
-//    String shopname;
-//    String shopcontent;
-//    double shopmoney;
-//    boolean isSelected;
-//    int number = 1;
-//
-//    public int getNumber() {
-//        return number;
-//    }
-//
-//    public void setNumber(int number) {
-//        this.number = number;
-//    }
-//
-//    public boolean isSelected() {
-//        return isSelected;
-//    }
-//
-//    public void setSelected(boolean selected) {
-//        isSelected = selected;
-//    }
-//
-//    public String getShopname() {
-//        return shopname;
-//    }
-//
-//    public void setShopname(String shopname) {
-//        this.shopname = shopname;
-//    }
-//
-//    public String getShopcontent() {
-//        return shopcontent;
-//    }
-//
-//    public void setShopcontent(String shopcontent) {
-//        this.shopcontent = shopcontent;
-//    }
-//
-//    public double getShopmoney() {
-//        return shopmoney;
-//    }
-//
-//    public void setShopmoney(double shopmoney) {
-//        this.shopmoney = shopmoney;
-//    }
 
 }

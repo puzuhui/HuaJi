@@ -65,6 +65,7 @@
     <string name="off_the_stocks">已完成</string>
     <string name="check_the_logistics">查看物流</string>
     <string name="additional_comments">追加评论</string>
+    <string name="comments">评论</string>
     <string name="delete_order">删除订单</string>
     <string name="cancellation_of_order">取消订单</string>
     <string name="products_reviews">商品评论</string>

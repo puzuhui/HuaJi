@@ -1,27 +1,44 @@
 package com.mingxuan.huaji.layout.two.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.api.BaseApi;
+import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
+import com.mingxuan.huaji.layout.four.model.PictureModel;
 import com.mingxuan.huaji.layout.two.adapter.ShopSizeAdapter;
+import com.mingxuan.huaji.layout.two.model.ShopListModel;
 import com.mingxuan.huaji.layout.two.model.ShopSizeModel;
+import com.mingxuan.huaji.layout.two.model.ShoppingCarModel;
+import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.FullGridLayoutManager;
 import com.mingxuan.huaji.utils.GridSpacingItemDecoration;
+import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.NetImageLocadHolder;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,16 +60,35 @@ public class CommodityDetailsActivity extends Activity {
     TextView addToShoppingCart;
     @BindView(R.id.settle_accounts)
     TextView settleAccounts;
+    LoadingDialog loadingDialog;
+    List<ShopListModel.ResultBean> list;
+    @BindView(R.id.content)
+    TextView content;
+    @BindView(R.id.money)
+    TextView money;
+    @BindView(R.id.number)
+    TextView number;
+    @BindView(R.id.ratinBar)
+    RatingBar ratinBar;
+    @BindView(R.id.comment_name)
+    TextView commentName;
+    @BindView(R.id.comment_content)
+    TextView commentContent;
+    @BindView(R.id.comment_numb)
+    TextView commentNumb;
+    @BindView(R.id.comment_good)
+    TextView commentGood;
+    @BindView(R.id.back_btn)
+    ImageView backBtn;
+    @BindView(R.id.comment_all)
+    LinearLayout commentAll;
 
-    private String[] images = {"http://img2.3lian.com/2014/f2/37/d/39.jpg",
-            "http://www.8kmm.com/UploadFiles/2012/8/201208140920132659.jpg",
-            "http://f.hiphotos.baidu.com/image/h%3D200/sign=1478eb74d5a20cf45990f9df460b4b0c/d058ccbf6c81800a5422e5fdb43533fa838b4779.jpg",
-            "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg"};
     //轮播下面的小点
     private int[] indicator = {R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused};
     //网络图片加载地址的集合
     private List<String> bean;
     private List<ShopSizeModel> sizelist;
+    private SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,13 +96,68 @@ public class CommodityDetailsActivity extends Activity {
         setContentView(R.layout.activity_commodity_details);
         ButterKnife.bind(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        create_name = sharedPreferences.getString("create_name","");
+        update_id = sharedPreferences.getString("create_id","");
+        update_name = sharedPreferences.getString("create_name","");
+
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        create_time = simpleDateFormat.format(new Date());
+        update_time = simpleDateFormat.format(new Date());
+        getBundle();
         initView();
+        getlist();
+        getshopingevaluate();
+        getsearchshoppingcar();
+    }
+
+    private void getBundle() {
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getString("id");
     }
 
     private void initView() {
+        shoppingcarlist = new ArrayList<>();
+        goodlist = new ArrayList<>();
+        list = new ArrayList<>();
+        loadingDialog = new LoadingDialog(this);
         sizelist = new ArrayList<>();
         bean = new ArrayList<>();
-        bean = Arrays.asList(images);
+        piclist = new ArrayList<>();
+
+        FullGridLayoutManager gridLayoutManager = new FullGridLayoutManager(this, 4);
+        recyclerview.setNestedScrollingEnabled(false);
+        recyclerview.setLayoutManager(gridLayoutManager);
+        int spanCount = 4;//跟布局里面的spanCount属性是一致的
+        int spacing = 5;//每一个矩形的间距
+        GridSpacingItemDecoration gridSpacingItemDecoration = new GridSpacingItemDecoration(spanCount, spacing, false);
+        recyclerview.addItemDecoration(gridSpacingItemDecoration);
+
+        String[] s = {"185/64Y", "185/64Y", "185/64Y", "185/64Y", "185/64Y"};
+        for (int i = 0; i < s.length; i++) {
+            ShopSizeModel shopSizeModel = new ShopSizeModel();
+            shopSizeModel.setSize(s[i]);
+            sizelist.add(shopSizeModel);
+        }
+
+        ShopSizeAdapter shopSizeAdapter = new ShopSizeAdapter(CommodityDetailsActivity.this, sizelist);
+        recyclerview.setAdapter(shopSizeAdapter);
+        shopSizeAdapter.setMyOnClickListener(new ShopSizeAdapter.MyOnClickListener() {
+            @Override
+            public void onclick(View view, int position) {
+                Toast.makeText(CommodityDetailsActivity.this, "点击了"+position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        addToShoppingCart.setOnClickListener(onClickListener);
+        settleAccounts.setOnClickListener(onClickListener);
+        backBtn.setOnClickListener(onClickListener);
+        allEvaluate.setOnClickListener(onClickListener);
+    }
+
+    private void showBanner() {
+        //bean = Arrays.asList(images);
         //设置指示器是否可见
         convenientBanner.setPointViewVisible(true);
         //设置小点
@@ -91,50 +182,185 @@ public class CommodityDetailsActivity extends Activity {
                 Toast.makeText(CommodityDetailsActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
             }
         });
-
-        FullGridLayoutManager gridLayoutManager = new FullGridLayoutManager(this,4);
-        recyclerview.setNestedScrollingEnabled(false);
-        recyclerview.setLayoutManager(gridLayoutManager);
-        int spanCount = 4;//跟布局里面的spanCount属性是一致的
-        int spacing = 5;//每一个矩形的间距
-        GridSpacingItemDecoration gridSpacingItemDecoration = new GridSpacingItemDecoration(spanCount,spacing,false);
-        recyclerview.addItemDecoration(gridSpacingItemDecoration);
-
-        String[] s = {"185/64Y","185/64Y","185/64Y","185/64Y","185/64Y"};
-        for (int i = 0; i < s.length; i++) {
-            ShopSizeModel shopSizeModel = new ShopSizeModel();
-            shopSizeModel.setSize(s[i]);
-            sizelist.add(shopSizeModel);
-        }
-
-        ShopSizeAdapter shopSizeAdapter = new ShopSizeAdapter(CommodityDetailsActivity.this,sizelist);
-        recyclerview.setAdapter(shopSizeAdapter);
-        shopSizeAdapter.setMyOnClickListener(new ShopSizeAdapter.MyOnClickListener() {
-            @Override
-            public void onclick(View view, int position) {
-                Toast.makeText(CommodityDetailsActivity.this, "点击了", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        addToShoppingCart.setOnClickListener(onClickListener);
-        settleAccounts.setOnClickListener(onClickListener);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent;
-            switch (v.getId()){
+            switch (v.getId()) {
+                case R.id.back_btn:
+                    finish();
+                    break;
+                case R.id.all_evaluate://所有评论
+                    intent = new Intent(CommodityDetailsActivity.this, CommentActivity.class);
+                    intent.putExtra("id",id);
+                    startActivity(intent);
+                    break;
                 case R.id.add_to_shopping_cart:
-                    Toast.makeText(CommodityDetailsActivity.this, "点击了加入购物车", Toast.LENGTH_SHORT).show();
+                    if(isshop){
+                        products_num = 1;
+                        getaddshoppingcar();
+                    }else {
+                        products_num++;
+                        insertshoppingcar();
+                    }
                     break;
                 case R.id.settle_accounts:
-                    intent = new Intent(CommodityDetailsActivity.this,ConfirmAnOrderActivity.class);
+                    intent = new Intent(CommodityDetailsActivity.this, ConfirmAnOrderActivity.class);
+                    intent.putExtra("createname",list.get(0).getCreate_name());
+                    intent.putExtra("image",bean.get(0));
+                    intent.putExtra("productname",list.get(0).getProduct_name());
+                    intent.putExtra("productprice",list.get(0).getProduct_price());
                     startActivity(intent);
+
                     break;
             }
         }
     };
 
+    /**
+     * 商品详情
+     */
+    String id;
+    String product_label;
+    String parent_id;
+    private void getlist() {
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
+        MainApi.getInstance(this).shoppinglistApi(id, parent_id, product_label, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if (type == Constants.TYPE_SUCCESS) {
+                    loadingDialog.dismiss();
+                    List<ShopListModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),
+                            result, ShopListModel.ResultBean.class);
+                    list.clear();
+                    list.addAll(resultBeans);
 
+                    String[] imageurl = list.get(0).getProduct_intr().split(",");
+                    for (int i = 0; i < imageurl.length; i++) {
+                        String image = "http://125.65.82.219:8080" + imageurl[i];
+                        bean.add(image);
+                    }
+                    showBanner();
+
+                    content.setText(list.get(0).getProduct_name());
+                    money.setText(list.get(0).getProduct_price());
+                    number.setText(list.get(0).getProduct_inventory());
+                } else BaseApi.showErrMsg(CommodityDetailsActivity.this, result);
+            }
+        });
+    }
+
+    /**
+     * 商品评论列表
+     */
+    List<PictureModel.ResultBean> piclist;
+    List<Integer> goodlist ;
+    private void getshopingevaluate() {
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
+        MainApi.getInstance(this).shoppingevaluateApi(id, "1", new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if (type == Constants.TYPE_SUCCESS) {
+                    loadingDialog.dismiss();
+                    List<PictureModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),
+                            result, PictureModel.ResultBean.class);
+                    piclist.clear();
+                    piclist.addAll(resultBeans);
+
+                    for (int i = 0; i < piclist.size(); i++) {
+                        int good = piclist.get(i).getComment_level();
+                        if (good > 3) {
+                            goodlist.add(good);//将3星以上的都视为好评
+                        }
+                    }
+                    float goodnumb = (float) goodlist.size() / piclist.size();
+                    DecimalFormat decimalFormat = new DecimalFormat("0.0");
+                    Log.e("===", "" + decimalFormat.format(goodnumb));
+                    Log.e("===", "" + decimalFormat.format(goodnumb * 100));
+
+
+                    commentNumb.setText("(" + piclist.size() + ")");
+                    commentGood.setText("(" + decimalFormat.format(goodnumb * 100) + "%)");
+                    ratinBar.setRating(piclist.get(0).getComment_level());
+                    ratinBar.setIsIndicator(true);//设置不可改变
+                    commentName.setText(piclist.get(0).getCreate_name());
+                    commentContent.setText(piclist.get(0).getComment_content());
+                } else {
+                    commentNumb.setText("(" + 0 + ")");
+                    commentGood.setText("(" + 100 + "%)");
+                    commentAll.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    //查询商品是否加入购物车
+    boolean isshop;
+    List<ShoppingCarModel.ResultBean> shoppingcarlist ;
+    private void getsearchshoppingcar() {
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
+        MainApi.getInstance(this).searchshoppingcarApi(id, create_id, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if (type == Constants.TYPE_SUCCESS) {
+                    loadingDialog.dismiss();
+                    List<ShoppingCarModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,ShoppingCarModel.ResultBean.class);
+                    shoppingcarlist.addAll(resultBeans);
+                    products_num = shoppingcarlist.get(0).getProducts_num();
+                    shoppingcarid = shoppingcarlist.get(0).getId();
+                    isshop = false;
+                } else{
+                    isshop = true;
+                }
+            }
+        });
+    }
+
+    /**
+     * 添加购物车
+     */
+    String create_id ;
+    String create_name ;
+    String create_time;
+    private void getaddshoppingcar() {
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
+        MainApi.getInstance(this).addshoppingcarApi(id, products_num,create_id,create_name,create_time, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if (type == Constants.TYPE_SUCCESS) {
+                    loadingDialog.dismiss();
+                    Toast.makeText(CommodityDetailsActivity.this, "加入购物车成功", Toast.LENGTH_SHORT).show();
+                   // addToShoppingCart.setText("已加入购物车");
+                } else BaseApi.showErrMsg(CommodityDetailsActivity.this,result);
+            }
+        });
+    }
+
+    /**
+     * 修改购物车
+     */
+    int products_num;
+    String update_id;
+    String update_name;
+    String update_time;
+    String shoppingcarid;
+    private void insertshoppingcar() {
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
+        MainApi.getInstance(this).insertshoppingcarApi(shoppingcarid,products_num, update_id,update_name,update_time, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if (type == Constants.TYPE_SUCCESS) {
+                    loadingDialog.dismiss();
+                    Toast.makeText(CommodityDetailsActivity.this, "加入购物车成功", Toast.LENGTH_SHORT).show();
+                } else BaseApi.showErrMsg(CommodityDetailsActivity.this,result);
+            }
+        });
+    }
 }

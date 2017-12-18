@@ -124,6 +124,7 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
                     break;
                 case R.id.one:
                     intent = new Intent(getActivity(), ListOfGoodsActivity.class);
+                    intent.putExtra("type",31);
                     startActivity(intent);
                     break;
             }

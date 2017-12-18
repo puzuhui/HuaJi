@@ -1,7 +1,9 @@
 package com.mingxuan.huaji.layout.four.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,6 +65,10 @@ public class AddAddressActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaddress);
         ButterKnife.bind(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        create_name = sharedPreferences.getString("create_name","");
 
         initView();
     }
@@ -281,14 +287,14 @@ public class AddAddressActivity extends Activity {
         });
     }
 
-    String create_id ="1";
+    String create_id;
     String aconsignee ;
     String phone;
     int default_flag;
     String selete_address;
     String seleadd_name;
     String aaddress;
-    String create_name = "sin";
+    String create_name;
     String create_time = "1995-12-17";
     private void getmyaddress(){
         FourApi.getInstance(this).getaddaddressApi(aconsignee,phone, default_flag,selete_address, seleadd_name,aaddress,

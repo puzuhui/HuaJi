@@ -1,7 +1,9 @@
 package com.mingxuan.huaji.layout.four.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -51,6 +53,11 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_address);
         ButterKnife.bind(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        update_id = sharedPreferences.getString("create_id","");
+        update_name = sharedPreferences.getString("create_name","");
 
         initView();
         getmyaddress();
@@ -126,7 +133,7 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
     /**
      * 查询
      */
-    private String create_id = "1";
+    private String create_id;
     private void getmyaddress() {
         FourApi.getInstance(this).getmyaddressApi(create_id, new GetResultCallBack() {
             @Override
@@ -170,8 +177,8 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
     private String selete_address;
     private String seleadd_name;
     private String aaddress;
-    private String update_id = "1";
-    private String update_name = "sin";
+    private String update_id;
+    private String update_name;
     private String update_time = "1995-12-17";
     private int del_flag;
     private int id;

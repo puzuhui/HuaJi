@@ -1,14 +1,26 @@
 package com.mingxuan.huaji.layout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
+import com.mingxuan.huaji.layout.two.model.LoginModel;
+import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,9 +57,42 @@ public class LoginActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.submit:
-                intent = new Intent(LoginActivity.this,HomePageViewPagerActivity.class);
-                startActivity(intent);
+                username = pleaseEnterProofOfIdentity.getText().toString();
+                password = pleaseEnterPossword.getText().toString();
+                login();
                 break;
         }
+    }
+
+    String username;
+    String password;
+    List<LoginModel.ResultBean> loginlist = new ArrayList<>();
+    private void login(){
+        MainApi.getInstance(this).login(username, password, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if(type == Constants.TYPE_SUCCESS){
+                    List<LoginModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,LoginModel.ResultBean.class);
+                    loginlist.addAll(resultBeans);
+                    Intent intent = new Intent(LoginActivity.this,HomePageViewPagerActivity.class);
+                    startActivity(intent);
+                    create_id = loginlist.get(0).getId();
+                    create_name = loginlist.get(0).getName();
+                    saveSharedPreferences();
+                }else {
+                    ToastUtil.makeToast(LoginActivity.this,"输入用户名或者密码错误");
+                }
+            }
+        });
+    }
+
+    String create_id;
+    String create_name;
+    private void saveSharedPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("create_id",create_id);
+        editor.putString("create_name",create_name);
+        editor.commit();
     }
 }
