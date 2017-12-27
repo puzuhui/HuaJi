@@ -222,10 +222,10 @@ public class ConfirmAnOrderActivity extends Activity {
 
         String privateKey = rsa2 ? RSA2_PRIVATE : RSA_PRIVATE;
         String sign = OrderInfoUtil2_0.getSign(params, privateKey, rsa2);
+
         final String orderInfo = orderParam + "&" + sign;
 
         Runnable payRunnable = new Runnable() {
-
             @Override
             public void run() {
                 PayTask alipay = new PayTask(ConfirmAnOrderActivity.this);

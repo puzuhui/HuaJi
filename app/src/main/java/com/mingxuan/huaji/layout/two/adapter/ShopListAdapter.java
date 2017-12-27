@@ -62,7 +62,7 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
             ShopListModel.ResultBean shopListModel = list.get(position);
             String[] imageurl = list.get(position).getProduct_intr().split(",");
             Glide.with(context).load(Constants.IMAGE_URL + imageurl[0]).placeholder(R.mipmap.ic_launcher)
-                    .skipMemoryCache(true).centerCrop().into(holder.shop_image);
+                    .centerCrop().into(holder.shop_image);
             holder.shop_name.setText(shopListModel.getProduct_name());
             holder.money.setText(shopListModel.getProduct_price());
 //        holder.sales_volume.setText(shopListModel.getSales_volume());

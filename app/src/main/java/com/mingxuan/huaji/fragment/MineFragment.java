@@ -1,14 +1,18 @@
 package com.mingxuan.huaji.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.four.activity.BalanceActivity;
@@ -51,6 +55,10 @@ public class MineFragment extends Fragment {
     LinearLayout myInformation;
     @BindView(R.id.login_back)
     Button loginBack;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.phone)
+    TextView phone;
     Unbinder unbinder;
     private View view;
 
@@ -66,6 +74,16 @@ public class MineFragment extends Fragment {
     }
 
     private void initView() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        boolean islogin = sharedPreferences.getBoolean("islogin",false);
+        if(!islogin){
+            Log.e("====","你登录了"+islogin);
+            phone.setText(sharedPreferences.getString("phone",""));
+            name.setText(sharedPreferences.getString("realname",""));
+        }else {
+            Log.e("====","你没有登录"+islogin);
+        }
+
         myFriends.setOnClickListener(onClickListener);
         myShoppingCart.setOnClickListener(onClickListener);
         myOrder.setOnClickListener(onClickListener);

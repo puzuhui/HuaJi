@@ -32,4 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <include
+        android:id="@+id/emptyview"
+        layout="@layout/layout_no_date"/>
 </LinearLayout>

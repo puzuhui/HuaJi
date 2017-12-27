@@ -78,6 +78,7 @@ public class LoginActivity extends Activity {
                     startActivity(intent);
                     create_id = loginlist.get(0).getId();
                     create_name = loginlist.get(0).getName();
+                    islogin = true;
                     saveSharedPreferences();
                 }else {
                     ToastUtil.makeToast(LoginActivity.this,"输入用户名或者密码错误");
@@ -88,11 +89,13 @@ public class LoginActivity extends Activity {
 
     String create_id;
     String create_name;
+    boolean islogin = false;
     private void saveSharedPreferences(){
         SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("create_id",create_id);
         editor.putString("create_name",create_name);
+        editor.putBoolean("islogin",islogin);
         editor.commit();
     }
 }

@@ -5,7 +5,7 @@ package com.mingxuan.huaji.url;
  */
 public class BaseUrl {
 
-    public final static String baseurl = "http://192.168.188.123:88/huaji/index.php/Home/index/";//根地址
+    public final static String baseurl = "http://192.168.188.122:88/huaji/index.php/Home/index/";//根地址
 
     public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
 

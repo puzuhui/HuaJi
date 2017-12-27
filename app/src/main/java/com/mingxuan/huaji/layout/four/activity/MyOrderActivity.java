@@ -1,7 +1,12 @@
 package com.mingxuan.huaji.layout.four.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -73,6 +78,11 @@ public class MyOrderActivity extends Activity {
         setContentView(R.layout.activity_my_order);
         ButterKnife.bind(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        update_id = sharedPreferences.getString("create_id","");
+        update_name  = sharedPreferences.getString("create_name","");
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
         update_time = simpleDateFormat.format(new Date());
         initView();
@@ -98,7 +108,7 @@ public class MyOrderActivity extends Activity {
         recyclerview.setAdapter(myOrderAdapter);
         myOrderAdapter.setMyOnItemClickListener(new MyOrderAdapter.MyOnItemClickListener() {
             @Override
-            public void onItemClickListener(View view, int i) {
+            public void onItemClickListener(View view, final int i) {
                 Intent intent;
                 String[] imageurl = list5.get(i).getProduct_intr().split(",");
                 switch (view.getId()){
@@ -124,15 +134,30 @@ public class MyOrderActivity extends Activity {
                         Toast.makeText(MyOrderActivity.this, "你点击了物流", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.delete_order://删除订单
-                        del_flag = "1";
-                        list5.remove(i);
-                        id = list5.get(i).getId();
-                        updateOrderType();
+                        dialotitle = "删除订单";
+                        dialogmessage = "确认删除该订单？";
+                        showDialog();
+                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                del_flag = "1";
+                                id = list5.get(i).getId();
+                                list5.remove(i);
+                                updateOrderType();
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        builder.create().show();
                         break;
                     case R.id.cancellation_of_order://取消订单
                         orders_flag = "5";
-                        list5.remove(i);
                         id = list5.get(i).getId();
+                        list5.remove(i);
                         updateOrderType();
                         break;
                     case R.id.payment://付款
@@ -149,9 +174,17 @@ public class MyOrderActivity extends Activity {
 
             }
         });
-
         LinearLayoutManager linearLayoutMange = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(linearLayoutMange);
+    }
+
+    private String dialotitle;
+    private String dialogmessage;
+    private AlertDialog.Builder builder;
+    private void showDialog(){
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle(dialotitle);
+        builder.setMessage(dialogmessage);
     }
 
     @OnClick({R.id.back_btn,R.id.all_commodity,R.id.obligation,R.id.to_send_the_goods,R.id.wait_for_receiving,R.id.off_the_stocks})
@@ -251,7 +284,7 @@ public class MyOrderActivity extends Activity {
     /**
      * 获取订单数据
      */
-    String create_id = "d1e964159cd04e0d909677bd72ab89e6";
+    String create_id;
     private void getOrder(){
         loadingDialog.setLoadingContent("正在加载...");
         loadingDialog.show();
@@ -282,13 +315,10 @@ public class MyOrderActivity extends Activity {
                         }
                     }
                     list.addAll(resultBeans);
-                    Log.e("====",""+list.size());
-                    Log.e("====",""+list1.size());
-                    Log.e("====",""+list2.size());
-                    Log.e("====",""+list3.size());
-                    Log.e("====",""+list4.size());
                     setListData();
-                } else BaseApi.showErrMsg(MyOrderActivity.this, result);
+                } else
+                    loadingDialog.dismiss();
+                    BaseApi.showErrMsg(MyOrderActivity.this, result);
             }
         });
     }
@@ -299,15 +329,14 @@ public class MyOrderActivity extends Activity {
     String id;
     String del_flag;
     String orders_flag;
-    String update_id = "d1e964159cd04e0d909677bd72ab89e6";
-    String update_name = "th";
+    String update_id;
+    String update_name;
     String update_time;
     private void updateOrderType() {
         FourApi.getInstance(this).updateOrderTypeApi(id, orders_flag, update_id, update_name, update_time,del_flag, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
                 if (type == Constants.TYPE_SUCCESS) {
-                    Log.e("", "删除成功");
                     myOrderAdapter.notifyDataSetChanged();
                 } else BaseApi.showErrMsg(MyOrderActivity.this, result);
             }

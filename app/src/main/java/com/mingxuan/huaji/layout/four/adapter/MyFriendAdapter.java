@@ -21,6 +21,7 @@ import java.util.List;
 public class MyFriendAdapter extends BaseAdapter {
     private Context context;
     private List<MyFriendsModel.ResultBean> list;
+    private int TYPE_NULL = 10000;
     public MyFriendAdapter(Context context,List<MyFriendsModel.ResultBean> list){
         this.context = context;
         this.list = list;
@@ -38,6 +39,14 @@ public class MyFriendAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(list.size() == 0){
+            return TYPE_NULL;
+        }else
+            return super.getItemViewType(position);
     }
 
     @Override

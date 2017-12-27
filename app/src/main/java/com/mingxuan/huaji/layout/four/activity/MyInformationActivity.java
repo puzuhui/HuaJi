@@ -1,6 +1,8 @@
 package com.mingxuan.huaji.layout.four.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -46,6 +48,9 @@ public class MyInformationActivity extends Activity {
         setContentView(R.layout.activity_my_information);
         ButterKnife.bind(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("create_id","");
+
         initView();
         getInformation();
     }
@@ -60,7 +65,7 @@ public class MyInformationActivity extends Activity {
         finish();
     }
 
-    String id = "56c9f9556b2e46428bb53f85bbc1b234";
+    String id;
     private void getInformation(){
         FourApi.getInstance(this).myInformationApi(id, new GetResultCallBack() {
             @Override

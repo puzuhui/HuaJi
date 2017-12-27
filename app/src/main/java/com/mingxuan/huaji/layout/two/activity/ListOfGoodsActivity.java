@@ -89,17 +89,16 @@ public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.
 
         shoppingListTopTypeAdapter = new ShoppingListTopTypeAdapter(toplist,ListOfGoodsActivity.this);
         toprecyclerview.setAdapter(shoppingListTopTypeAdapter);
+        shoppingListTopTypeAdapter.setDate(toplist);
         shoppingListTopTypeAdapter.setOnItemClickListener(new ShoppingListTopTypeAdapter.OnItemClickListener() {
             @Override
             public void onClick(View v, int i) {
                 switch (v.getId()){
                     case R.id.default_footer_title:
-                        Toast.makeText(ListOfGoodsActivity.this, "点击了全部" , Toast.LENGTH_SHORT).show();
                         product_label =null;
                         getlist();
                         break;
                     case R.id.textView2:
-                        Toast.makeText(ListOfGoodsActivity.this, "点击了" + toplist.get(i-1).getName(), Toast.LENGTH_SHORT).show();
                         product_label = toplist.get(i-1).getId();
                         getlist();
                         break;
@@ -114,7 +113,6 @@ public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.
             public void onClick(View view, int position) {
                 Intent intent = new Intent(ListOfGoodsActivity.this, CommodityDetailsActivity.class);
                 intent.putExtra("id",list.get(position).getId());
-                Log.e("点击====", "" + list.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -157,15 +155,17 @@ public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.
             @Override
             public void getResult(String result, int type) {
                 swipe.setRefreshing(false);
+                loadingDialog.dismiss();
                 if(type == Constants.TYPE_SUCCESS){
-                    loadingDialog.dismiss();
                     List<ShopListModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),
                             result,ShopListModel.ResultBean.class);
                     list.clear();
                     list.addAll(resultBeans);
 
                     shopListAdapter.notifyDataSetChanged();
-                }else BaseApi.showErrMsg(ListOfGoodsActivity.this,result);
+                }else
+                    list.clear();
+                    shopListAdapter.notifyDataSetChanged();
             }
         });
     }

@@ -1,8 +1,11 @@
 package com.mingxuan.huaji.layout.four.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -36,6 +39,8 @@ public class MyFriendActivity extends Activity {
     ListView listview;
     @BindView(R.id.back_btn)
     ImageView backbtn;
+    @BindView(R.id.emptyview)
+    View emptyview;
     private List<MyFriendsModel.ResultBean> list;
 
     @Override
@@ -44,6 +49,8 @@ public class MyFriendActivity extends Activity {
         setContentView(R.layout.activity_myfriend);
         ButterKnife.bind(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        p_id = sharedPreferences.getString("create_id","");
         initView();
         getFriend();
     }
@@ -53,15 +60,16 @@ public class MyFriendActivity extends Activity {
 
         myFriendAdapter = new MyFriendAdapter(MyFriendActivity.this, list);
         listview.setAdapter(myFriendAdapter);
+        listview.setEmptyView(emptyview);
     }
 
     @OnClick(R.id.back_btn)
-    public void setClick(){
+    public void setClick(View view){
         finish();
     }
 
     MyFriendAdapter myFriendAdapter;
-    String p_id = "1";
+    String p_id;
     private void getFriend() {
         FourApi.getInstance(this).getfriendApi(p_id, new GetResultCallBack() {
             @Override

@@ -11,7 +11,7 @@ public class InformationModel {
     /**
      * status : 200
      * message : 获取成功
-     * result : [{"name":"th","phone":"15202364157","id_card":"500233199611202160"}]
+     * result : [{"name":"后台管理员","phone":"17318291312","real_name":"沈元","id_card":"500382199609271944"}]
      */
 
     private int status;
@@ -44,13 +44,15 @@ public class InformationModel {
 
     public static class ResultBean {
         /**
-         * name : th
-         * phone : 15202364157
-         * id_card : 500233199611202160
+         * name : 后台管理员
+         * phone : 17318291312
+         * real_name : 沈元
+         * id_card : 500382199609271944
          */
 
         private String name;
         private String phone;
+        private String real_name;
         private String id_card;
 
         public String getName() {
@@ -67,6 +69,14 @@ public class InformationModel {
 
         public void setPhone(String phone) {
             this.phone = phone;
+        }
+
+        public String getReal_name() {
+            return real_name;
+        }
+
+        public void setReal_name(String real_name) {
+            this.real_name = real_name;
         }
 
         public String getId_card() {

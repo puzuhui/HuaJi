@@ -223,7 +223,6 @@ public class ProductsReviewsActivity extends Activity {
                             //在上传评论时查询评论的id
                             if(list.size()>0){
                                 searchId();
-                                Log.e("","有照片上传");
                             }else {
                                 Intent intent = new Intent(ProductsReviewsActivity.this, MyOrderActivity.class);
                                 startActivity(intent);

@@ -37,16 +37,18 @@
                     android:padding="10dp">
 
                     <TextView
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="蒲祖辉"
+                        android:text=""
                         android:textColor="@color/white" />
 
                     <TextView
+                        android:id="@+id/phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15823903420"
+                        android:text=""
                         android:textColor="@color/white" />
                 </LinearLayout>
             </RelativeLayout>
@@ -325,23 +327,18 @@
                     android:src="@mipmap/back" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/grey">
-                <Button
-                    android:id="@+id/login_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/login_btn_red"
-                    android:layout_marginTop="20dp"
-                    android:paddingLeft="55dp"
-                    android:paddingRight="55dp"
-                    android:text="@string/login_back"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </RelativeLayout>
+            <Button
+                android:id="@+id/login_back"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/login_btn_red"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="55dp"
+                android:paddingRight="55dp"
+                android:text="@string/login_back"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="center"/>
 
 
         </LinearLayout>

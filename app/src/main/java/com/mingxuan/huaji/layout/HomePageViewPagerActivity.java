@@ -1,5 +1,7 @@
 package com.mingxuan.huaji.layout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,13 +17,22 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.api.BaseApi;
+import com.mingxuan.huaji.api.FourApi;
 import com.mingxuan.huaji.fragment.HomePageFragment;
 import com.mingxuan.huaji.fragment.MineFragment;
 import com.mingxuan.huaji.fragment.RechargeFragment;
 import com.mingxuan.huaji.fragment.ShoppingMallFragment;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
+import com.mingxuan.huaji.layout.four.activity.MyInformationActivity;
+import com.mingxuan.huaji.layout.four.model.InformationModel;
+import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.utils.GsonUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/9 0009.
@@ -45,10 +56,15 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_viewpager);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("create_id","");
+
         initView();
+        getInformation();
     }
 
     private void initView() {
+        list = new ArrayList<>();
         homepagebtn = (RadioGroup) findViewById(R.id.homepage_btn);
         me = (RadioButton) findViewById(R.id.me);
 //        homepage = (RadioButton) findViewById(R.id.homepage);
@@ -129,6 +145,27 @@ public class HomePageViewPagerActivity extends FragmentActivity{
             }
         }
     };
+
+    List<InformationModel.ResultBean> list;
+    String id;
+    private void getInformation(){
+        FourApi.getInstance(this).myInformationApi(id, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if(type == Constants.TYPE_SUCCESS){
+                    List<InformationModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,InformationModel.ResultBean.class);
+                    list.addAll(resultBeans);
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("phone",list.get(0).getPhone());
+                    editor.putString("realname",list.get(0).getReal_name());
+                    editor.commit();
+
+                }else BaseApi.showErrMsg(HomePageViewPagerActivity.this,result);
+            }
+        });
+    }
 
     /**
      * 实现点击两次退出
