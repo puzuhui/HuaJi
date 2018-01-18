@@ -65,6 +65,7 @@ public class LoginActivity extends Activity {
     }
 
     String username;
+
     String password;
     List<LoginModel.ResultBean> loginlist = new ArrayList<>();
     private void login(){

@@ -5,7 +5,7 @@ package com.mingxuan.huaji.url;
  */
 public class BaseUrl {
 
-    public final static String baseurl = "http://192.168.188.122:88/huaji/index.php/Home/index/";//根地址
+    public final static String baseurl = "http://192.168.188.122/huaji/index.php/Home/index/";//根地址
 
     public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
 
@@ -59,5 +59,11 @@ public class BaseUrl {
 
     public final static String myinformation = baseurl+"myinformation?";//我的信息
 
+    public final static String addbankcard = baseurl+"addbankcard?";//添加银行卡
+
+    public final static String searchbankcard = baseurl+"searchbankcard?";//添加银行卡
+
     public final static String bankcard = "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?";//查询银行卡信息
+
+    public final static String wxpay = "http://wxpay.wxutil.com/pub_v2/app/app_pay.php";
 }

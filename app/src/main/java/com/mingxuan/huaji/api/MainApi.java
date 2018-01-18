@@ -142,12 +142,13 @@ public class MainApi extends BaseApi {
      * @param update_time
      * @param callBack
      */
-    public void insertshoppingcarApi(String id,int products_num,String update_id,String update_name,
+    public void insertshoppingcarApi(String id,int products_num,int del_flag,String update_id,String update_name,
                                   String update_time, GetResultCallBack callBack){
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         map.put("update_id", update_id);
         map.put("products_num", ""+products_num);
+        map.put("del_flag", ""+del_flag);
         map.put("update_name", update_name);
         map.put("update_time", update_time);
         postLoad(BaseUrl.insertshoppingcar, map, callBack);
@@ -164,5 +165,10 @@ public class MainApi extends BaseApi {
         map.put("create_id", create_id);
         map.put("default_flag", default_flag);
         getLoad(BaseUrl.searchdefaultaddress, map, callBack);
+    }
+
+    public void wxpayApi( GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        getLoad(BaseUrl.wxpay, map, callBack);
     }
 }

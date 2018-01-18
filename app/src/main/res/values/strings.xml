@@ -80,6 +80,10 @@
     <string name="optional">(选填)请填写对卖家的备注</string>
     <string name="icash">含运费</string>
     <string name="submit_order">提交订单</string>
+    <string name="choose_pay">选择支付方式</string>
+    <string name="wx_pay">微信支付</string>
+    <string name="al_pay">支付宝支付</string>
+    <string name="immediate_payment">立即支付</string>
 
     <!--我的信息-->
     <string name="real_name">真实姓名:</string>

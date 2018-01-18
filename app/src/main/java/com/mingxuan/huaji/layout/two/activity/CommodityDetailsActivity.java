@@ -337,6 +337,7 @@ public class CommodityDetailsActivity extends Activity {
                     loadingDialog.dismiss();
                     Toast.makeText(CommodityDetailsActivity.this, "加入购物车成功", Toast.LENGTH_SHORT).show();
                    // addToShoppingCart.setText("已加入购物车");
+
                 } else BaseApi.showErrMsg(CommodityDetailsActivity.this,result);
             }
         });
@@ -350,10 +351,11 @@ public class CommodityDetailsActivity extends Activity {
     String update_name;
     String update_time;
     String shoppingcarid;
+    int del_flag = 0;
     private void insertshoppingcar() {
         loadingDialog.setLoadingContent("正在加载...");
         loadingDialog.show();
-        MainApi.getInstance(this).insertshoppingcarApi(shoppingcarid,products_num, update_id,update_name,update_time, new GetResultCallBack() {
+        MainApi.getInstance(this).insertshoppingcarApi(shoppingcarid,products_num,del_flag, update_id,update_name,update_time, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
                 if (type == Constants.TYPE_SUCCESS) {

@@ -91,6 +91,7 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         shopping_mall.setOnClickListener(onClickListener);
         recharge.setOnClickListener(onClickListener);
         me.setOnClickListener(onClickListener);
+        viewPager.addOnPageChangeListener(onPageChangeListener);
     }
 
     //    重写FragmentPagerAdapter方法
@@ -109,6 +110,51 @@ public class HomePageViewPagerActivity extends FragmentActivity{
             return fragmentArrayList.size();
         }
     }
+
+    ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            switch (position){
+//                case 0:
+//                    homepage.setTextColor(getResources().getColor(R.color.red));
+//                    recharge.setTextColor(getResources().getColor(R.color.transparent80));
+//                    me.setTextColor(getResources().getColor(R.color.transparent80));
+//                    shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
+//                    break;
+                case 0:
+                    shopping_mall.setChecked(true);
+                    shopping_mall.setTextColor(getResources().getColor(R.color.red));
+//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
+                    recharge.setTextColor(getResources().getColor(R.color.transparent80));
+                    me.setTextColor(getResources().getColor(R.color.transparent80));
+                    break;
+                case 1:
+                    recharge.setChecked(true);
+                    recharge.setTextColor(getResources().getColor(R.color.red));
+//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
+                    me.setTextColor(getResources().getColor(R.color.transparent80));
+                    shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
+                    break;
+                case 2:
+                    me.setChecked(true);
+                    me.setTextColor(getResources().getColor(R.color.red));
+//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
+                    recharge.setTextColor(getResources().getColor(R.color.transparent80));
+                    shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
+                    break;
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override

@@ -287,6 +287,35 @@ public class FourApi extends BaseApi {
         postLoad(BaseUrl.delproducts_cart, map, callBack);
     }
 
+    /**
+     * 添加银行卡
+     */
+    public void addbankcardApi(String login_id,String bank_for_name,String bank_number, String bank_type,
+                                    String bank,String phone,String create_id,String create_name,
+                               String create_time,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("login_id", login_id);
+        map.put("bank_for_name", bank_for_name);
+        map.put("bank_number", bank_number);
+        map.put("bank_type", bank_type);
+        map.put("bank", bank);
+        map.put("phone", phone);
+        map.put("create_id", create_id);
+        map.put("create_name", create_name);
+        map.put("create_time", create_time);
+        postLoad(BaseUrl.addbankcard, map, callBack);
+    }
+
+    /**
+     * 查询银行卡
+     * @param create_id
+     * @param callBack
+     */
+    public void searchbankcardApi(String create_id,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("create_id", create_id);
+        getLoad(BaseUrl.searchbankcard, map, callBack);
+    }
 
     /**
      * 我的信息

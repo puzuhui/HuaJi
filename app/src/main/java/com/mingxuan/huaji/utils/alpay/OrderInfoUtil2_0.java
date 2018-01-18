@@ -1,4 +1,4 @@
-package com.mingxuan.huaji.utils.payutil;
+package com.mingxuan.huaji.utils.alpay;
 
 
 import java.io.UnsupportedEncodingException;

@@ -1,10 +1,13 @@
 package com.mingxuan.huaji.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,15 +69,24 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
 //        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         listView = (ListView) view.findViewById(R.id.listview);
 
-
         View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.shopping_mall_head,null);
         listView.addHeaderView(view1);
         login = (TextView) view1.findViewById(R.id.login);
         one = (TextView) view1.findViewById(R.id.one);
         two = (TextView) view1.findViewById(R.id.two);
-        login.setOnClickListener(onClickListener);
+
         one.setOnClickListener(onClickListener);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        boolean islogin = sharedPreferences.getBoolean("islogin",false);
+        if(islogin){
+            Log.e("====","你登录了"+islogin);
+            //login.setVisibility(View.INVISIBLE);
+        }else {
+            Log.e("====","你没有登录"+islogin);
+            login.setOnClickListener(onClickListener);
+        }
+        login.setOnClickListener(onClickListener);
         convenientBanner = (ConvenientBanner) view1.findViewById(R.id.converientBanner);
         bean = Arrays.asList(images);
         //设置指示器是否可见

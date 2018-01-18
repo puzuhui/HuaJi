@@ -1,11 +1,14 @@
 package com.mingxuan.huaji.layout.four.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +24,9 @@ import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.ToastUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,6 +58,13 @@ public class MyShoppingCartActivity extends Activity {
         setContentView(R.layout.activity_shopping_car);
         ButterKnife.bind(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        update_id = sharedPreferences.getString("create_id","");
+        update_name = sharedPreferences.getString("create_name","");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        update_time = simpleDateFormat.format(new Date());
         initView();
         getShoppingCar();
     }
@@ -85,7 +97,7 @@ public class MyShoppingCartActivity extends Activity {
     }
 
     MyShoppingCarAdapter myShoppingCarAdapter;
-    String create_id ="d1e964159cd04e0d909677bd72ab89e6";
+    String create_id;
     private void getShoppingCar(){
         FourApi.getInstance(this).getproductscartApi(create_id, new GetResultCallBack() {
             @Override
@@ -103,9 +115,9 @@ public class MyShoppingCartActivity extends Activity {
 
     int id;
     int del_flag = 1;
-    private String update_id = "1";
-    private String update_name = "sin";
-    private String update_time = "1995-12-17";
+    private String update_id;
+    private String update_name;
+    private String update_time;
     private void delProductsCar(){
         FourApi.getInstance(this).delproducts_cartApi(id, update_id, update_name, update_time,del_flag,new GetResultCallBack() {
             @Override

@@ -25,6 +25,7 @@ import com.mingxuan.huaji.layout.four.activity.MyOrderActivity;
 import com.mingxuan.huaji.layout.four.activity.MyShoppingCartActivity;
 import com.mingxuan.huaji.layout.four.adapter.MyShoppingCarAdapter;
 import com.mingxuan.huaji.utils.CircleImageView;
+import com.mingxuan.huaji.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +62,7 @@ public class MineFragment extends Fragment {
     TextView phone;
     Unbinder unbinder;
     private View view;
+    boolean islogin;
 
     @Nullable
     @Override
@@ -75,11 +77,14 @@ public class MineFragment extends Fragment {
 
     private void initView() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
-        boolean islogin = sharedPreferences.getBoolean("islogin",false);
-        if(!islogin){
+        islogin = sharedPreferences.getBoolean("islogin",false);
+        if(islogin){
             Log.e("====","你登录了"+islogin);
             phone.setText(sharedPreferences.getString("phone",""));
             name.setText(sharedPreferences.getString("realname",""));
+            loginBack.setVisibility(View.VISIBLE);
+
+            loginBack.setOnClickListener(onClickListener);
         }else {
             Log.e("====","你没有登录"+islogin);
         }
@@ -100,8 +105,13 @@ public class MineFragment extends Fragment {
             Intent intent;
             switch (v.getId()) {
                 case R.id.my_friends:
-                    intent = new Intent(getActivity(), MyFriendActivity.class);
-                    startActivity(intent);
+                    if(islogin){
+                        Log.e("====","登录"+islogin);
+                        intent = new Intent(getActivity(), MyFriendActivity.class);
+                        startActivity(intent);
+                    }else {
+                        ToastUtil.makeToast(getContext(),"你还没有登录");
+                    }
                     break;
                 case R.id.my_integral:
                     intent = new Intent(getActivity(), MyIntergralActivity.class);
@@ -130,6 +140,9 @@ public class MineFragment extends Fragment {
                 case R.id.my_information:
                     intent = new Intent(getActivity(), MyInformationActivity.class);
                     startActivity(intent);
+                    break;
+                case R.id.login_back:
+                    ToastUtil.makeToast(getContext(),"点击");
                     break;
             }
         }

@@ -2,8 +2,12 @@ package com.mingxuan.huaji.layout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +49,8 @@ public class RegisitActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+
+
     }
 
     @OnClick({R.id.login,R.id.get_code,R.id.submit})
@@ -55,6 +61,10 @@ public class RegisitActivity extends Activity {
                 intent = new Intent(RegisitActivity.this,LoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.get_code:
+
+                break;
         }
     }
+
 }

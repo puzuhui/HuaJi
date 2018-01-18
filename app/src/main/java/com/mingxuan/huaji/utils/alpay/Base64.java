@@ -1,4 +1,4 @@
-package com.mingxuan.huaji.utils.payutil;
+package com.mingxuan.huaji.utils.alpay;
 
 public final class Base64 {
 

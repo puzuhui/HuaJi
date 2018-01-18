@@ -22,30 +22,48 @@
         <activity
             android:name=".layout.HomePageViewPagerActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".layout.LoginActivity" android:launchMode="singleTask"/><!--登录页面-->
-        <activity android:name=".layout.RegisitActivity" android:launchMode="singleTask"/><!--注册页面-->
-        <activity android:name=".layout.four.activity.MyFriendActivity"/><!--我的伙伴-->
-        <activity android:name=".layout.two.activity.ListOfGoodsActivity"/><!--商品列表-->
-        <activity android:name=".layout.two.activity.CommodityDetailsActivity"/><!--商品详情-->
-        <activity android:name=".layout.four.activity.MyShoppingCartActivity"/><!--我的购物车-->
-        <activity android:name=".layout.four.activity.MyAdressActivity" android:launchMode="singleTask"/><!--我的地址-->
-        <activity android:name=".layout.four.activity.AddAddressActivity"/><!--编辑收货地址-->
-        <activity android:name=".layout.four.activity.MyIntergralActivity"/><!--我的积分-->
-        <activity android:name=".layout.four.activity.BalanceActivity"/><!--余额-->
-        <activity android:name=".layout.four.activity.MyBankCardActivity"/><!--我的银行卡-->
-        <activity android:name=".layout.four.activity.AddBankCardActivity"/><!--添加银行卡-->
-        <activity android:name=".layout.four.activity.MyInformationActivity"/><!--我的信息-->
-        <activity android:name=".layout.four.activity.MyOrderActivity" android:launchMode="singleTask"/><!--我的订单-->
-        <activity android:name=".layout.four.activity.ProductsReviewsActivity"/><!--商品评论-->
-        <activity android:name=".layout.two.activity.ConfirmAnOrderActivity"/><!--确认订单-->
-        <activity android:name=".layout.two.activity.CommentActivity"/><!--评论-->
+        <activity android:name=".layout.LoginActivity" android:launchMode="singleTask"
+            android:screenOrientation="portrait"/><!--登录页面-->
+        <activity android:name=".layout.RegisitActivity" android:launchMode="singleTask"
+            android:screenOrientation="portrait"/><!--注册页面-->
+        <activity android:name=".layout.four.activity.MyFriendActivity"
+            android:screenOrientation="portrait"/><!--我的伙伴-->
+        <activity android:name=".layout.two.activity.ListOfGoodsActivity"
+            android:screenOrientation="portrait"/><!--商品列表-->
+        <activity android:name=".layout.two.activity.CommodityDetailsActivity"
+            android:screenOrientation="portrait"/><!--商品详情-->
+        <activity android:name=".layout.four.activity.MyShoppingCartActivity"
+            android:screenOrientation="portrait"/><!--我的购物车-->
+        <activity android:name=".layout.four.activity.MyAdressActivity"
+            android:launchMode="singleTask" android:screenOrientation="portrait"/><!--我的地址-->
+        <activity android:name=".layout.four.activity.AddAddressActivity"
+            android:screenOrientation="portrait"/><!--编辑收货地址-->
+        <activity android:name=".layout.four.activity.MyIntergralActivity"
+            android:screenOrientation="portrait"/><!--我的积分-->
+        <activity android:name=".layout.four.activity.BalanceActivity"
+            android:screenOrientation="portrait"/><!--余额-->
+        <activity android:name=".layout.four.activity.MyBankCardActivity"
+            android:screenOrientation="portrait"/><!--我的银行卡-->
+        <activity android:name=".layout.four.activity.AddBankCardActivity"
+            android:screenOrientation="portrait"/><!--添加银行卡-->
+        <activity android:name=".layout.four.activity.MyInformationActivity"
+            android:screenOrientation="portrait"/><!--我的信息-->
+        <activity android:name=".layout.four.activity.MyOrderActivity"
+            android:launchMode="singleTask" android:screenOrientation="portrait"/><!--我的订单-->
+        <activity android:name=".layout.four.activity.ProductsReviewsActivity"
+            android:screenOrientation="portrait"/><!--商品评论-->
+        <activity android:name=".layout.two.activity.ConfirmAnOrderActivity"
+            android:screenOrientation="portrait"/><!--确认订单-->
+        <activity android:name=".layout.two.activity.CommentActivity"
+            android:screenOrientation="portrait"/><!--评论-->
 
         <!--支付宝-->
         <activity
@@ -62,6 +80,14 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
+
+        <!--微信支付-->
+        <activity
+            android:name=".utils.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+
+
     </application>
 
 </manifest>

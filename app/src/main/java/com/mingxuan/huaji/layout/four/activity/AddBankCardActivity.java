@@ -1,6 +1,9 @@
 package com.mingxuan.huaji.layout.four.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -22,6 +25,7 @@ import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.NewEditText;
 import com.mingxuan.huaji.utils.ToastUtil;
+import com.mingxuan.huaji.utils.UIUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +35,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,12 +64,21 @@ public class AddBankCardActivity extends Activity {
     @BindView(R.id.binding_acknowledgement)
     TextView bindingAcknowledgement;//绑定
     List<MyBankCardModel> list;
+    SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bankcard);
         ButterKnife.bind(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        login_id = sharedPreferences.getString("create_id","");
+        create_id = sharedPreferences.getString("create_id","");
+        create_name = sharedPreferences.getString("create_name","");
+
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        create_time = simpleDateFormat.format(new Date());
 
         initView();
 
@@ -94,15 +109,43 @@ public class AddBankCardActivity extends Activity {
                 finish();
                 break;
             case R.id.binding_acknowledgement:
-                Log.e("====","点击");
+                if(!TextUtils.isEmpty(bankAccount.getText())){
+                    if(!TextUtils.isEmpty(cardPerson.getText())){
+                        if(!TextUtils.isEmpty(reservedPhoneNumber.getText())){
+                            if(UIUtils.isMobileNO(reservedPhoneNumber.getText().toString())){
+                                bank_for_name =cardPerson.getText().toString();
+                                bank_number = bankAccount.getText().toString();
+                                if(cardType.getText().toString().equals("储蓄卡")){
+                                    bank_type = "1";
+                                }else if(cardType.getText().toString().equals("信用卡")){
+                                    bank_type = "2";
+                                }
+
+                                bank = belongsToTheBank.getText().toString();
+                                phone = reservedPhoneNumber.getText().toString();
+                                addBankCard();
+                            }else {
+                                ToastUtil.makeToast(AddBankCardActivity.this,"预留手机号格式错误");
+                            }
+                        }else {
+                            ToastUtil.makeToast(AddBankCardActivity.this,"预留手机号不能为空");
+                        }
+                    }else {
+                        ToastUtil.makeToast(AddBankCardActivity.this,"持有人不能为空");
+                    }
+                }else {
+                    ToastUtil.makeToast(AddBankCardActivity.this,"银行卡账号不能为空");
+                }
                 break;
         }
     }
 
-    //= "6236683760009754232"
+    /**
+     * 查找银行卡类型
+     */
     String cardNo ;
     String cardname;
-    String cardtype;  //DC:借记卡，CC:信用卡 ,SCC: "准贷记卡",PC: "预付费卡"
+    String cardtype;  //DC:储蓄卡，CC:信用卡 ,SCC: "准贷记卡",PC: "预付费卡"
     private void bankCard(){
         FourApi.getInstance(this).bankcardApi("utf-8", cardNo, true, new GetResultCallBack() {
             @Override
@@ -146,4 +189,26 @@ public class AddBankCardActivity extends Activity {
             }
         });
     }
+
+    /**
+     * 添加银行卡
+     */
+    String login_id ,bank_for_name;
+    String bank_number,bank_type;
+    String bank, phone, create_id, create_name, create_time;
+    private void addBankCard(){
+        FourApi.getInstance(this).addbankcardApi(login_id, bank_for_name, bank_number, bank_type, bank,
+                phone, create_id, create_name, create_time, new GetResultCallBack() {
+                    @Override
+                    public void getResult(String result, int type) {
+                        if(type == Constants.TYPE_SUCCESS){
+                            Intent intent = new Intent(AddBankCardActivity.this,MyBankCardActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else BaseApi.showErrMsg(AddBankCardActivity.this,result);
+                    }
+                });
+    }
+
+
 }
