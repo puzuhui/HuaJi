@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.layout.four.activity.BalanceActivity;
 import com.mingxuan.huaji.layout.four.activity.MyAdressActivity;
 import com.mingxuan.huaji.layout.four.activity.MyBankCardActivity;
@@ -23,7 +24,6 @@ import com.mingxuan.huaji.layout.four.activity.MyInformationActivity;
 import com.mingxuan.huaji.layout.four.activity.MyIntergralActivity;
 import com.mingxuan.huaji.layout.four.activity.MyOrderActivity;
 import com.mingxuan.huaji.layout.four.activity.MyShoppingCartActivity;
-import com.mingxuan.huaji.layout.four.adapter.MyShoppingCarAdapter;
 import com.mingxuan.huaji.utils.CircleImageView;
 import com.mingxuan.huaji.utils.ToastUtil;
 
@@ -60,6 +60,17 @@ public class MineFragment extends Fragment {
     TextView name;
     @BindView(R.id.phone)
     TextView phone;
+    @BindView(R.id.login)
+    TextView login;
+    @BindView(R.id.qrcode)
+    LinearLayout qrcode;
+    @BindView(R.id.phone_card)
+    LinearLayout phoneCard;
+    @BindView(R.id.binding_mobile)
+    LinearLayout bindingMobile;
+    @BindView(R.id.insertpassword)
+    LinearLayout insertpassword;
+
     Unbinder unbinder;
     private View view;
     boolean islogin;
@@ -71,22 +82,25 @@ public class MineFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         initView();
+        sharedPreferences = getActivity().getSharedPreferences("huaji",Context.MODE_PRIVATE);
 
         return view;
     }
 
     private void initView() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
-        islogin = sharedPreferences.getBoolean("islogin",false);
-        if(islogin){
-            Log.e("====","你登录了"+islogin);
-            phone.setText(sharedPreferences.getString("phone",""));
-            name.setText(sharedPreferences.getString("realname",""));
+        islogin = sharedPreferences.getBoolean("islogin", false);
+        if (islogin) {
+            Log.e("====", "你登录了" + islogin);
+            phone.setText(sharedPreferences.getString("phone", ""));
+            name.setText(sharedPreferences.getString("realname", ""));
             loginBack.setVisibility(View.VISIBLE);
 
             loginBack.setOnClickListener(onClickListener);
-        }else {
-            Log.e("====","你没有登录"+islogin);
+        } else {
+            Log.e("====", "你没有登录" + islogin);
+            login.setVisibility(View.VISIBLE);
+            login.setOnClickListener(onClickListener);
         }
 
         myFriends.setOnClickListener(onClickListener);
@@ -99,50 +113,91 @@ public class MineFragment extends Fragment {
         myIntegral.setOnClickListener(onClickListener);
     }
 
+
+    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences = null;
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent;
             switch (v.getId()) {
+                case R.id.login:
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    break;
                 case R.id.my_friends:
-                    if(islogin){
-                        Log.e("====","登录"+islogin);
+                    if (islogin) {
+                        Log.e("====", "登录" + islogin);
                         intent = new Intent(getActivity(), MyFriendActivity.class);
                         startActivity(intent);
-                    }else {
-                        ToastUtil.makeToast(getContext(),"你还没有登录");
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
                     break;
                 case R.id.my_integral:
-                    intent = new Intent(getActivity(), MyIntergralActivity.class);
-                    startActivity(intent);
+                    if (islogin) {
+                        intent = new Intent(getActivity(), MyIntergralActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
                 case R.id.my_shopping_cart:
-                    intent = new Intent(getActivity(), MyShoppingCartActivity.class);
-                    startActivity(intent);
+                    if (islogin) {
+                        intent = new Intent(getActivity(), MyShoppingCartActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
                 case R.id.my_order:
-                    intent = new Intent(getActivity(), MyOrderActivity.class);
-                    startActivity(intent);
+                    if (islogin) {
+                        intent = new Intent(getActivity(), MyOrderActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
                 case R.id.my_address:
-                    intent = new Intent(getActivity(), MyAdressActivity.class);
-                    startActivity(intent);
+                    if (islogin) {
+                        intent = new Intent(getActivity(), MyAdressActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
                 case R.id.balance:
-                    intent = new Intent(getActivity(), BalanceActivity.class);
-                    startActivity(intent);
+                    if (islogin) {
+                        intent = new Intent(getActivity(), BalanceActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
                 case R.id.bank_card:
-                    intent = new Intent(getActivity(), MyBankCardActivity.class);
-                    startActivity(intent);
+                    if (islogin) {
+                        intent = new Intent(getActivity(), MyBankCardActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
                 case R.id.my_information:
-                    intent = new Intent(getActivity(), MyInformationActivity.class);
-                    startActivity(intent);
+                    if (islogin) {
+                        intent = new Intent(getActivity(), MyInformationActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
+
                 case R.id.login_back:
-                    ToastUtil.makeToast(getContext(),"点击");
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("islogin",false);
+                    editor.commit();
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                     break;
             }
         }

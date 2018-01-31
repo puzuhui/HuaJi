@@ -1,12 +1,14 @@
-package com.mingxuan.huaji.utils.wxapi;
+package com.mingxuan.huaji.wxapi;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.utils.Constants;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -45,12 +47,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	@Override
 	public void onResp(BaseResp resp) {
-		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+		Log.e(TAG, "onPayFinish, errStr = " + resp.errStr);
 
 //		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 //			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//			builder.setTitle(R.string.app_tip);
-//			builder.setMessage(getString(R.string.pay_result_callback_msg, String.valueOf(resp.errCode)));
+//			builder.setTitle("支付结果");
+//			builder.setMessage("支付成功");
 //			builder.show();
 //		}
 
@@ -61,15 +63,15 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 					Toast.makeText(WXPayEntryActivity.this,"支付成功", Toast.LENGTH_SHORT).show();
 					break;
 				case -1:
-					Toast.makeText(WXPayEntryActivity.this,"支付失败", Toast.LENGTH_SHORT).show();
+					Toast.makeText(WXPayEntryActivity.this,"支付失败-1", Toast.LENGTH_SHORT).show();
 					finish();
 					break;
 				case -2:
-					Toast.makeText(WXPayEntryActivity.this,"支付取消", Toast.LENGTH_SHORT).show();
+					Toast.makeText(WXPayEntryActivity.this,"取消支付", Toast.LENGTH_SHORT).show();
 					finish();
 					break;
 				default:
-					Toast.makeText(WXPayEntryActivity.this,"支付失败", Toast.LENGTH_SHORT).show();
+					Toast.makeText(WXPayEntryActivity.this,"其他失败", Toast.LENGTH_SHORT).show();
 					setResult(RESULT_OK);
 					finish();
 					break;

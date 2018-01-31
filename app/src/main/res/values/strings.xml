@@ -25,9 +25,13 @@
     <string name="my_shopping_cart">我的购物车</string>
     <string name="my_order">我的订单</string>
     <string name="my_address">我的地址</string>
+    <string name="qrcode">我的二维码</string>
     <string name="balance">余额</string>
     <string name="bank_card">我的银行卡</string>
-    <string name="my_information">我的信息</string>
+    <string name="phone_card">我的电话卡</string>
+    <string name="my_information">身份认证</string>
+    <string name="binding_mobile">绑定手机</string>
+    <string name="insertpassword">修改密码</string>
     <string name="login_back">退出登录</string>
 
     <!--我的积分-->
@@ -104,13 +108,13 @@
     <!--首页-->
     <string name="huaji_shop">华记商铺</string>
 
-    <!--商城页面-->
+    <!--商城页面  这个名字一直改很烦啊！！！-->
     <string name="huaji_store">华记商城</string>
-    <string name="home_life">家居生活</string>
-    <string name="mother_to_child_toy">母婴玩具</string>
-    <string name="clothes_and_bags">服饰箱包</string>
-    <string name="food_drink">食品饮料</string>
-    <string name="digital_technology">数码科技</string>
+    <string name="home_life">商品</string>
+    <string name="mother_to_child_toy">电话卡</string>
+    <string name="clothes_and_bags">手机</string>
+    <string name="food_drink">充值</string>
+    <string name="digital_technology">资料下载</string>
 
     <!--商城列表-->
     <string name="store_list">商城列表</string>

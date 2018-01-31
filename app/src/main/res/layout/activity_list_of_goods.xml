@@ -31,56 +31,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/top_recyclerview"
         android:padding="2dp"/>
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:padding="5dp">-->
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/btn_all"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:text="@string/all_commodity"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:textColor="@color/red"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:padding="2dp"/>&ndash;&gt;-->
-        <!---->
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/btn_one"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:text="冰箱"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:gravity="center"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/btn_two"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:text="洗衣机"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:gravity="center"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/btn_three"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:text="电视机"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:gravity="center"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/btn_four"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:text="空调"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:gravity="center"/>&ndash;&gt;-->
-    <!--</LinearLayout>-->
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

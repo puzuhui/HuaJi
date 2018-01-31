@@ -19,6 +19,7 @@
             android:textSize="18sp"
             android:textColor="@color/black"/>
         <LinearLayout
+            android:id="@+id/linear_wx"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -35,12 +36,15 @@
                 android:id="@+id/check_wx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
                 android:button="@drawable/checkbox_selector"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
+
         <LinearLayout
+            android:id="@+id/linear_ali"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -57,6 +61,7 @@
                 android:id="@+id/check_al"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
                 android:button="@drawable/checkbox_selector"/>
         </LinearLayout>
     </LinearLayout>

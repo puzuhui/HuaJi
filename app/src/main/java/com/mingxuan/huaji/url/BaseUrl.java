@@ -11,6 +11,10 @@ public class BaseUrl {
 
     public final static String login = javaurl+"login?";//登录
 
+    public final static String wxpay = javaurl+"wechatpay?";
+
+    public final static String alipay = javaurl+"alipay?";
+
     public final static String shoppinglisttop = baseurl+"shoppinglisttop?";//商品列表顶部标签
 
     public final static String shoppinglist = baseurl+"shoppinglist?";//商品列表
@@ -65,5 +69,5 @@ public class BaseUrl {
 
     public final static String bankcard = "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?";//查询银行卡信息
 
-    public final static String wxpay = "http://wxpay.wxutil.com/pub_v2/app/app_pay.php";
+
 }

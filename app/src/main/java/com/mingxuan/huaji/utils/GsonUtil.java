@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class GsonUtil {
 
-    public static <T> ArrayList<T> fromJsonList(Gson gson, String json, Class<T> cls) {
+    public static <T> ArrayList<T> fromJsonList(Gson gson, String json, Class<T> cls) {//这个跟fromJSONDataResult方法同理，只是result为数组getAsJsonArray
         ArrayList<T> mList = new ArrayList<>();
         JsonObject object = new JsonParser().parse(json).getAsJsonObject();
         JsonArray array = object.getAsJsonArray("result");
@@ -25,6 +25,10 @@ public class GsonUtil {
 
     public static <T> T fromJSONData(Gson gson, String json, Class<T> cls) {
         return gson.fromJson(new JsonParser().parse(json).getAsJsonObject().toString(), cls);
+    }
+
+    public static <T> T fromJSONDataResult(Gson gson, String json, Class<T> cls) {
+        return gson.fromJson(new JsonParser().parse(json).getAsJsonObject().getAsJsonObject("result").toString(), cls);
     }
 
 }

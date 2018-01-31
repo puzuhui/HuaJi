@@ -81,12 +81,12 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
         boolean islogin = sharedPreferences.getBoolean("islogin",false);
         if(islogin){
             Log.e("====","你登录了"+islogin);
-            //login.setVisibility(View.INVISIBLE);
+            login.setVisibility(View.INVISIBLE);
+            login.setOnClickListener(onClickListener);
         }else {
             Log.e("====","你没有登录"+islogin);
             login.setOnClickListener(onClickListener);
         }
-        login.setOnClickListener(onClickListener);
         convenientBanner = (ConvenientBanner) view1.findViewById(R.id.converientBanner);
         bean = Arrays.asList(images);
         //设置指示器是否可见
@@ -368,6 +368,4 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
 //        // 5. 将delegateAdapter绑定到recyclerView
 //        recyclerView.setAdapter(delegateAdapter);
 //    }
-
-
 }

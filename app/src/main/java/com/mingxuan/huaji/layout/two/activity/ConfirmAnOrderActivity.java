@@ -2,9 +2,7 @@ package com.mingxuan.huaji.layout.two.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,20 +32,23 @@ import com.mingxuan.huaji.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.four.activity.MyAdressActivity;
 import com.mingxuan.huaji.layout.four.model.MyAdressModel;
+import com.mingxuan.huaji.layout.two.model.AliPayModel;
 import com.mingxuan.huaji.layout.two.model.PayModel;
 import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
-import com.mingxuan.huaji.utils.ToastUtil;
-import com.mingxuan.huaji.utils.alpay.OrderInfoUtil2_0;
-import com.mingxuan.huaji.utils.alpay.PayKeys;
+import com.mingxuan.huaji.utils.UIUtils;
 import com.mingxuan.huaji.utils.alpay.PayResult;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,6 +101,8 @@ public class ConfirmAnOrderActivity extends Activity {
         getBundle();
         initView();
         searchdefaultaddress();
+        spbill_create_ip = UIUtils.getIPAddress(this);
+        Log.e("",""+spbill_create_ip);
     }
 
     Bundle bundle;
@@ -129,10 +132,13 @@ public class ConfirmAnOrderActivity extends Activity {
         }
     }
 
-    @OnClick({R.id.no_default_adress,R.id.default_adress,R.id.settle_accounts})
+    @OnClick({R.id.back_btn,R.id.no_default_adress,R.id.default_adress,R.id.settle_accounts})
     public void setOnClick(View view){
         Intent intent;
         switch (view.getId()){
+            case R.id.back_btn:
+                finish();
+                break;
             case R.id.no_default_adress:
                 intent = new Intent(ConfirmAnOrderActivity.this, MyAdressActivity.class);
                 startActivity(intent);
@@ -142,18 +148,20 @@ public class ConfirmAnOrderActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.settle_accounts:
-
                 showPayPopupWindow();
                 break;
         }
     }
 
     CheckBox wxcheckBox,alcheckBox;
+    LinearLayout linearwx,linearali;
     private void showPayPopupWindow(){
         View view = LayoutInflater.from(ConfirmAnOrderActivity.this).inflate(R.layout.layout_pay_type,null);
         //获取屏幕宽高
         int weight = getResources().getDisplayMetrics().widthPixels;
         int height = getResources().getDisplayMetrics().heightPixels*2/5;
+        linearwx = (LinearLayout) view.findViewById(R.id.linear_wx);
+        linearali = (LinearLayout) view.findViewById(R.id.linear_ali);
         wxcheckBox = (CheckBox) view.findViewById(R.id.check_wx);
         alcheckBox = (CheckBox) view.findViewById(R.id.check_al);
         wxcheckBox.setChecked(true);
@@ -161,33 +169,36 @@ public class ConfirmAnOrderActivity extends Activity {
         final PopupWindow popupWindow = new PopupWindow(view,weight,height,true);
         popupWindow.setFocusable(true);
 
-        wxcheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        linearali.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(wxcheckBox.isChecked()){
-                    alcheckBox.setChecked(false);
-                }
+            public void onClick(View v) {
+                wxcheckBox.setChecked(false);
+                alcheckBox.setChecked(true);
             }
         });
 
-        alcheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        linearwx.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(alcheckBox.isChecked()){
-                    wxcheckBox.setChecked(false);
-                }
+            public void onClick(View v) {
+                wxcheckBox.setChecked(true);
+                alcheckBox.setChecked(false);
             }
         });
 
         view.findViewById(R.id.immediate_payment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                wx_out_trade_no = getOutTradeNo();
+                out_trade_no = getOutTradeNo();
                 if(wxcheckBox.isChecked()){
+                    body = "华记黄埔商城";
+                    total_fee = "100";
                     sendPayRequest();
-                    ToastUtil.makeToast(ConfirmAnOrderActivity.this,"微信支付");
                 }else {
-                    payV2(v);
-                    ToastUtil.makeToast(ConfirmAnOrderActivity.this,"支付宝支付");
+                    subject = "支付宝测试";
+                    total_amount = "0.01";
+                    getaliPayRequests(v);
+                    Log.e("ali_out_trade_no===",""+out_trade_no);
                 }
 
                 popupWindow.dismiss();
@@ -237,42 +248,53 @@ public class ConfirmAnOrderActivity extends Activity {
      * 微信支付
      */
     IWXAPI api;
+    String spbill_create_ip;
+    String body;
+    String wx_out_trade_no;
+    String total_fee;
     private void sendPayRequest(){
-        MainApi.getInstance(this).wxpayApi(new GetResultCallBack() {
+        MainApi.getInstance(this).wxpayApi(body,wx_out_trade_no,total_fee,spbill_create_ip,new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
-                api= WXAPIFactory.createWXAPI(ConfirmAnOrderActivity.this, Constants.APP_ID);
-                if(result == null ){
-                    Toast.makeText(ConfirmAnOrderActivity.this, "没有正常调起支付", Toast.LENGTH_SHORT).show();
+                if(type == Constants.TYPE_SUCCESS){
+                    PayModel.ResultBean resultData = GsonUtil.fromJSONData(new Gson(),result, PayModel.ResultBean.class);
+                    PayModel.ResultBean.ResultData resultBeans = resultData.getResult();
+
+                    api= WXAPIFactory.createWXAPI(ConfirmAnOrderActivity.this, Constants.APP_ID,false);
+                    api.registerApp(Constants.APP_ID);
+                    PayReq req = new PayReq();
+                    req.appId = Constants.APP_ID;
+                    req.partnerId = resultBeans.getPartnerid();
+                    req.prepayId = resultBeans.getPrepayid();
+                    req.nonceStr = resultBeans.getNoncestr();
+                    req.timeStamp = resultBeans.getTimestamp();
+                    req.packageValue = "Sign=WXPay";
+                    req.sign = resultBeans.getSign();
+                    //3.调用微信支付sdk支付方法\
+                    Log.e("===","appId="+req.appId+"\npartnerId="+req.partnerId+"\nprepayId="+req.prepayId+"\nnonceStr="+req.nonceStr
+                            +"\ntimeStamp="+req.timeStamp+"\npackageValue="+req.packageValue+"\nsign="+req.sign);
+                    api.sendReq(req);
                 }
-                api.registerApp(Constants.APP_ID);
-                PayReq req = new PayReq();
-                PayModel payModel = new PayModel();
-                req.appId = Constants.APP_ID;
-                req.partnerId = payModel.getPartnerid();
-                req.prepayId = payModel.getPrepayid();
-                req.nonceStr = payModel.getNoncestr();
-                req.timeStamp = payModel.getTimestamp();
-                req.packageValue = "Sign=WXPay";
-                req.sign = payModel.getSign();
-                Toast.makeText(ConfirmAnOrderActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
-                // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-                //3.调用微信支付sdk支付方法
-                api.sendReq(req);
             }
         });
     }
 
+    //生成订单
+    private static String getOutTradeNo() {
+        SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss", Locale.getDefault());
+        Date date = new Date();
+        String key = format.format(date);
+        Random r = new Random();
+        for (int i = 0; i <2 ; i++) {
+            key = key + r.nextInt(10);
+        }
+        return key;
+    }
+
+
+
     ///////////////支付宝支付///////////
     private static final int SDK_PAY_FLAG = 1;
-    // 入参app_id
-    public static final String PARTNER = PayKeys.APPID;   //这几个用了PayKey中的方法；
-    // 商户收款账号
-    public static final String SELLER = PayKeys.DEFAULT_SELLER;
-    // 商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = "";
-    private static final String RSA2_PRIVATE = PayKeys.PRIVATE;
-
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -303,32 +325,6 @@ public class ConfirmAnOrderActivity extends Activity {
     };
 
     public void payV2(View v) {
-        if (TextUtils.isEmpty(PARTNER) || (TextUtils.isEmpty(RSA2_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))) {
-            new AlertDialog.Builder(this).setTitle("警告").setMessage("需要配置APPID | RSA_PRIVATE")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialoginterface, int i) {
-                            finish();
-                        }
-                    }).show();
-            return;
-        }
-
-        /**
-         * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
-         * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
-         * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
-         *
-         * orderInfo的获取必须来自服务端；
-         */
-        boolean rsa2 = (RSA2_PRIVATE.length() > 0);
-        Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(PARTNER, rsa2);
-        String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
-
-        String privateKey = rsa2 ? RSA2_PRIVATE : RSA_PRIVATE;
-        String sign = OrderInfoUtil2_0.getSign(params, privateKey, rsa2);
-
-        final String orderInfo = orderParam + "&" + sign;
-
         Runnable payRunnable = new Runnable() {
             @Override
             public void run() {
@@ -347,5 +343,21 @@ public class ConfirmAnOrderActivity extends Activity {
         payThread.start();
     }
 
+    String orderInfo;
+    String subject;
+    String out_trade_no;
+    String total_amount;
+    private void getaliPayRequests(final View v){
+        MainApi.getInstance(this).alipayApi(subject,out_trade_no,total_amount,new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                AliPayModel aliPayModel = GsonUtil.fromJSONData(new Gson(),result,AliPayModel.class);
+                Log.e("","得到数据"+aliPayModel.getResult());
+                orderInfo = aliPayModel.getResult();
+
+                payV2(v);
+            }
+        });
+    }
 
 }

@@ -41,5 +41,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     //支付宝
     implementation files('libs/alipaySdk-20170922.jar')
-    implementation files('libs/libammsdk.jar')
+    //implementation files('libs/libammsdk.jar')
 }

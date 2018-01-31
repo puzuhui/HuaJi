@@ -167,8 +167,35 @@ public class MainApi extends BaseApi {
         getLoad(BaseUrl.searchdefaultaddress, map, callBack);
     }
 
-    public void wxpayApi( GetResultCallBack callBack){
+    /**
+     *
+     * @param body  内容
+     * @param out_trade_no  订单id
+     * @param total_fee 价格
+     * @param spbill_create_ip ip
+     * @param callBack
+     */
+    public void wxpayApi(String body,String out_trade_no,String total_fee,String spbill_create_ip,GetResultCallBack callBack){
         Map<String, String> map = new HashMap<>();
+        map.put("body",body);
+        map.put("out_trade_no",out_trade_no);
+        map.put("total_fee",total_fee);
+        map.put("spbill_create_ip",spbill_create_ip);
         getLoad(BaseUrl.wxpay, map, callBack);
+    }
+
+    /**
+     *
+     * @param subject
+     * @param out_trade_no
+     * @param total_amount
+     * @param callBack
+     */
+    public void alipayApi(String subject,String out_trade_no,String total_amount,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("subject",subject);
+        map.put("out_trade_no",out_trade_no);
+        map.put("total_amount",total_amount);
+        getLoad(BaseUrl.alipay, map, callBack);
     }
 }

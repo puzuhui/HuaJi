@@ -48,7 +48,7 @@
             android:button="@null"
             android:text="充值"
             android:textSize="12sp"
-            android:drawableTop="@drawable/shopping_mall_btn"
+            android:drawableTop="@drawable/mine_btn"
             android:drawablePadding="5dp"
             android:gravity="center_horizontal"/>
 
@@ -59,9 +59,9 @@
             android:layout_weight="1"
             android:button="@null"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/shopping_mall_btn"
+            android:drawableTop="@drawable/foot2_btn"
             android:gravity="center_horizontal"
-            android:text="我"
+            android:text="我的"
             android:textSize="12sp"/>
     </RadioGroup>
 </LinearLayout>
