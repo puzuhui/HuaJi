@@ -21,6 +21,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.two.activity.ListOfGoodsActivity;
+import com.mingxuan.huaji.layout.two.activity.PhoneCardActivity;
 import com.mingxuan.huaji.layout.two.adapter.ShoppingMallAdapter;
 import com.mingxuan.huaji.layout.two.model.ShoppingMallModel;
 import com.mingxuan.huaji.utils.NetImageLocadHolder;
@@ -76,6 +77,7 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
         two = (TextView) view1.findViewById(R.id.two);
 
         one.setOnClickListener(onClickListener);
+        two.setOnClickListener(onClickListener);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
         boolean islogin = sharedPreferences.getBoolean("islogin",false);
@@ -137,6 +139,10 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
                 case R.id.one:
                     intent = new Intent(getActivity(), ListOfGoodsActivity.class);
                     intent.putExtra("type",31);
+                    startActivity(intent);
+                    break;
+                case R.id.two:
+                    intent = new Intent(getActivity(), PhoneCardActivity.class);
                     startActivity(intent);
                     break;
             }

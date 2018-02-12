@@ -129,5 +129,11 @@
     <string name="all_evaluate">所有评价</string>
     <string name="add_to_shopping_cart">加入购物车</string>
     <string name="settle_accounts">结账</string>
+    <string name="market_price">市场价：</string>
+
+    <string name="hint_title">【温馨提示】</string>
+    <string name="business_hint">尊敬的服务商:\n\t\t\t根据国家实名制要求，为加强实名风险管控，严厉打击犯罪份子盗用身份证虚假开卡进行违法诈骗等犯罪行为。1.凡在本平台下单选择号码入网时，必须填写正确的入网人的真实姓名及身份证号码。2.用户在翼开通APP自助实名时必须提交身份证原件拍照和本人活体认证，电信运营商将按照国家对实名制的相关要求对通过APP系统自主实名成功的激活用户进行二次人工审核，发现虚假违规用户直接进行拆机处理，且在本平台预存的话费不予以退费，情节严重者直接报公安机关处理！\n\t\t\t请广大服务商熟知并遵守！\n\n\t\t\t\t\t\t\t\t\t<b>华记黄埔（宣）</b></string>
+    <string name="one">【用户电子实名渠道开户特别说明】</string>
+    <string name="two">\t\t\t [1] 请仔细阅读开卡规则，严格遵守，保证后期结算数据的有效性。\n \t\t\t [2] 所选号卡为中国电信4G卡，归属地为重庆，资费类型：全国无漫游，具体参照所选套餐;请选择支持电信CDMA网络手机插卡使用。</string>
 
 </resources>

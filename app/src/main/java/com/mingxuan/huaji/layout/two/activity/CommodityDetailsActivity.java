@@ -240,7 +240,7 @@ public class CommodityDetailsActivity extends Activity {
 
                     String[] imageurl = list.get(0).getProduct_intr().split(",");
                     for (int i = 0; i < imageurl.length; i++) {
-                        String image = "http://125.65.82.219:8080" + imageurl[i];
+                        String image = Constants.IMAGE_URL + imageurl[i];
                         bean.add(image);
                     }
                     showBanner();

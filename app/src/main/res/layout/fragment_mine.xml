@@ -65,6 +65,37 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/laba"/>
+                <ViewFlipper
+                    android:id="@+id/view_filpper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoStart="true"
+                    android:flipInterval="2000"
+                    android:inAnimation="@anim/anim_come_in"
+                    android:outAnimation="@anim/anim_get_out" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="这是一个非常厉害的走马灯xml布局实现，哈哈哈哈哈哈哈哈哈。。。。这是一个非常厉害的走马灯xml布局实现，哈哈哈哈哈哈哈哈哈。。。。"
+                android:background="@color/greylight"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"/>
+
+            <LinearLayout
                 android:id="@+id/my_friends"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon1"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/my_friends"
@@ -108,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon2"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/my_integral"
@@ -144,7 +175,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon3"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/my_shopping_cart"
@@ -180,7 +211,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon4"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/my_order"
@@ -216,7 +247,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon5"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/my_address"
@@ -252,7 +283,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon6"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/qrcode"
@@ -273,41 +304,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/grey" />
-            <LinearLayout
-                android:id="@+id/balance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:padding="10dp">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/balance"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/white"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:padding="10dp">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
-                    android:drawablePadding="5dp"
-                    android:gravity="center"
-                    android:text="@string/balance"
-                    android:textColor="@color/transparent80" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:drawableLeft="@mipmap/icon7"-->
+                    <!--android:drawablePadding="5dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="@string/balance"-->
+                    <!--android:textColor="@color/transparent80" />-->
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+                <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1" />-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/back" />
-            </LinearLayout>
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/back" />-->
+            <!--</LinearLayout>-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:alpha="0.1"
-                android:background="@color/black" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:alpha="0.1"-->
+                <!--android:background="@color/black" />-->
 
             <LinearLayout
                 android:id="@+id/bank_card"
@@ -320,7 +351,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon7"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/bank_card"
@@ -356,7 +387,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon8"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/phone_card"
@@ -392,7 +423,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon9"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/my_information"
@@ -428,7 +459,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon10"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/binding_mobile"
@@ -464,7 +495,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/my_01"
+                    android:drawableLeft="@mipmap/icon11"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:text="@string/insertpassword"

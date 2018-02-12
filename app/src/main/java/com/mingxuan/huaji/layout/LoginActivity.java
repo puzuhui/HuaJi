@@ -97,6 +97,6 @@ public class LoginActivity extends Activity {
         editor.putString("create_id",create_id);
         editor.putString("create_name",create_name);
         editor.putBoolean("islogin",islogin);
-        editor.commit();
+        editor.apply();//提交
     }
 }

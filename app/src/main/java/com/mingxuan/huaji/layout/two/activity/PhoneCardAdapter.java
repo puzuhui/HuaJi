@@ -1,4 +1,4 @@
-package com.mingxuan.huaji.layout.two.adapter;
+package com.mingxuan.huaji.layout.two.activity;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,32 +8,34 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.layout.two.model.ShopSizeModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/10/19 0019.
+ * Created by Admin on 2018/2/8.
+ * 公司：铭轩科技
  */
 
-public class ShopSizeAdapter extends RecyclerView.Adapter<ShopSizeAdapter.ViewHolder> {
+public class PhoneCardAdapter extends RecyclerView.Adapter<PhoneCardAdapter.ViewHolder> {
+    private List<String> list;
     private Context context;
-    private List<ShopSizeModel> list;
-    private MyOnClickListener myOnClickListener;
+    LayoutInflater layoutInflater;
     private List<Boolean> isClicks;//控件是否被点击,默认为false，如果被点击，改变值，控件根据值改变自身颜色
+    private OnItemClickListener onItemClickListener;
 
-    public interface MyOnClickListener{
-        void onclick(View view,int position);
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
     }
 
-    public void setMyOnClickListener(MyOnClickListener myOnClickListener){
-        this.myOnClickListener = myOnClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
     }
 
-    public ShopSizeAdapter(Context context,List<ShopSizeModel> list){
-        this.context = context;
+    public PhoneCardAdapter(List<String> list,Context context){
         this.list = list;
+        this.context = context;
+        layoutInflater = LayoutInflater.from(context);
         isClicks = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
             if(i==0){
@@ -45,17 +47,18 @@ public class ShopSizeAdapter extends RecyclerView.Adapter<ShopSizeAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_size,parent,false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.item_phone,parent,false));
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        ShopSizeModel shopSizeModel = list.get(position);
-        holder.size.setText(shopSizeModel.getSize());
+        holder.textView.setText(list.get(position));
         if(isClicks.get(position)){
-            holder.size.setTextColor(context.getResources().getColor(R.color.redDark));
+            holder.textView.setTextColor(context.getResources().getColor(R.color.redDark));
+            holder.textView.setBackgroundResource(R.drawable.size_red);
         }else{
-            holder.size.setTextColor(context.getResources().getColor(R.color.transparent80));
+            holder.textView.setTextColor(context.getResources().getColor(R.color.transparent80));
+            holder.textView.setBackgroundResource(R.drawable.size_black);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +70,7 @@ public class ShopSizeAdapter extends RecyclerView.Adapter<ShopSizeAdapter.ViewHo
                 isClicks.set(position,true);
                 notifyDataSetChanged();
 
-                myOnClickListener.onclick(holder.itemView,position);
+                onItemClickListener.onItemClick(holder.itemView,position);
             }
         });
     }
@@ -78,10 +81,10 @@ public class ShopSizeAdapter extends RecyclerView.Adapter<ShopSizeAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView size;
+        TextView textView;
         public ViewHolder(View itemView) {
             super(itemView);
-            size = (TextView) itemView.findViewById(R.id.size);
+            textView = (TextView) itemView.findViewById(R.id.textView);
         }
     }
 }

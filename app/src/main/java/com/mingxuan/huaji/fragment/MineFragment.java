@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.LoginActivity;
@@ -48,8 +49,8 @@ public class MineFragment extends Fragment {
     LinearLayout myOrder;
     @BindView(R.id.my_address)
     LinearLayout myAddress;
-    @BindView(R.id.balance)
-    LinearLayout balance;
+//    @BindView(R.id.balance)
+//    LinearLayout balance;
     @BindView(R.id.bank_card)
     LinearLayout bankCard;
     @BindView(R.id.my_information)
@@ -70,6 +71,8 @@ public class MineFragment extends Fragment {
     LinearLayout bindingMobile;
     @BindView(R.id.insertpassword)
     LinearLayout insertpassword;
+    @BindView(R.id.view_filpper)
+    ViewFlipper viewFlipper;
 
     Unbinder unbinder;
     private View view;
@@ -103,13 +106,21 @@ public class MineFragment extends Fragment {
             login.setOnClickListener(onClickListener);
         }
 
+        //轮播
+        for(int i = 0;i<3;i++){
+            View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_viewflipper,null);
+            TextView textView = (TextView) view1.findViewById(R.id.text);
+            textView.setText("厉害了我的哥，你又中奖了");
+            viewFlipper.addView(view1);
+        }
+
         myFriends.setOnClickListener(onClickListener);
         myShoppingCart.setOnClickListener(onClickListener);
         myOrder.setOnClickListener(onClickListener);
         myAddress.setOnClickListener(onClickListener);
         bankCard.setOnClickListener(onClickListener);
         myInformation.setOnClickListener(onClickListener);
-        balance.setOnClickListener(onClickListener);
+        //balance.setOnClickListener(onClickListener);
         myIntegral.setOnClickListener(onClickListener);
     }
 
@@ -166,14 +177,14 @@ public class MineFragment extends Fragment {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
                     break;
-                case R.id.balance:
-                    if (islogin) {
-                        intent = new Intent(getActivity(), BalanceActivity.class);
-                        startActivity(intent);
-                    } else {
-                        ToastUtil.makeToast(getContext(), "你还没有登录");
-                    }
-                    break;
+//                case R.id.balance:
+//                    if (islogin) {
+//                        intent = new Intent(getActivity(), BalanceActivity.class);
+//                        startActivity(intent);
+//                    } else {
+//                        ToastUtil.makeToast(getContext(), "你还没有登录");
+//                    }
+//                    break;
                 case R.id.bank_card:
                     if (islogin) {
                         intent = new Intent(getActivity(), MyBankCardActivity.class);
