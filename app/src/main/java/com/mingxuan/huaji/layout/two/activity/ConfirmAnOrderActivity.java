@@ -44,6 +44,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -87,7 +88,10 @@ public class ConfirmAnOrderActivity extends Activity {
     TextView productPrice;
     @BindView(R.id.price)
     TextView price;
+    @BindView(R.id.optional)
+    TextView optional;
     private List<MyAdressModel.ResultBean> adresslist;
+    private int index;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,14 +115,22 @@ public class ConfirmAnOrderActivity extends Activity {
     String productname;
     String productprice;
     private void getBundle() {
+        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
+        int day=aCalendar.getActualMaximum(Calendar.DATE) - aCalendar.get(Calendar.DAY_OF_MONTH);
+
         bundle = getIntent().getExtras();
         if(bundle != null){
+            index = bundle.getInt("index");
+            if(index == 1 ){
+                optional.setText("(备注:电信号码首次开通需要预存3个月套餐费和本月剩余"+day+"天共计"+3.0+"元)");//这里还需要修改
+            }
             createname = bundle.getString("createname");
             imageurl = bundle.getString("image");
             productname = bundle.getString("productname");
             productprice = bundle.getString("productprice");
         }
     }
+
 
     private void initView() {
         adresslist = new ArrayList<>();

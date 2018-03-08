@@ -7,13 +7,25 @@ public class BaseUrl {
 
     public final static String baseurl = "http://192.168.188.122/huaji/index.php/Home/index/";//根地址
 
-    public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
+    public final static String javaurl = "http://www.hjhp.cn/ws/user/";//根地址
 
     public final static String login = javaurl+"login?";//登录
+
+    public final static String duanxin = javaurl+"duanxin?";//获取短信验证码
+
+    public final static String register = javaurl+"register?";//注册
+
+    public final static String updatePassword = javaurl+"updatePassword?";//找回密码
+
+    public final static String findolduser = javaurl+"findolduser?";//查找老用户
+
+    public final static String olduser = javaurl+"olduser?";//完善资料
 
     public final static String wxpay = javaurl+"wechatpay?";
 
     public final static String alipay = javaurl+"alipay?";
+
+    public final static String virifyPassword = javaurl+"virifyPassword?";//修改密码
 
     public final static String shoppinglisttop = baseurl+"shoppinglisttop?";//商品列表顶部标签
 

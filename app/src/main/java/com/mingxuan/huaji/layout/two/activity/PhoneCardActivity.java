@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,12 @@ public class PhoneCardActivity extends Activity {
     ConvenientBanner converientBanner;
     @BindView(R.id.phone_btn)
     TextView phoneBtn;
+    @BindView(R.id.telecom_phone_btn)
+    TextView telecomPhoneBtn;
+    @BindView(R.id.link_phone_btn)
+    TextView linkPhoneBtn;
+    @BindView(R.id.linear)
+    LinearLayout linearLayout;
     private ConvenientBanner convenientBanner;
     private String[] images = {"http://img2.3lian.com/2014/f2/37/d/39.jpg",
             "http://www.8kmm.com/UploadFiles/2012/8/201208140920132659.jpg",
@@ -91,14 +98,20 @@ public class PhoneCardActivity extends Activity {
         });
     }
 
-    @OnClick({R.id.back_btn,R.id.phone_btn})
+    @OnClick({R.id.back_btn,R.id.phone_btn,R.id.telecom_phone_btn,R.id.link_phone_btn})
     public void OnClic(View view){
         switch (view.getId()){
             case R.id.back_btn:
                 finish();
                 break;
             case R.id.phone_btn:
-                showPopupWindow();
+                showPopupWindow(1,R.string.hint_title,R.string.business_hint);
+                break;
+            case R.id.telecom_phone_btn:
+                showPopupWindow(2,R.string.one,R.string.two);
+                break;
+            case R.id.link_phone_btn:
+                showPopupWindow(3,R.string.hint_title,R.string.three);
                 break;
         }
     }
@@ -107,15 +120,15 @@ public class PhoneCardActivity extends Activity {
     TextView content;
     TextView confirmBtn;
     TextView cancelBtn;
-    private void showPopupWindow(){
+    private void showPopupWindow(final int index,int titlehint,int hint){
         View view = LayoutInflater.from(this).inflate(R.layout.layout_phone_window,null);
         title = (TextView) view.findViewById(R.id.title);
         content = (TextView) view.findViewById(R.id.content);
         confirmBtn = (TextView) view.findViewById(R.id.confirm_btn);
         cancelBtn = (TextView) view.findViewById(R.id.cancel_btn);
 
-        title.setText(R.string.hint_title);
-        content.setText(R.string.business_hint);
+        title.setText(titlehint);
+        content.setText(hint);
 
         //获取屏幕宽高
         int weight = getResources().getDisplayMetrics().widthPixels*4/5;
@@ -126,8 +139,16 @@ public class PhoneCardActivity extends Activity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PhoneCardActivity.this,ChoosePhoneCardActivity.class);
-                startActivity(intent);
+                if(index == 1){
+                    linearLayout.setVisibility(View.VISIBLE);
+                }else if(index == 2){
+                    Intent intent = new Intent(PhoneCardActivity.this,ChoosePhoneCardActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(PhoneCardActivity.this,ChoosePhoneCardActivity.class);
+                    startActivity(intent);
+                }
+
                 popupWindow.dismiss();
             }
         });

@@ -42,4 +42,5 @@ dependencies {
     //支付宝
     implementation files('libs/alipaySdk-20170922.jar')
     //implementation files('libs/libammsdk.jar')
+    implementation files('libs/core-3.2.1.jar')
 }

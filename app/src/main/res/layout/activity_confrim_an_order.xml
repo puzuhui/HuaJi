@@ -150,18 +150,32 @@
                     android:layout_height="80dp"
                     android:src="@mipmap/ic_launcher"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_weight="1"
-                    android:id="@+id/shop_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="2"
-                    android:text=""
-                    android:textColor="#404040"
-                    android:textSize="16sp"
+                    android:orientation="vertical"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"/>
+                    android:layout_marginLeft="5dp">
+                    <TextView
+                        android:id="@+id/shop_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:text="4464646"
+                        android:textColor="#404040"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/optional"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="x1"
+                        android:textColor="@color/greylight"
+                        android:textSize="12sp"
+                        />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"

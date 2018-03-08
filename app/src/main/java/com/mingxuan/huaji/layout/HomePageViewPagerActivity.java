@@ -87,6 +87,7 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         shopping_mall.setChecked(true);
         viewPager.setOffscreenPageLimit(fragmentArrayList.size());
         shopping_mall.setTextColor(getResources().getColor(R.color.red));
+        shopping_mall.setTextSize(14);
         shopping_mall.setOnClickListener(onClickListener);
         shopping_mall.setOnClickListener(onClickListener);
         recharge.setOnClickListener(onClickListener);
@@ -132,6 +133,9 @@ public class HomePageViewPagerActivity extends FragmentActivity{
 //                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
+                    shopping_mall.setTextSize(14);
+                    recharge.setTextSize(12);
+                    me.setTextSize(12);
                     break;
                 case 1:
                     recharge.setChecked(true);
@@ -139,6 +143,9 @@ public class HomePageViewPagerActivity extends FragmentActivity{
 //                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
+                    shopping_mall.setTextSize(12);
+                    recharge.setTextSize(14);
+                    me.setTextSize(12);
                     break;
                 case 2:
                     me.setChecked(true);
@@ -146,6 +153,9 @@ public class HomePageViewPagerActivity extends FragmentActivity{
 //                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
+                    shopping_mall.setTextSize(12);
+                    recharge.setTextSize(12);
+                    me.setTextSize(14);
                     break;
             }
         }
@@ -206,7 +216,7 @@ public class HomePageViewPagerActivity extends FragmentActivity{
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("phone",list.get(0).getPhone());
                     editor.putString("realname",list.get(0).getReal_name());
-                    editor.commit();
+                    editor.apply();
 
                 }else BaseApi.showErrMsg(HomePageViewPagerActivity.this,result);
             }

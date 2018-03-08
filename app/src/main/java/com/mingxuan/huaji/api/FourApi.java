@@ -319,6 +319,8 @@ public class FourApi extends BaseApi {
 
     /**
      * 我的信息
+     * @param id
+     * @param callBack
      */
     public void myInformationApi(String id,GetResultCallBack callBack) {
         Map<String, String> map = new HashMap<>();
@@ -326,6 +328,25 @@ public class FourApi extends BaseApi {
         postLoad(BaseUrl.myinformation, map, callBack);
     }
 
+
+    /**
+     * 修改密码
+     * @param id
+     * @param password
+     * @param two_password
+     * @param callBack
+     */
+    public void changePasswordApi(String id,String password,String two_password,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        if(!TextUtils.isEmpty(password)){
+            map.put("newPassword", password);
+        }
+        if(!TextUtils.isEmpty(two_password)){
+            map.put("two_password", two_password);
+        }
+        postLoad(BaseUrl.virifyPassword, map, callBack);
+    }
 
     //https://apimg.alipay.com/combo.png?d=cashier&t=CCB 查询银行logo
     //支付宝 https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=银行卡卡号&cardBinCheck=true

@@ -7,24 +7,29 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.LoginActivity;
-import com.mingxuan.huaji.layout.four.activity.BalanceActivity;
+import com.mingxuan.huaji.layout.four.activity.PasswordManageActivity;
 import com.mingxuan.huaji.layout.four.activity.MyAdressActivity;
 import com.mingxuan.huaji.layout.four.activity.MyBankCardActivity;
 import com.mingxuan.huaji.layout.four.activity.MyFriendActivity;
 import com.mingxuan.huaji.layout.four.activity.MyInformationActivity;
 import com.mingxuan.huaji.layout.four.activity.MyIntergralActivity;
 import com.mingxuan.huaji.layout.four.activity.MyOrderActivity;
+import com.mingxuan.huaji.layout.four.activity.MyQrcodeActivity;
 import com.mingxuan.huaji.layout.four.activity.MyShoppingCartActivity;
+import com.mingxuan.huaji.layout.two.activity.ChoosePhoneCardActivity;
 import com.mingxuan.huaji.utils.CircleImageView;
 import com.mingxuan.huaji.utils.ToastUtil;
 
@@ -84,24 +89,22 @@ public class MineFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_mine, null);
         unbinder = ButterKnife.bind(this, view);
 
-        initView();
         sharedPreferences = getActivity().getSharedPreferences("huaji",Context.MODE_PRIVATE);
+        initView();
 
         return view;
     }
 
     private void initView() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
         islogin = sharedPreferences.getBoolean("islogin", false);
         if (islogin) {
-            Log.e("====", "你登录了" + islogin);
             phone.setText(sharedPreferences.getString("phone", ""));
             name.setText(sharedPreferences.getString("realname", ""));
             loginBack.setVisibility(View.VISIBLE);
 
             loginBack.setOnClickListener(onClickListener);
         } else {
-            Log.e("====", "你没有登录" + islogin);
             login.setVisibility(View.VISIBLE);
             login.setOnClickListener(onClickListener);
         }
@@ -110,7 +113,7 @@ public class MineFragment extends Fragment {
         for(int i = 0;i<3;i++){
             View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_viewflipper,null);
             TextView textView = (TextView) view1.findViewById(R.id.text);
-            textView.setText("厉害了我的哥，你又中奖了");
+            textView.setText("厉害了我的哥，你又中奖了"+i);
             viewFlipper.addView(view1);
         }
 
@@ -122,6 +125,9 @@ public class MineFragment extends Fragment {
         myInformation.setOnClickListener(onClickListener);
         //balance.setOnClickListener(onClickListener);
         myIntegral.setOnClickListener(onClickListener);
+        qrcode.setOnClickListener(onClickListener);
+        phoneCard.setOnClickListener(onClickListener);
+        insertpassword.setOnClickListener(onClickListener);
     }
 
 
@@ -169,6 +175,14 @@ public class MineFragment extends Fragment {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
                     break;
+                case R.id.qrcode:
+                    if (islogin) {
+                        intent = new Intent(getActivity(), MyQrcodeActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
+                    break;
                 case R.id.my_address:
                     if (islogin) {
                         intent = new Intent(getActivity(), MyAdressActivity.class);
@@ -193,6 +207,15 @@ public class MineFragment extends Fragment {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
                     break;
+                case R.id.phone_card:
+                    showPopupWindow();
+//                    if (islogin) {
+//                        intent = new Intent(getActivity(), MyBankCardActivity.class);
+//                        startActivity(intent);
+//                    } else {
+//                        ToastUtil.makeToast(getContext(), "你还没有登录");
+//                    }
+                    break;
                 case R.id.my_information:
                     if (islogin) {
                         intent = new Intent(getActivity(), MyInformationActivity.class);
@@ -201,11 +224,18 @@ public class MineFragment extends Fragment {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
                     break;
-
+                case R.id.insertpassword:
+                    if (islogin) {
+                        intent = new Intent(getActivity(), PasswordManageActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
+                    break;
                 case R.id.login_back:
                     editor = sharedPreferences.edit();
                     editor.putBoolean("islogin",false);
-                    editor.commit();
+                    editor.apply();
                     intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
                     getActivity().finish();
@@ -213,6 +243,61 @@ public class MineFragment extends Fragment {
             }
         }
     };
+
+    TextView title;
+    TextView content;
+    TextView confirmBtn;
+    TextView cancelBtn;
+    private void showPopupWindow(){
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_phone_window,null);
+        title = (TextView) view.findViewById(R.id.title);
+        content = (TextView) view.findViewById(R.id.content);
+        confirmBtn = (TextView) view.findViewById(R.id.confirm_btn);
+        cancelBtn = (TextView) view.findViewById(R.id.cancel_btn);
+
+        title.setText(R.string.hint_title);
+        content.setText(R.string.phone_hint);
+
+        //获取屏幕宽高
+        int weight = getResources().getDisplayMetrics().widthPixels*4/5;
+        int height = getResources().getDisplayMetrics().heightPixels*2/7;
+        final PopupWindow popupWindow = new PopupWindow(view,weight,height,true);
+        popupWindow.setFocusable(true);
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ChoosePhoneCardActivity.class);
+                startActivity(intent);
+                popupWindow.dismiss();
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        //点击外部popueWindow消失
+        popupWindow.setOutsideTouchable(true);
+        //popupWindow消失屏幕变为不透明
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                lp.alpha = 1.0f;
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+
+        //popupWindow出现屏幕变为半透明
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.5f;
+        getActivity().getWindow().setAttributes(lp);
+        popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
+    }
 
     @Override
     public void onDestroyView() {

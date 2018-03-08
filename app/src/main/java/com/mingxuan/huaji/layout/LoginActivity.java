@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.two.model.LoginModel;
 import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -39,16 +41,21 @@ public class LoginActivity extends Activity {
     EditText pleaseEnterPossword;
     @BindView(R.id.submit)
     TextView submit;
+    @BindView(R.id.forget_the_password)
+    TextView forgetThePassword;
+    @BindView(R.id.old_user)
+    TextView oldUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
     }
 
 
-    @OnClick({R.id.register,R.id.submit})
+    @OnClick({R.id.register,R.id.submit,R.id.forget_the_password,R.id.old_user})
     public void setOnClick(View view){
         Intent intent;
         switch (view.getId()){
@@ -59,16 +66,29 @@ public class LoginActivity extends Activity {
             case R.id.submit:
                 username = pleaseEnterProofOfIdentity.getText().toString();
                 password = pleaseEnterPossword.getText().toString();
-                login();
+                if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)){
+                    login();
+                }else {
+                    ToastUtil.makeToast(this,"请填写账号和密码");
+                }
+
+                break;
+            case R.id.forget_the_password:
+                intent = new Intent(LoginActivity.this,ForgetThePasswordActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.old_user:
+                intent = new Intent(LoginActivity.this,OldUserActivity.class);
+                startActivity(intent);
                 break;
         }
     }
 
     String username;
-
     String password;
     List<LoginModel.ResultBean> loginlist = new ArrayList<>();
     private void login(){
+        submit.setText("登录中...");
         MainApi.getInstance(this).login(username, password, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
@@ -79,6 +99,8 @@ public class LoginActivity extends Activity {
                     startActivity(intent);
                     create_id = loginlist.get(0).getId();
                     create_name = loginlist.get(0).getName();
+                    realName = loginlist.get(0).getRealName();
+                    idCard = loginlist.get(0).getIdCard();
                     islogin = true;
                     saveSharedPreferences();
                 }else {
@@ -89,13 +111,15 @@ public class LoginActivity extends Activity {
     }
 
     String create_id;
-    String create_name;
+    String create_name,realName,idCard;
     boolean islogin = false;
     private void saveSharedPreferences(){
         SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("create_id",create_id);
         editor.putString("create_name",create_name);
+        editor.putString("realName",realName);
+        editor.putString("idCard",idCard);
         editor.putBoolean("islogin",islogin);
         editor.apply();//提交
     }

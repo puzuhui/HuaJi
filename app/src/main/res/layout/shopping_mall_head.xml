@@ -87,6 +87,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/fore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -97,6 +98,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/five"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

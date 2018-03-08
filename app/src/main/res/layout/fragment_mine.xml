@@ -82,19 +82,6 @@
                     android:outAnimation="@anim/anim_get_out" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:singleLine="true"
-                android:text="这是一个非常厉害的走马灯xml布局实现，哈哈哈哈哈哈哈哈哈。。。。这是一个非常厉害的走马灯xml布局实现，哈哈哈哈哈哈哈哈哈。。。。"
-                android:background="@color/greylight"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"/>
-
             <LinearLayout
                 android:id="@+id/my_friends"
                 android:layout_width="match_parent"

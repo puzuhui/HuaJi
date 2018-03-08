@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.mingxuan.huaji.layout.two.activity.PhoneCardActivity;
 import com.mingxuan.huaji.layout.two.adapter.ShoppingMallAdapter;
 import com.mingxuan.huaji.layout.two.model.ShoppingMallModel;
 import com.mingxuan.huaji.utils.NetImageLocadHolder;
+import com.mingxuan.huaji.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +55,8 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
     private RecyclerView recyclerView;
     private List<ShoppingMallModel> list;
     private ListView listView;
-    private TextView login,one,two;
+    private TextView login,one,two,three,fore,five;
+    private EditText head_edit;
 
     @Nullable
     @Override
@@ -75,9 +78,24 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
         login = (TextView) view1.findViewById(R.id.login);
         one = (TextView) view1.findViewById(R.id.one);
         two = (TextView) view1.findViewById(R.id.two);
+        three = (TextView) view1.findViewById(R.id.three);
+        fore = (TextView) view1.findViewById(R.id.fore);
+        five = (TextView) view1.findViewById(R.id.five);
+        head_edit = (EditText) view1.findViewById(R.id.head_edit);
 
         one.setOnClickListener(onClickListener);
         two.setOnClickListener(onClickListener);
+        three.setOnClickListener(onClickListener);
+        fore.setOnClickListener(onClickListener);
+        five.setOnClickListener(onClickListener);
+        head_edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Intent intent = new Intent(getActivity(), ListOfGoodsActivity.class);
+                intent.putExtra("type",31);
+                startActivity(intent);
+            }
+        });
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
         boolean islogin = sharedPreferences.getBoolean("islogin",false);
@@ -144,6 +162,15 @@ public class ShoppingMallFragment extends Fragment implements ShoppingMallAdapte
                 case R.id.two:
                     intent = new Intent(getActivity(), PhoneCardActivity.class);
                     startActivity(intent);
+                    break;
+                case R.id.three:
+                    ToastUtil.makeToast(getActivity(),"此功能还未开通！！！");
+                    break;
+                case R.id.fore:
+                    ToastUtil.makeToast(getActivity(),"此功能还未开通！！！");
+                    break;
+                case R.id.five:
+                    ToastUtil.makeToast(getActivity(),"此功能还未开通！！！");
                     break;
             }
         }

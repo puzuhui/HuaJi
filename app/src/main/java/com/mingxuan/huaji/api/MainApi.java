@@ -42,6 +42,83 @@ public class MainApi extends BaseApi {
         getLoad(BaseUrl.login, map, callBack);
     }
 
+
+    /**
+     *获取验证码
+     * @param phone
+     * @param callBack
+     */
+    public void duanxin(String phone,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("phone", phone);
+        postLoad(BaseUrl.duanxin, map, callBack);
+    }
+
+    /**
+     * 注册
+     * @param pid
+     * @param idcard
+     * @param name
+     * @param mobile
+     * @param password
+     * @param getcode
+     * @param callBack
+     */
+    public void register(String pid,String idcard,String name,String mobile,String password,String getcode,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("pid", pid);
+        map.put("idcard", idcard);
+        map.put("name", name);
+        map.put("mobile", mobile);
+        map.put("password", password);
+        map.put("getcode", getcode);
+        postLoad(BaseUrl.register, map, callBack);
+    }
+
+    /**
+     * 找回密码
+     * @param id
+     * @param newPassword
+     * @param callBack
+     */
+    public void updatePassword(String mobile,String newPassword,String getcode,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("mobile", mobile);
+        map.put("newPassword", newPassword);
+        map.put("getcode", getcode);
+        postLoad(BaseUrl.updatePassword, map, callBack);
+    }
+
+    /**
+     * 查找老用户
+     * @param oldcard
+     * @param callBack
+     */
+    public void findolduser(String oldcard,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("oldcard", oldcard);
+        getLoad(BaseUrl.findolduser, map, callBack);
+    }
+
+    /**
+     * 老用户完善资料
+     * @param oldcard
+     * @param idcard
+     * @param mobile
+     * @param password
+     * @param getcode
+     * @param callBack
+     */
+    public void olduser(String oldcard,String idcard,String mobile,String password,String getcode,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("oldcard", oldcard);
+        map.put("idcard", idcard);
+        map.put("mobile", mobile);
+        map.put("password", password);
+        map.put("getcode", getcode);
+        postLoad(BaseUrl.olduser, map, callBack);
+    }
+
     /**
      * 顶部标签
      * @param parent_id

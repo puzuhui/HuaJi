@@ -38,9 +38,9 @@ public class PhoneCardAdapter extends RecyclerView.Adapter<PhoneCardAdapter.View
         layoutInflater = LayoutInflater.from(context);
         isClicks = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            if(i==0){
-                isClicks.add(true);
-            }
+//            if(i==0){
+//                isClicks.add(true);
+//            }
             isClicks.add(false);
         }
     }

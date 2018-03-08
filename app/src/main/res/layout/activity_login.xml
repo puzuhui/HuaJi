@@ -63,12 +63,41 @@
             android:id="@+id/submit"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="@string/submit"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:gravity="center"
             android:background="@drawable/login_edit_reddark"
             android:padding="8dp"/>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/forget_the_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码"
+                android:textSize="14sp"
+                android:textColor="@color/orange"
+                android:padding="5dp"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=""/>
+            <TextView
+                android:id="@+id/old_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我是老用户"
+                android:textSize="14sp"
+                android:textColor="@color/orange"
+                android:padding="5dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 

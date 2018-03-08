@@ -121,8 +121,11 @@ public class MyShoppingCartActivity extends Activity {
                 finish();
                 break;
             case R.id.settle_accounts:
-                showPayPopupWindow();
-
+                if(list.size()!=0 && !money.getText().toString().equals("0.0")){
+                    showPayPopupWindow();
+                }else {
+                    ToastUtil.makeToast(this,"购物车是空的哟！！！");
+                }
                 break;
         }
 
