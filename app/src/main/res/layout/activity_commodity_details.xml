@@ -40,7 +40,7 @@
             <com.bigkoo.convenientbanner.ConvenientBanner
                 android:id="@+id/convenient"
                 android:layout_width="match_parent"
-                android:layout_height="180dp" />
+                android:layout_height="250dp" />
 
             <TextView
                 android:id="@+id/content"
@@ -69,38 +69,27 @@
 
                 <TextView
                     android:id="@+id/money"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@color/red"
                     android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/repertory"
-                    android:textSize="14sp" />
-
                 <TextView
                     android:id="@+id/number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="件"
-                    android:textSize="14sp" />
             </LinearLayout>
+            <TextView
+                android:id="@+id/nenberprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="会员价"
+                android:textSize="14sp"
+                android:textColor="@color/red"
+                android:layout_marginLeft="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,19 +98,20 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/size"
+                    android:text="数量  :"
                     android:textSize="14sp" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerview"
-                    android:layout_width="match_parent"
+                <com.mingxuan.huaji.utils.NumberAddSubView
+                    android:id="@+id/numberAddSubView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp" />
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
 
             <View
@@ -241,6 +231,11 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/grey" />
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/webview"/>
         </LinearLayout>
     </ScrollView>
 
@@ -248,14 +243,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:gravity="right">
+        android:weightSum="1">
 
+        <TextView
+            android:id="@+id/shopcar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon3"
+            android:text="购物车"
+            android:drawableTop="@mipmap/icon3"
+            android:drawablePadding="3dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/add_to_shopping_cart"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/orange"
+            android:layout_gravity="center"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/add_to_shopping_cart"
@@ -265,9 +275,10 @@
             android:id="@+id/settle_accounts"
             android:layout_weight="0.25"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/redDark"
             android:gravity="center"
+            android:layout_gravity="center"
             android:padding="10dp"
             android:text="@string/settle_accounts"
             android:textColor="@color/white"

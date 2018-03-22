@@ -1,6 +1,7 @@
 package com.mingxuan.huaji.layout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,13 +41,10 @@ import java.util.List;
 
 public class HomePageViewPagerActivity extends FragmentActivity{
     private ViewPager viewPager;
-    private RadioGroup homepagebtn;
     private RadioButton me;
-    private RadioButton homepage;
     private RadioButton shopping_mall;
     private RadioButton recharge;
     private ArrayList<Fragment> fragmentArrayList;
-    private HomePageFragment homePageFragment;
     private MineFragment mineFragment;
     private RechargeFragment rechargeFragment;
     private ShoppingMallFragment shoppingFragment;
@@ -56,27 +54,24 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_viewpager);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
-        id = sharedPreferences.getString("create_id","");
-
         initView();
-        getInformation();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
     }
 
     private void initView() {
-        list = new ArrayList<>();
-        homepagebtn = (RadioGroup) findViewById(R.id.homepage_btn);
         me = (RadioButton) findViewById(R.id.me);
-//        homepage = (RadioButton) findViewById(R.id.homepage);
         shopping_mall = (RadioButton) findViewById(R.id.shopping_mall);
         recharge = (RadioButton) findViewById(R.id.recharge);
         viewPager = (ViewPager) findViewById(R.id.id_viewpage);
         fragmentArrayList = new ArrayList<>();
-//        homePageFragment = new HomePageFragment();
         mineFragment = new MineFragment();
         rechargeFragment = new RechargeFragment();
         shoppingFragment = new ShoppingMallFragment();
-       // fragmentArrayList.add(homePageFragment);
         fragmentArrayList.add(shoppingFragment);
         fragmentArrayList.add(rechargeFragment);
         fragmentArrayList.add(mineFragment);
@@ -121,16 +116,9 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         @Override
         public void onPageSelected(int position) {
             switch (position){
-//                case 0:
-//                    homepage.setTextColor(getResources().getColor(R.color.red));
-//                    recharge.setTextColor(getResources().getColor(R.color.transparent80));
-//                    me.setTextColor(getResources().getColor(R.color.transparent80));
-//                    shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
-//                    break;
                 case 0:
                     shopping_mall.setChecked(true);
                     shopping_mall.setTextColor(getResources().getColor(R.color.red));
-//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextSize(14);
@@ -140,7 +128,6 @@ public class HomePageViewPagerActivity extends FragmentActivity{
                 case 1:
                     recharge.setChecked(true);
                     recharge.setTextColor(getResources().getColor(R.color.red));
-//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextSize(12);
@@ -150,7 +137,6 @@ public class HomePageViewPagerActivity extends FragmentActivity{
                 case 2:
                     me.setChecked(true);
                     me.setTextColor(getResources().getColor(R.color.red));
-//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextSize(12);
@@ -170,58 +156,27 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-//                case R.id.homepage:
-//                    viewPager.setCurrentItem(0);
-//                    homepage.setTextColor(getResources().getColor(R.color.red));
-//                    recharge.setTextColor(getResources().getColor(R.color.transparent80));
-//                    me.setTextColor(getResources().getColor(R.color.transparent80));
-//                    shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
-//                    break;
                 case R.id.shopping_mall:
                     viewPager.setCurrentItem(0);
                     shopping_mall.setTextColor(getResources().getColor(R.color.red));
-//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     break;
                 case R.id.recharge:
                     viewPager.setCurrentItem(1);
                     recharge.setTextColor(getResources().getColor(R.color.red));
-//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
                     break;
                 case R.id.me:
                     viewPager.setCurrentItem(2);
                     me.setTextColor(getResources().getColor(R.color.red));
-//                    homepage.setTextColor(getResources().getColor(R.color.transparent80));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
                     break;
             }
         }
     };
-
-    List<InformationModel.ResultBean> list;
-    String id;
-    private void getInformation(){
-        FourApi.getInstance(this).myInformationApi(id, new GetResultCallBack() {
-            @Override
-            public void getResult(String result, int type) {
-                if(type == Constants.TYPE_SUCCESS){
-                    List<InformationModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,InformationModel.ResultBean.class);
-                    list.addAll(resultBeans);
-
-                    SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("phone",list.get(0).getPhone());
-                    editor.putString("realname",list.get(0).getReal_name());
-                    editor.apply();
-
-                }else BaseApi.showErrMsg(HomePageViewPagerActivity.this,result);
-            }
-        });
-    }
 
     /**
      * 实现点击两次退出

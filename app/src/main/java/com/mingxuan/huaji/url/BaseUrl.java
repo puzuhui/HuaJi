@@ -5,9 +5,13 @@ package com.mingxuan.huaji.url;
  */
 public class BaseUrl {
 
-    public final static String baseurl = "http://192.168.188.122/huaji/index.php/Home/index/";//根地址
+//    public final static String baseurl = "http://118.190.204.1:8080/huaji/index.php/Home/index/";//根地址
 
     public final static String javaurl = "http://www.hjhp.cn/ws/user/";//根地址
+
+    public final static String baseurl = "http://192.168.188.122/huaji/index.php/Home/index/";//根地址
+
+//    public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
 
     public final static String login = javaurl+"login?";//登录
 
@@ -21,6 +25,8 @@ public class BaseUrl {
 
     public final static String olduser = javaurl+"olduser?";//完善资料
 
+    public final static String bindphone = javaurl+"bindphone?";//绑定手机
+
     public final static String wxpay = javaurl+"wechatpay?";
 
     public final static String alipay = javaurl+"alipay?";
@@ -33,11 +39,15 @@ public class BaseUrl {
 
     public final static String shoppingevaluate = baseurl+"shoppingevaluate?";//商品评价
 
+    public final static String hotproduct = baseurl+"hotproduct?";//banner
+
     public final static String evaluate = baseurl+"evaluate?";//商品评价
 
     public final static String searchdefaultaddress = baseurl+"searchdefaultaddress?";//默认地址
 
     public final static String myfridends = baseurl+"myfridends?";//我的伙伴
+
+    public final static String myintegral = baseurl+"myintegral?";//我的积分
 
     public final static String myproducts_cart = baseurl+"myproducts_cart?";//我的购物车
 

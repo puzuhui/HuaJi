@@ -6,15 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.layout.two.adapter.PhoneCardAdapter;
 import com.mingxuan.huaji.utils.FullGridLayoutManager;
 import com.mingxuan.huaji.utils.GridSpacingItemDecoration;
 import com.mingxuan.huaji.utils.ToastUtil;

@@ -26,6 +26,6 @@ public class NetImageLocadHolder implements Holder<String> {
     @Override
     public void UpdateUI(Context context, int position, String data) {
         //
-        Glide.with(context).load(data).into(image_lv);
+        Glide.with(context).load(data).fitCenter().into(image_lv);
     }
 }

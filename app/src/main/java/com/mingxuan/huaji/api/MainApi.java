@@ -120,6 +120,17 @@ public class MainApi extends BaseApi {
     }
 
     /**
+     * banner
+     * @param type
+     * @param callBack
+     */
+    public void hotproductApi(String type,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("type", type);
+        getLoad(BaseUrl.hotproduct, map, callBack);
+    }
+
+    /**
      * 顶部标签
      * @param parent_id
      * @param callBack

@@ -15,5 +15,7 @@
     <color name="greylight">#ddd</color>
     <color name="colorStartProgress">#3014C908</color>
     <color name="colorEndProgress">#14C908</color>
+    <color name="blueDark">#165683</color>
+    <color name="bluePrimary">#1d6da7</color>
 
 </resources>

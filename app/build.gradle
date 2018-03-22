@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+//定义时间
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
 
 android {
     compileSdkVersion 25
@@ -16,6 +20,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //打包
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "huaji_${defaultConfig.versionName}_${releaseTime()}.apk"
         }
     }
 }
@@ -43,4 +54,5 @@ dependencies {
     implementation files('libs/alipaySdk-20170922.jar')
     //implementation files('libs/libammsdk.jar')
     implementation files('libs/core-3.2.1.jar')
+
 }

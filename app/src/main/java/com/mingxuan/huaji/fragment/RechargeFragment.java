@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.layout.two.activity.PhoneCardAdapter;
+import com.mingxuan.huaji.layout.two.adapter.PhoneCardAdapter;
 import com.mingxuan.huaji.utils.FullGridLayoutManager;
 import com.mingxuan.huaji.utils.GridSpacingItemDecoration;
 import com.mingxuan.huaji.utils.ToastUtil;

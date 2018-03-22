@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/white"
-            android:visibility="gone">
+            >
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -90,14 +90,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:drawableLeft="@mipmap/del"
-                    android:drawablePadding="5dp"
                     android:gravity="center_vertical"
-                    android:paddingBottom="5dp"
+                    android:layout_marginBottom="5dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:text=""
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:drawableLeft="@mipmap/adress"
+                    android:drawablePadding="5dp"/>
             </LinearLayout>
             <ImageView
                 android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
                     android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/transparent80"
-                    android:drawableLeft="@mipmap/del"
+                    android:drawableLeft="@mipmap/adress"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"/>
             </LinearLayout>
@@ -162,7 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:text="4464646"
+                        android:text=""
                         android:textColor="#404040"
                         android:textSize="16sp" />
 
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="x1"
+                        android:text=""
                         android:textColor="@color/greylight"
                         android:textSize="12sp"
                         />
@@ -261,6 +261,52 @@
                     android:text=""
                     android:textSize="14sp"/>
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="签署协议"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="5dp"/>
+
+                <CheckBox
+                    android:id="@+id/cb_choose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我已阅读并同意"
+                    android:textSize="12sp"
+                    android:button="@drawable/checkbox_selector"
+                    android:layout_below="@id/title"/>
+
+                <TextView
+                    android:id="@+id/tv_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/cb_choose"
+                    android:layout_toRightOf="@+id/cb_choose"
+                    android:text="《用户入网服务协议》"
+                    android:textColor="@color/blue"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/cb_choose"
+                    android:layout_toEndOf="@+id/tv_service"
+                    android:layout_toRightOf="@+id/tv_service"
+                    android:text="《服务协议》"
+                    android:textColor="@color/blue"
+                    android:textSize="12sp" />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

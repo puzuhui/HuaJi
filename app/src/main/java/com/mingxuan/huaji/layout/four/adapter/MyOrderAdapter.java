@@ -60,8 +60,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
         }else {
             MyOrderModel.ResultBean myOrderModel = list.get(position);
             String[] imageurl = myOrderModel.getProduct_intr().split(",");
-            //Log.e("",imageurl[position]);
-            Glide.with(context).load("http://125.65.82.219:8080" + imageurl[0]).into(holder.image);
+            Glide.with(context).load(Constants.IMAGE_URL + imageurl[0]).into(holder.image);
             holder.content.setText(myOrderModel.getProducts_name());
             holder.number.setText("" + myOrderModel.getProducts_num());
             holder.money.setText("" + myOrderModel.getProducts_money() * myOrderModel.getProducts_num());

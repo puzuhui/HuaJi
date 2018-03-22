@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.four.activity.MyShoppingCartActivity;
 import com.mingxuan.huaji.layout.four.model.MyShoppingCarModel;
+import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.NumberAddSubView;
 import com.mingxuan.huaji.utils.ToastUtil;
 
@@ -150,7 +151,7 @@ public class MyShoppingCarAdapter extends RecyclerView.Adapter<MyShoppingCarAdap
             holder.numberAddSubView.setValue(myShoppingCarModel.getNumber());
             holder.numberAddSubView.setMaxValue(myShoppingCarModel.getProduct_inventory());//库存
             String[] imageurl = myShoppingCarModel.getProduct_intr().split(",");
-            Glide.with(context).load("http://125.65.82.219:8080"+imageurl[0]).into(holder.image);
+            Glide.with(context).load(Constants.IMAGE_URL+imageurl[0]).into(holder.image);
             holder.checkbox.setTag(position);
             if(onItemClickListener != null){
                 holder.checkbox.setOnClickListener(new View.OnClickListener() {

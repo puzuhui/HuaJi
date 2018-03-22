@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -23,6 +27,8 @@ import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.api.BaseApi;
 import com.mingxuan.huaji.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
+import com.mingxuan.huaji.layout.LoginActivity;
+import com.mingxuan.huaji.layout.four.activity.MyShoppingCartActivity;
 import com.mingxuan.huaji.layout.four.model.PictureModel;
 import com.mingxuan.huaji.layout.two.adapter.ShopSizeAdapter;
 import com.mingxuan.huaji.layout.two.model.ShopListModel;
@@ -34,6 +40,8 @@ import com.mingxuan.huaji.utils.GridSpacingItemDecoration;
 import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.NetImageLocadHolder;
+import com.mingxuan.huaji.utils.NumberAddSubView;
+import com.mingxuan.huaji.utils.UIUtils;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -52,8 +60,6 @@ import butterknife.ButterKnife;
 public class CommodityDetailsActivity extends Activity {
     @BindView(R.id.convenient)
     ConvenientBanner convenientBanner;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
     @BindView(R.id.all_evaluate)
     TextView allEvaluate;
     @BindView(R.id.add_to_shopping_cart)
@@ -82,13 +88,22 @@ public class CommodityDetailsActivity extends Activity {
     ImageView backBtn;
     @BindView(R.id.comment_all)
     LinearLayout commentAll;
-
+    @BindView(R.id.shopcar)
+    TextView shopcar;
+    @BindView(R.id.nenberprice)
+    TextView nenberprice;
+    @BindView(R.id.webview)
+    WebView webview;
+    @BindView(R.id.numberAddSubView)
+    NumberAddSubView numberAddSubView;
     //轮播下面的小点
     private int[] indicator = {R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused};
     //网络图片加载地址的集合
     private List<String> bean;
     private List<ShopSizeModel> sizelist;
     private SimpleDateFormat simpleDateFormat;
+    Boolean islogin;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,6 +116,7 @@ public class CommodityDetailsActivity extends Activity {
         create_name = sharedPreferences.getString("create_name","");
         update_id = sharedPreferences.getString("create_id","");
         update_name = sharedPreferences.getString("create_name","");
+        islogin = sharedPreferences.getBoolean("islogin",false);
 
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         create_time = simpleDateFormat.format(new Date());
@@ -126,34 +142,57 @@ public class CommodityDetailsActivity extends Activity {
         bean = new ArrayList<>();
         piclist = new ArrayList<>();
 
-        FullGridLayoutManager gridLayoutManager = new FullGridLayoutManager(this, 4);
-        recyclerview.setNestedScrollingEnabled(false);
-        recyclerview.setLayoutManager(gridLayoutManager);
-        int spanCount = 4;//跟布局里面的spanCount属性是一致的
-        int spacing = 5;//每一个矩形的间距
-        GridSpacingItemDecoration gridSpacingItemDecoration = new GridSpacingItemDecoration(spanCount, spacing, false);
-        recyclerview.addItemDecoration(gridSpacingItemDecoration);
+//        FullGridLayoutManager gridLayoutManager = new FullGridLayoutManager(this, 4);
+//        recyclerview.setNestedScrollingEnabled(false);
+//        recyclerview.setLayoutManager(gridLayoutManager);
+//        int spanCount = 4;//跟布局里面的spanCount属性是一致的
+//        int spacing = 5;//每一个矩形的间距
+//        GridSpacingItemDecoration gridSpacingItemDecoration = new GridSpacingItemDecoration(spanCount, spacing, false);
+//        recyclerview.addItemDecoration(gridSpacingItemDecoration);
 
-        String[] s = {"185/64Y", "185/64Y", "185/64Y", "185/64Y", "185/64Y"};
-        for (int i = 0; i < s.length; i++) {
-            ShopSizeModel shopSizeModel = new ShopSizeModel();
-            shopSizeModel.setSize(s[i]);
-            sizelist.add(shopSizeModel);
-        }
-
-        ShopSizeAdapter shopSizeAdapter = new ShopSizeAdapter(CommodityDetailsActivity.this, sizelist);
-        recyclerview.setAdapter(shopSizeAdapter);
-        shopSizeAdapter.setMyOnClickListener(new ShopSizeAdapter.MyOnClickListener() {
-            @Override
-            public void onclick(View view, int position) {
-                Toast.makeText(CommodityDetailsActivity.this, "点击了"+position, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        String[] s = {"185/64Y", "185/64Y", "185/64Y", "185/64Y", "185/64Y"};
+//        for (int i = 0; i < s.length; i++) {
+//            ShopSizeModel shopSizeModel = new ShopSizeModel();
+//            shopSizeModel.setSize(s[i]);
+//            sizelist.add(shopSizeModel);
+//        }
+//
+//        ShopSizeAdapter shopSizeAdapter = new ShopSizeAdapter(CommodityDetailsActivity.this, sizelist);
+//        recyclerview.setAdapter(shopSizeAdapter);
+//        shopSizeAdapter.setMyOnClickListener(new ShopSizeAdapter.MyOnClickListener() {
+//            @Override
+//            public void onclick(View view, int position) {
+//                Toast.makeText(CommodityDetailsActivity.this, "点击了"+position, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         addToShoppingCart.setOnClickListener(onClickListener);
         settleAccounts.setOnClickListener(onClickListener);
         backBtn.setOnClickListener(onClickListener);
         allEvaluate.setOnClickListener(onClickListener);
+        shopcar.setOnClickListener(onClickListener);
+
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDefaultFontSize(25);
+        //设置自适应屏幕，两者合用
+        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+        //缩放操作
+        webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
+        webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
+        webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
+
+        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
+        webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // 屏幕自适应网页,如果没有这个，在低分辨率的手机上显示可能会异常
+        webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
+        webSettings.setBuiltInZoomControls(false); //设置内置的缩放控件。若为false，则该WebView不可缩放
+        //处理各种通知请求和事件，如果不使用该句代码，将使用内置浏览器访问网页
+        webview.setWebViewClient(new WebViewClient());
     }
 
     private void showBanner() {
@@ -198,22 +237,41 @@ public class CommodityDetailsActivity extends Activity {
                     startActivity(intent);
                     break;
                 case R.id.add_to_shopping_cart:
-                    if(isshop){
-                        products_num = 1;
-                        getaddshoppingcar();
+                    if(islogin){//判断是否登录
+                        if(isshop){//是否加入购物车
+                            products_num = 1;
+                            getaddshoppingcar();
+                        }else {
+                            products_num++;
+                            insertshoppingcar();
+                        }
                     }else {
-                        products_num++;
-                        insertshoppingcar();
+                        intent = new Intent(CommodityDetailsActivity.this, LoginActivity.class);
+                        startActivity(intent);
                     }
+
                     break;
                 case R.id.settle_accounts:
-                    intent = new Intent(CommodityDetailsActivity.this, ConfirmAnOrderActivity.class);
-                    intent.putExtra("createname",list.get(0).getCreate_name());
-                    intent.putExtra("image",bean.get(0));
-                    intent.putExtra("productname",list.get(0).getProduct_name());
-                    intent.putExtra("productprice",list.get(0).getProduct_price());
-                    startActivity(intent);
-
+                    if(islogin){
+                        intent = new Intent(CommodityDetailsActivity.this, ConfirmAnOrderActivity.class);
+                        intent.putExtra("createname",list.get(0).getCreate_name());
+                        intent.putExtra("image",bean.get(0));
+                        intent.putExtra("productname",list.get(0).getProduct_name());
+                        intent.putExtra("productprice",list.get(0).getProduct_price());
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(CommodityDetailsActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                    break;
+                case R.id.shopcar:
+                    if(islogin){
+                        intent = new Intent(CommodityDetailsActivity.this, MyShoppingCartActivity.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(CommodityDetailsActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                     break;
             }
         }
@@ -245,9 +303,13 @@ public class CommodityDetailsActivity extends Activity {
                     }
                     showBanner();
 
+                    numberAddSubView.setMaxValue(Integer.parseInt(list.get(0).getProduct_inventory()));
                     content.setText(list.get(0).getProduct_name());
                     money.setText(list.get(0).getProduct_price());
-                    number.setText(list.get(0).getProduct_inventory());
+                    money.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);//中划线
+                    nenberprice.setText("会员价:￥ "+list.get(0).getMember_price());
+                    number.setText("库存: "+list.get(0).getProduct_inventory()+" 件");
+                    webview.loadData(list.get(0).getProduct_desc(), "text/html; charset=UTF-8", null);
                 } else BaseApi.showErrMsg(CommodityDetailsActivity.this, result);
             }
         });

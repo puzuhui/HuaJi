@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blueDark"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/bluePrimary"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/back_left"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="办卡信息"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg01"
+            android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerview"
+                android:padding="10dp"
+                android:layout_margin="15dp"
+                android:background="@color/white"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="其他说明"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:background="@color/bluePrimary">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1.首月资费：首月执行过渡期资费,订购当月套餐月基本费按日计扣 ( 入网当日到月底 )费用向上取整，套餐内容（ 流量、语音 ）按天折算，向上取整。"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                android:background="@color/bluePrimary"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2.转换标准：1MB流量等于1分钟语音或等于1条短信。"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                android:background="@color/bluePrimary"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3.套餐超出资费：(1）国内流量：按0.0001元/KB收费，上网月套餐外流量消费600元封顶，封顶费用包含按套餐外资费收取的上网流量费，不含用户订购的定向、闲时等各种流量包功能费以及套外语音，短信折算的流量费。(2）国内通话：0.15/分钟。(3）国内短/彩信0.1元/条。(4）其他业务按照标准资费执行。"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                android:background="@color/bluePrimary"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4.预存话费：公司预存的话费将在号卡激活当月按套餐资费分摊返还，预存话费仅用于抵扣套餐费。"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                android:background="@color/bluePrimary"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

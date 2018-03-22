@@ -17,7 +17,14 @@ import android.widget.Toast;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.api.BaseApi;
+import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
+import com.mingxuan.huaji.layout.two.model.BannerModel;
+import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.NetImageLocadHolder;
 
 import java.util.ArrayList;
@@ -49,14 +56,11 @@ public class PhoneCardActivity extends Activity {
     @BindView(R.id.linear)
     LinearLayout linearLayout;
     private ConvenientBanner convenientBanner;
-    private String[] images = {"http://img2.3lian.com/2014/f2/37/d/39.jpg",
-            "http://www.8kmm.com/UploadFiles/2012/8/201208140920132659.jpg",
-            "http://f.hiphotos.baidu.com/image/h%3D200/sign=1478eb74d5a20cf45990f9df460b4b0c/d058ccbf6c81800a5422e5fdb43533fa838b4779.jpg",
-            "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg"};
     //轮播下面的小点
     private int[] indicator = {R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused};
     //网络图片加载地址的集合
     private List<String> bean;
+    private List<BannerModel.ResultBean> list;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,37 +69,12 @@ public class PhoneCardActivity extends Activity {
         ButterKnife.bind(this);
 
         initView();
+        getImage("2");
     }
 
     private void initView() {
         bean = new ArrayList<>();
-
-        convenientBanner = (ConvenientBanner) findViewById(R.id.converientBanner);
-        bean = Arrays.asList(images);
-        //设置指示器是否可见
-        convenientBanner.setPointViewVisible(true);
-        //设置小点
-        convenientBanner.setPageIndicator(indicator);
-        //允许手动轮播
-        convenientBanner.setManualPageable(true);
-        //设置自动轮播的时间
-        convenientBanner.startTurning(3000);
-        //设置点击事件    泛型为具体实现类ImageLoaderHolder
-        convenientBanner.setPages(new CBViewHolderCreator<NetImageLocadHolder>() {
-            @Override
-            public NetImageLocadHolder createHolder() {
-                return new NetImageLocadHolder();
-            }
-        }, bean);
-
-        //设置指示器的方向
-        convenientBanner.setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
-        convenientBanner.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Toast.makeText(PhoneCardActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        list = new ArrayList<>();
     }
 
     @OnClick({R.id.back_btn,R.id.phone_btn,R.id.telecom_phone_btn,R.id.link_phone_btn})
@@ -177,6 +156,53 @@ public class PhoneCardActivity extends Activity {
         lp.alpha = 0.5f;
         getWindow().setAttributes(lp);
         popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
+    }
+
+    private void getImage(final String type){
+        MainApi.getInstance(this).hotproductApi(type, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int types) {
+                if(types == Constants.TYPE_SUCCESS){
+                    List<BannerModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),
+                            result,BannerModel.ResultBean.class);
+                    list.clear();
+                    list.addAll(resultBeans);
+
+                    for (int i=0;i<resultBeans.size();i++){
+                        bean.add(Constants.IMAGE_URL+list.get(i).getPic());
+                        showBanner();
+                    }
+                }else BaseApi.showErrMsg(PhoneCardActivity.this,result);
+            }
+        });
+    }
+
+    private void showBanner(){
+        convenientBanner = (ConvenientBanner) findViewById(R.id.converientBanner);
+        //设置指示器是否可见
+        convenientBanner.setPointViewVisible(true);
+        //设置小点
+        convenientBanner.setPageIndicator(indicator);
+        //允许手动轮播
+        convenientBanner.setManualPageable(true);
+        //设置自动轮播的时间
+        convenientBanner.startTurning(3000);
+        //设置点击事件    泛型为具体实现类ImageLoaderHolder
+        convenientBanner.setPages(new CBViewHolderCreator<NetImageLocadHolder>() {
+            @Override
+            public NetImageLocadHolder createHolder() {
+                return new NetImageLocadHolder();
+            }
+        }, bean);
+
+        //设置指示器的方向
+        convenientBanner.setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+        convenientBanner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(PhoneCardActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

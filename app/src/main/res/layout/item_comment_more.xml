@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:orientation="vertical"
-        android:background="@mipmap/test"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:visibility="gone">

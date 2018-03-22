@@ -117,7 +117,7 @@ public class MyOrderActivity extends Activity {
                         intent.putExtra("index",1);
                         intent.putExtra("id", list5.get(i).getId());
                         intent.putExtra("pid", list5.get(i).getProducts_id());
-                        intent.putExtra("imageurl", "http://125.65.82.219:8080"+imageurl[0]);
+                        intent.putExtra("imageurl", Constants.IMAGE_URL+imageurl[0]);
                         intent.putExtra("content", list5.get(i).getProducts_name());
                         startActivity(intent);
                         break;
@@ -126,7 +126,7 @@ public class MyOrderActivity extends Activity {
                         intent.putExtra("index",2);
                         intent.putExtra("id", list5.get(i).getId());
                         intent.putExtra("pid", list5.get(i).getProducts_id());
-                        intent.putExtra("imageurl", "http://125.65.82.219:8080"+imageurl[0]);
+                        intent.putExtra("imageurl", Constants.IMAGE_URL+imageurl[0]);
                         intent.putExtra("content", list5.get(i).getProducts_name());
                         startActivity(intent);
                         break;
@@ -291,8 +291,8 @@ public class MyOrderActivity extends Activity {
         FourApi.getInstance(this).getproducts_ordersApi(create_id, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
+                loadingDialog.dismiss();
                 if (type == Constants.TYPE_SUCCESS) {
-                    loadingDialog.dismiss();
                     List<MyOrderModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(), result, MyOrderModel.ResultBean.class);
                     list.clear();
                     list1.clear();
@@ -316,9 +316,7 @@ public class MyOrderActivity extends Activity {
                     }
                     list.addAll(resultBeans);
                     setListData();
-                } else
-                    loadingDialog.dismiss();
-                    BaseApi.showErrMsg(MyOrderActivity.this, result);
+                } else BaseApi.showErrMsg(MyOrderActivity.this, result);
             }
         });
     }

@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mingxuan.huaji">
-    <!-- 读写SD卡权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!-- Required -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="com.mingxuan.huaji.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +36,9 @@
             android:name=".layout.HomePageViewPagerActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +48,7 @@
         <activity android:name=".layout.LoginActivity" android:launchMode="singleTask"
             android:screenOrientation="portrait"/><!--登录页面-->
         <activity android:name=".layout.RegisitActivity" android:launchMode="singleTask"
-            android:screenOrientation="portrait"/><!--注册页面-->
+            android:screenOrientation="portrait" /><!--注册页面-->
         <activity android:name=".layout.four.activity.MyFriendActivity"
             android:screenOrientation="portrait"/><!--我的伙伴-->
         <activity android:name=".layout.two.activity.ListOfGoodsActivity"
@@ -66,13 +81,26 @@
             android:screenOrientation="portrait"/><!--确认订单-->
         <activity android:name=".layout.two.activity.CommentActivity"
             android:screenOrientation="portrait"/><!--评论-->
-        <activity android:name=".layout.two.activity.PhoneCardActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".layout.two.activity.ChoosePhoneCardActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".layout.two.activity.ChoosePhoneNumberActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".layout.four.activity.PasswordManageActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".layout.four.activity.InsertPasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".layout.ForgetThePasswordActivity"/>
-        <activity android:name=".layout.OldUserActivity"/>
+        <activity android:name=".layout.two.activity.PhoneCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".layout.two.activity.ChoosePhoneCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".layout.two.activity.ChoosePhoneNumberActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".layout.four.activity.PasswordManageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".layout.four.activity.InsertPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".layout.ForgetThePasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".layout.OldUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".layout.four.activity.BindMobileActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
+        <activity android:name=".layout.four.activity.MoblieActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".layout.two.activity.CardInformationActivity" android:screenOrientation="portrait"/>
 
         <!--支付宝-->
         <activity
@@ -101,6 +129,9 @@
                 <data android:scheme="wxa08821893494a1a5"/>
             </intent-filter>
         </activity>
+
+
+
 
     </application>
 

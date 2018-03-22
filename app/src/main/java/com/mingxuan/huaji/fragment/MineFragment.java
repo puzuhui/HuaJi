@@ -18,8 +18,13 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.api.BaseApi;
+import com.mingxuan.huaji.api.FourApi;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.LoginActivity;
+import com.mingxuan.huaji.layout.four.activity.BindMobileActivity;
 import com.mingxuan.huaji.layout.four.activity.PasswordManageActivity;
 import com.mingxuan.huaji.layout.four.activity.MyAdressActivity;
 import com.mingxuan.huaji.layout.four.activity.MyBankCardActivity;
@@ -29,9 +34,16 @@ import com.mingxuan.huaji.layout.four.activity.MyIntergralActivity;
 import com.mingxuan.huaji.layout.four.activity.MyOrderActivity;
 import com.mingxuan.huaji.layout.four.activity.MyQrcodeActivity;
 import com.mingxuan.huaji.layout.four.activity.MyShoppingCartActivity;
+import com.mingxuan.huaji.layout.four.model.InformationModel;
 import com.mingxuan.huaji.layout.two.activity.ChoosePhoneCardActivity;
 import com.mingxuan.huaji.utils.CircleImageView;
+import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.ToastUtil;
+
+import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +66,6 @@ public class MineFragment extends Fragment {
     LinearLayout myOrder;
     @BindView(R.id.my_address)
     LinearLayout myAddress;
-//    @BindView(R.id.balance)
-//    LinearLayout balance;
     @BindView(R.id.bank_card)
     LinearLayout bankCard;
     @BindView(R.id.my_information)
@@ -78,6 +88,7 @@ public class MineFragment extends Fragment {
     LinearLayout insertpassword;
     @BindView(R.id.view_filpper)
     ViewFlipper viewFlipper;
+    List<InformationModel.ResultBean> list;
 
     Unbinder unbinder;
     private View view;
@@ -90,17 +101,20 @@ public class MineFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         sharedPreferences = getActivity().getSharedPreferences("huaji",Context.MODE_PRIVATE);
+//        id = sharedPreferences.getString("create_id","");
+//        getInformation();
         initView();
+
 
         return view;
     }
 
     private void initView() {
-        //SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        list = new ArrayList<>();
         islogin = sharedPreferences.getBoolean("islogin", false);
-        if (islogin) {
+        if (islogin){
             phone.setText(sharedPreferences.getString("phone", ""));
-            name.setText(sharedPreferences.getString("realname", ""));
+            name.setText(sharedPreferences.getString("realName", ""));
             loginBack.setVisibility(View.VISIBLE);
 
             loginBack.setOnClickListener(onClickListener);
@@ -128,6 +142,7 @@ public class MineFragment extends Fragment {
         qrcode.setOnClickListener(onClickListener);
         phoneCard.setOnClickListener(onClickListener);
         insertpassword.setOnClickListener(onClickListener);
+        bindingMobile.setOnClickListener(onClickListener);
     }
 
 
@@ -191,14 +206,14 @@ public class MineFragment extends Fragment {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
                     break;
-//                case R.id.balance:
-//                    if (islogin) {
-//                        intent = new Intent(getActivity(), BalanceActivity.class);
-//                        startActivity(intent);
-//                    } else {
-//                        ToastUtil.makeToast(getContext(), "你还没有登录");
-//                    }
-//                    break;
+                case R.id.binding_mobile:
+                    if (islogin) {
+                        intent = new Intent(getActivity(), BindMobileActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
+                    break;
                 case R.id.bank_card:
                     if (islogin) {
                         intent = new Intent(getActivity(), MyBankCardActivity.class);
@@ -298,6 +313,24 @@ public class MineFragment extends Fragment {
         getActivity().getWindow().setAttributes(lp);
         popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
     }
+
+//    String id,phonenumber;
+//    private void getInformation(){
+//        FourApi.getInstance(getActivity()).myInformationApi(id, new GetResultCallBack() {
+//            @Override
+//            public void getResult(String result, int type) {
+//                if(type == Constants.TYPE_SUCCESS){
+//                    List<InformationModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,InformationModel.ResultBean.class);
+//                    list.addAll(resultBeans);
+//
+//                    phonenumber = list.get(0).getPhone();
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("phone",phonenumber);
+//                    editor.apply();
+//                }else BaseApi.showErrMsg(getActivity(),result);
+//            }
+//        });
+//    }
 
     @Override
     public void onDestroyView() {

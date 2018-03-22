@@ -64,6 +64,15 @@ public class ShopListModel {
         private String product_price;
         private String product_inventory;
         private String create_name;
+        private String member_price;
+
+        public String getMember_price() {
+            return member_price;
+        }
+
+        public void setMember_price(String member_price) {
+            this.member_price = member_price;
+        }
 
         public String getCreate_name() {
             return create_name;

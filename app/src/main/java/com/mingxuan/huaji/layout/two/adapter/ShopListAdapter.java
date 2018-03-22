@@ -60,9 +60,12 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
             holder.default_footer_title.setText("没有更多商品了...");
         }else {
             ShopListModel.ResultBean shopListModel = list.get(position);
-            String[] imageurl = list.get(position).getProduct_intr().split(",");
-            Glide.with(context).load(Constants.IMAGE_URL + imageurl[0]).placeholder(R.mipmap.ic_launcher)
-                    .centerCrop().into(holder.shop_image);
+            if(list.get(position).getProduct_intr()!=null){
+                String[] imageurl = list.get(position).getProduct_intr().split(",");
+                Glide.with(context).load(Constants.IMAGE_URL + imageurl[0]).placeholder(R.mipmap.ic_launcher)
+                        .centerCrop().into(holder.shop_image);
+            }
+
             holder.shop_name.setText(shopListModel.getProduct_name());
             holder.money.setText(shopListModel.getProduct_price());
 //        holder.sales_volume.setText(shopListModel.getSales_volume());

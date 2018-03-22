@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,7 +52,6 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
     }
 
 
@@ -101,17 +101,20 @@ public class LoginActivity extends Activity {
                     create_name = loginlist.get(0).getName();
                     realName = loginlist.get(0).getRealName();
                     idCard = loginlist.get(0).getIdCard();
+                    phone = loginlist.get(0).getPhone();
                     islogin = true;
                     saveSharedPreferences();
+                    submit.setText(R.string.login);
                 }else {
                     ToastUtil.makeToast(LoginActivity.this,"输入用户名或者密码错误");
+                    submit.setText(R.string.login);
                 }
             }
         });
     }
 
     String create_id;
-    String create_name,realName,idCard;
+    String create_name,realName,idCard,phone;
     boolean islogin = false;
     private void saveSharedPreferences(){
         SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
@@ -120,7 +123,8 @@ public class LoginActivity extends Activity {
         editor.putString("create_name",create_name);
         editor.putString("realName",realName);
         editor.putString("idCard",idCard);
+        editor.putString("phone",phone);
         editor.putBoolean("islogin",islogin);
-        editor.apply();//提交
+        editor.apply();
     }
 }

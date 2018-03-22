@@ -46,6 +46,17 @@ public class FourApi extends BaseApi {
     }
 
     /**
+     * 我的积分
+     * @param login_id
+     * @param callBack
+     */
+    public void myintegralApi(String login_id,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("login_id", login_id);
+        getLoad(BaseUrl.myintegral, map, callBack);
+    }
+
+    /**
      * 我的订单
      * @param create_id
      * @param callBack
@@ -326,6 +337,24 @@ public class FourApi extends BaseApi {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         postLoad(BaseUrl.myinformation, map, callBack);
+    }
+
+
+    /**
+     * 绑定手机
+     * @param id
+     * @param phone
+     * @param update_date
+     * @param callBack
+     */
+    public void bindphoneApi(String id,String phone,String update_date,String getcode,String type,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("phone", phone);
+        map.put("type", type);
+        map.put("update_date", update_date);
+        map.put("getcode", getcode);
+        postLoad(BaseUrl.bindphone, map, callBack);
     }
 
 
