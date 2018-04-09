@@ -22,8 +22,8 @@
 
                 <com.mingxuan.huaji.utils.CircleImageView
                     android:id="@+id/circle"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:src="@mipmap/i001" />

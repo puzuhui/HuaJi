@@ -63,8 +63,8 @@
             android:screenOrientation="portrait"/><!--编辑收货地址-->
         <activity android:name=".layout.four.activity.MyIntergralActivity"
             android:screenOrientation="portrait"/><!--我的积分-->
-        <activity android:name=".layout.four.activity.BalanceActivity"
-            android:screenOrientation="portrait"/><!--余额-->
+        <activity android:name=".layout.four.activity.MyPhoneCardActivity"
+            android:screenOrientation="portrait"/><!--我的电话卡-->
         <activity android:name=".layout.four.activity.MyBankCardActivity"
             android:screenOrientation="portrait"/><!--我的银行卡-->
         <activity android:name=".layout.four.activity.MyQrcodeActivity"
@@ -82,25 +82,35 @@
         <activity android:name=".layout.two.activity.CommentActivity"
             android:screenOrientation="portrait"/><!--评论-->
         <activity android:name=".layout.two.activity.PhoneCardActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/><!--电话卡-->
         <activity android:name=".layout.two.activity.ChoosePhoneCardActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/><!--选择电话卡-->
         <activity android:name=".layout.two.activity.ChoosePhoneNumberActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"/><!--选择电话号码-->
         <activity android:name=".layout.four.activity.PasswordManageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/><!--密码管理-->
         <activity android:name=".layout.four.activity.InsertPasswordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/><!--修改密码-->
         <activity android:name=".layout.ForgetThePasswordActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/><!--找回密码-->
         <activity android:name=".layout.OldUserActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/><!--老用户完善资料-->
         <activity android:name=".layout.four.activity.BindMobileActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
-        <activity android:name=".layout.four.activity.MoblieActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".layout.two.activity.CardInformationActivity" android:screenOrientation="portrait"/>
+            android:launchMode="singleTop"/><!--绑定手机号-->
+        <activity android:name=".layout.four.activity.MoblieActivity"
+            android:screenOrientation="portrait"/><!--手机号-->
+        <activity android:name=".layout.two.activity.CardInformationActivity"
+            android:screenOrientation="portrait"/><!--办卡信息-->
+        <activity android:name=".layout.four.activity.ServiceUserActivity"
+            android:screenOrientation="portrait"/><!--服务用户-->
+        <activity android:name=".layout.four.activity.QueryStatisticsActivity"
+            android:screenOrientation="portrait"/><!--查询统计-->
+        <activity android:name=".layout.four.activity.IncomeStatisticsActivity"
+            android:screenOrientation="portrait"/><!--收益统计-->
+        <activity android:name=".layout.four.activity.ServiceChannelActivity"
+            android:screenOrientation="portrait"/><!--服务渠道-->
 
         <!--支付宝-->
         <activity
@@ -129,9 +139,6 @@
                 <data android:scheme="wxa08821893494a1a5"/>
             </intent-filter>
         </activity>
-
-
-
 
     </application>
 

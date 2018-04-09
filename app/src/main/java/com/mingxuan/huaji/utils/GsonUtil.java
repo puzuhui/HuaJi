@@ -27,8 +27,14 @@ public class GsonUtil {
         return gson.fromJson(new JsonParser().parse(json).getAsJsonObject().toString(), cls);
     }
 
-    public static <T> T fromJSONDataResult(Gson gson, String json, Class<T> cls) {
-        return gson.fromJson(new JsonParser().parse(json).getAsJsonObject().getAsJsonObject("result").toString(), cls);
+    public static <T> ArrayList<T> fromJSONResult(Gson gson, String json, Class<T> cls,String name) {
+        ArrayList<T> mList = new ArrayList<>();
+        JsonObject object = new JsonParser().parse(json).getAsJsonObject();
+        JsonArray array = object.getAsJsonArray(name);
+        for (final JsonElement elem : array) {
+            mList.add(gson.fromJson(elem, cls));
+        }
+        return mList;
     }
 
 }

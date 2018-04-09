@@ -1,5 +1,6 @@
 package com.mingxuan.huaji.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -25,6 +28,7 @@ import com.mingxuan.huaji.api.FourApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.layout.four.activity.BindMobileActivity;
+import com.mingxuan.huaji.layout.four.activity.MyPhoneCardActivity;
 import com.mingxuan.huaji.layout.four.activity.PasswordManageActivity;
 import com.mingxuan.huaji.layout.four.activity.MyAdressActivity;
 import com.mingxuan.huaji.layout.four.activity.MyBankCardActivity;
@@ -101,8 +105,6 @@ public class MineFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         sharedPreferences = getActivity().getSharedPreferences("huaji",Context.MODE_PRIVATE);
-//        id = sharedPreferences.getString("create_id","");
-//        getInformation();
         initView();
 
 
@@ -137,7 +139,6 @@ public class MineFragment extends Fragment {
         myAddress.setOnClickListener(onClickListener);
         bankCard.setOnClickListener(onClickListener);
         myInformation.setOnClickListener(onClickListener);
-        //balance.setOnClickListener(onClickListener);
         myIntegral.setOnClickListener(onClickListener);
         qrcode.setOnClickListener(onClickListener);
         phoneCard.setOnClickListener(onClickListener);
@@ -159,7 +160,6 @@ public class MineFragment extends Fragment {
                     break;
                 case R.id.my_friends:
                     if (islogin) {
-                        Log.e("====", "登录" + islogin);
                         intent = new Intent(getActivity(), MyFriendActivity.class);
                         startActivity(intent);
                     } else {
@@ -223,13 +223,13 @@ public class MineFragment extends Fragment {
                     }
                     break;
                 case R.id.phone_card:
-                    showPopupWindow();
-//                    if (islogin) {
-//                        intent = new Intent(getActivity(), MyBankCardActivity.class);
+                    if (islogin) {
+//                        intent = new Intent(getActivity(), MyPhoneCardActivity.class);
 //                        startActivity(intent);
-//                    } else {
-//                        ToastUtil.makeToast(getContext(), "你还没有登录");
-//                    }
+                        showPopupWindow();
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
+                    }
                     break;
                 case R.id.my_information:
                     if (islogin) {
@@ -238,6 +238,7 @@ public class MineFragment extends Fragment {
                     } else {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
+
                     break;
                 case R.id.insertpassword:
                     if (islogin) {
@@ -263,14 +264,27 @@ public class MineFragment extends Fragment {
     TextView content;
     TextView confirmBtn;
     TextView cancelBtn;
+    LinearLayout ll_mima;
+    ScrollView sv_content;
+    EditText et_mima;
+    int index = 0;
     private void showPopupWindow(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_phone_window,null);
         title = (TextView) view.findViewById(R.id.title);
         content = (TextView) view.findViewById(R.id.content);
         confirmBtn = (TextView) view.findViewById(R.id.confirm_btn);
         cancelBtn = (TextView) view.findViewById(R.id.cancel_btn);
+        ll_mima = (LinearLayout) view.findViewById(R.id.ll_mima);
+        sv_content = (ScrollView) view.findViewById(R.id.sv_content);
+        et_mima = (EditText) view.findViewById(R.id.et_mima);
+
 
         title.setText(R.string.hint_title);
+        if(index == 0){
+            ll_mima.setVisibility(View.VISIBLE);
+        }else {
+            sv_content.setVisibility(View.VISIBLE);
+        }
         content.setText(R.string.phone_hint);
 
         //获取屏幕宽高
@@ -282,7 +296,13 @@ public class MineFragment extends Fragment {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),ChoosePhoneCardActivity.class);
+                Intent intent;
+                if(index == 0){
+                    intent = new Intent(getActivity(),MyPhoneCardActivity.class);
+                }else {
+                    intent = new Intent(getActivity(),ChoosePhoneCardActivity.class);
+                }
+
                 startActivity(intent);
                 popupWindow.dismiss();
             }
@@ -314,23 +334,6 @@ public class MineFragment extends Fragment {
         popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
     }
 
-//    String id,phonenumber;
-//    private void getInformation(){
-//        FourApi.getInstance(getActivity()).myInformationApi(id, new GetResultCallBack() {
-//            @Override
-//            public void getResult(String result, int type) {
-//                if(type == Constants.TYPE_SUCCESS){
-//                    List<InformationModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,InformationModel.ResultBean.class);
-//                    list.addAll(resultBeans);
-//
-//                    phonenumber = list.get(0).getPhone();
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putString("phone",phonenumber);
-//                    editor.apply();
-//                }else BaseApi.showErrMsg(getActivity(),result);
-//            }
-//        });
-//    }
 
     @Override
     public void onDestroyView() {

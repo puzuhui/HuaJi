@@ -176,7 +176,6 @@ public class MyShoppingCartActivity extends Activity {
                     subject = "支付宝测试";
                     total_amount = "0.01";
                     getaliPayRequests(v);
-                    ToastUtil.makeToast(MyShoppingCartActivity.this,"支付宝支付");
                 }
 
                 popupWindow.dismiss();
@@ -295,10 +294,7 @@ public class MyShoppingCartActivity extends Activity {
                     req.nonceStr = resultBeans.getNoncestr();
                     req.timeStamp = resultBeans.getTimestamp();
                     req.sign = resultBeans.getSign();
-                    //3.调用微信支付sdk支付方法\
-                    Log.e("===","appId="+req.appId+"\npartnerId="+req.partnerId+"\nprepayId="+req.prepayId+"\nnonceStr="+req.nonceStr
-                            +"\ntimeStamp="+req.timeStamp+"\npackageValue="+req.packageValue+"\nsign="+req.sign);
-                    ToastUtil.makeToast(MyShoppingCartActivity.this,"吊起支付");
+                    //3.调用微信支付sdk支付方法
                     api.sendReq(req);
                 }
             }

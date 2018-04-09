@@ -17,10 +17,13 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"/>
+
     <ScrollView
+        android:id="@+id/sv_content"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:visibility="gone">
         <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
@@ -29,6 +32,36 @@
             android:textSize="14sp"
             android:padding="10dp" />
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_mima"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二级密码："
+            android:textSize="14sp"
+            android:padding="10dp" />
+        <EditText
+            android:id="@+id/et_mima"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="请输入密码"
+            android:textColorHint="@color/transparent80"
+            android:background="@drawable/size_black"
+            android:textSize="14sp"
+            android:padding="5dp"
+
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -92,13 +92,11 @@ public class BindMobileActivity extends Activity {
             case R.id.linear:
                 intent = new Intent(BindMobileActivity.this,MoblieActivity.class);
                 intent.putExtra("phone",phonenumber);
-                Log.e("发送的信息======", " "+phonenumber );
                 startActivity(intent);
                 break;
             case R.id.binding:
                 intent = new Intent(BindMobileActivity.this,MoblieActivity.class);
                 intent.putExtra("phone",phonenumber);
-                Log.e("发送的信息======", " "+phonenumber );
                 startActivity(intent);
                 break;
         }

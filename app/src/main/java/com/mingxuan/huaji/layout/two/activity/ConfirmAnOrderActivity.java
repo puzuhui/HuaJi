@@ -36,6 +36,7 @@ import com.mingxuan.huaji.layout.two.model.AliPayModel;
 import com.mingxuan.huaji.layout.two.model.PayModel;
 import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.PayUtils;
 import com.mingxuan.huaji.utils.UIUtils;
 import com.mingxuan.huaji.utils.alpay.PayResult;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -283,8 +284,8 @@ public class ConfirmAnOrderActivity extends Activity {
                     req.packageValue = "Sign=WXPay";
                     req.sign = resultBeans.getSign();
                     //3.调用微信支付sdk支付方法\
-                    Log.e("===","appId="+req.appId+"\npartnerId="+req.partnerId+"\nprepayId="+req.prepayId+"\nnonceStr="+req.nonceStr
-                            +"\ntimeStamp="+req.timeStamp+"\npackageValue="+req.packageValue+"\nsign="+req.sign);
+//                    Log.e("===","appId="+req.appId+"\npartnerId="+req.partnerId+"\nprepayId="+req.prepayId+"\nnonceStr="+req.nonceStr
+//                            +"\ntimeStamp="+req.timeStamp+"\npackageValue="+req.packageValue+"\nsign="+req.sign);
                     api.sendReq(req);
                 }
             }

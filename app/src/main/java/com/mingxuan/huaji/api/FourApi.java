@@ -377,6 +377,74 @@ public class FourApi extends BaseApi {
         postLoad(BaseUrl.virifyPassword, map, callBack);
     }
 
+    /**
+     * 查找服务号
+     * @param pid
+     * @param callBack
+     */
+    public void findServiceNumb(String pid,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("p_id", pid);
+        getLoad(BaseUrl.findServiceNumb, map, callBack);
+    }
+
+    /**
+     * 查询统计
+     * @param user_phone
+     * @param callBack
+     */
+    public void queryStatistics(String user_phone,String childphone,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("user_phone", user_phone);
+        map.put("childphone", childphone);
+        getLoad(BaseUrl.queryStatistics, map, callBack);
+    }
+
+    /**
+     * //查询统计(统计更新)
+     * @param user_phone
+     * @param for_date
+     * @param callBack
+     */
+    public void upDateQueryStatistics(String user_phone,String for_date,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("user_phone", user_phone);
+        map.put("for_date", for_date);
+        getLoad(BaseUrl.upDateQueryStatistics, map, callBack);
+    }
+
+    /**
+     * 收益统计
+     * @param user_phone
+     * @param for_date
+     * @param callBack
+     */
+    public void incomeStatisticsApi(String user_phone,String for_date,String qdyj_level,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("user_phone", user_phone);
+        map.put("for_date", for_date);
+        map.put("qdyj_level", qdyj_level);
+        getLoad(BaseUrl.incomeStatistics, map, callBack);
+    }
+
+
+    /**
+     * 服务查询
+     * @param user_phone
+     * @param for_date
+     * @param p_id
+     * @param callBack
+     */
+    public void serviceChannelApi(String user_phone,String for_date,String p_id,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        if(!TextUtils.isEmpty(user_phone)){
+            map.put("user_phone", user_phone);
+        }
+        map.put("for_date", for_date);
+        map.put("p_id", p_id);
+        getLoad(BaseUrl.serviceChannel, map, callBack);
+    }
+
     //https://apimg.alipay.com/combo.png?d=cashier&t=CCB 查询银行logo
     //支付宝 https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=银行卡卡号&cardBinCheck=true
     //       DC:借记卡，CC:信用卡 ,SCC: "准贷记卡",PC: "预付费卡"

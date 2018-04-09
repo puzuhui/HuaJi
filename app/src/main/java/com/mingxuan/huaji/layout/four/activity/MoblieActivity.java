@@ -81,7 +81,6 @@ public class MoblieActivity extends Activity {
 
         Bundle bundle =getIntent().getExtras();
         phonenumber = bundle.getString("phone","");
-        Log.e("收到的信息======", " "+phonenumber );
         if (!TextUtils.isEmpty(phonenumber)) {
             bindingLinear.setVisibility(View.VISIBLE);
             unbindingLinear.setVisibility(View.GONE);
@@ -141,6 +140,7 @@ public class MoblieActivity extends Activity {
                 break;
         }
     }
+
 
     //倒计时
     CountDownTimer countDownTimer = new CountDownTimer(60 * 1000, 1000) {
