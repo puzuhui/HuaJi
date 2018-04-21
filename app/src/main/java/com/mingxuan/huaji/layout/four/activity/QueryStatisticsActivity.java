@@ -85,13 +85,13 @@ public class QueryStatisticsActivity extends Activity {
     }
 
     private void initView() {
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyyMM");
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH,-2);
         for_date =simpleDateFormat1.format(calendar.getTime());
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         user_phone = sharedPreferences.getString("phone","");
         loadingDialog = new LoadingDialog(this);
         list = new ArrayList<>();

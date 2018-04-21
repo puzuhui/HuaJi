@@ -47,7 +47,7 @@ public class MyBankCardActivity extends Activity {
         setContentView(R.layout.activity_bank_card);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences =getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences =getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         createi_id = sharedPreferences.getString("create_id","");
         setListener();
         initView();

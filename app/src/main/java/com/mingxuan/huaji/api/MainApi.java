@@ -64,12 +64,12 @@ public class MainApi extends BaseApi {
      * @param getcode
      * @param callBack
      */
-    public void register(String pid,String idcard,String name,String mobile,String password,String getcode,GetResultCallBack callBack){
+    public void register(String pid,String idcard,String name,String phone,String password,String getcode,GetResultCallBack callBack){
         Map<String, String> map = new HashMap<>();
         map.put("pid", pid);
         map.put("idcard", idcard);
         map.put("name", name);
-        map.put("mobile", mobile);
+        map.put("phone", phone);
         map.put("password", password);
         map.put("getcode", getcode);
         postLoad(BaseUrl.register, map, callBack);
@@ -285,5 +285,78 @@ public class MainApi extends BaseApi {
         map.put("out_trade_no",out_trade_no);
         map.put("total_amount",total_amount);
         getLoad(BaseUrl.alipay, map, callBack);
+    }
+
+    /**
+     * 手机套餐信息
+     * @param cardId
+     * @param callBack
+     */
+    public void phoneCardInfoApi(int cardId,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("cardId", ""+cardId);
+        getLoad(BaseUrl.phoneCardInfo, map, callBack);
+    }
+
+    /**
+     * 查找未支付订单
+     * @param createId
+     * @param callBack
+     */
+    public void findPhoneCardOrderApi(String createId,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("createId", createId);
+        getLoad(BaseUrl.findPhoneCardOrder, map, callBack);
+    }
+
+    /**
+     * 16个随机号码
+     * @param cardId
+     * @param number
+     * @param callBack
+     */
+    public void choosephoneNumbApi(int cardId,String number,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("cardId", ""+cardId);
+        if(!TextUtils.isEmpty(number)){
+            map.put("number", ""+number);
+        }
+        getLoad(BaseUrl.choosephoneNumb, map, callBack);
+    }
+
+    /**
+     * 更新号码状态
+     * @param oldNumber
+     * @param i
+     * @param callBack
+     */
+    public void updateNumberStateApi(String oldNumber, int i,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("oldNumber", oldNumber);
+        map.put("i", ""+i);
+        getLoad(BaseUrl.updateNumberState, map, callBack);
+    }
+
+    //保存电话卡订单
+    public void savePhoneCardOrderApi(double price, int cardId,int infoId, String info,String idCard,
+                                      String realName,String netArea,String state,String number,
+                                      String orderInfo,String createId,String createName,String parentCardId,
+                                      String createTime,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("price", ""+price);
+        map.put("cardId", ""+cardId);
+        map.put("infoId", ""+infoId);
+        map.put("info", ""+info);
+        map.put("idCard", ""+idCard);
+        map.put("realName", ""+realName);
+        map.put("netArea", ""+netArea);
+        map.put("state", ""+state);
+        map.put("orderInfo", ""+orderInfo);
+        map.put("number", ""+number);
+        map.put("createId", ""+createId);
+        map.put("createName", ""+createName);
+        map.put("parentCardId", ""+parentCardId);
+        map.put("createTime", ""+createTime);
+        postLoad(BaseUrl.savePhoneCardOrder, map, callBack);
     }
 }

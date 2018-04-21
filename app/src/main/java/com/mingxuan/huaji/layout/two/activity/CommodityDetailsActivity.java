@@ -111,7 +111,7 @@ public class CommodityDetailsActivity extends Activity {
         setContentView(R.layout.activity_commodity_details);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         create_id = sharedPreferences.getString("create_id","");
         create_name = sharedPreferences.getString("create_name","");
         update_id = sharedPreferences.getString("create_id","");
@@ -249,7 +249,6 @@ public class CommodityDetailsActivity extends Activity {
                         intent = new Intent(CommodityDetailsActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
-
                     break;
                 case R.id.settle_accounts:
                     if(islogin){

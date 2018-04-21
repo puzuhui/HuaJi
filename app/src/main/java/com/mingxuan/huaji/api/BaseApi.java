@@ -73,7 +73,7 @@ public class BaseApi {
         OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
-                ToastUtil.makeToast(mContext, "暂时没有数据...");
+                //ToastUtil.makeToast(mContext, "暂时没有数据...");
                 mCallBack.getResult(request.toString(), Constants.TYPE_FAIL);
             }
 
@@ -96,7 +96,7 @@ public class BaseApi {
     public static void showErrMsg(Context context, String result) {
         try {
             JSONObject jsonObject = new JSONObject(result);
-            String msg = (String) jsonObject.get("msg");
+            String msg = (String) jsonObject.get("message");
             ToastUtil.makeToast(context, msg);
         } catch (Exception ex) {
             ex.printStackTrace();

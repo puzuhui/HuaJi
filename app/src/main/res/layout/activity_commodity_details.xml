@@ -243,7 +243,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/shopcar"
@@ -279,7 +280,8 @@
             android:background="@color/redDark"
             android:gravity="center"
             android:layout_gravity="center"
-            android:padding="10dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             android:text="@string/settle_accounts"
             android:textColor="@color/white"
             android:textSize="16sp" />

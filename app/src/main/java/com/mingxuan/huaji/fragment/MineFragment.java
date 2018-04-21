@@ -1,6 +1,5 @@
 package com.mingxuan.huaji.fragment;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,11 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.api.BaseApi;
-import com.mingxuan.huaji.api.FourApi;
-import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.layout.four.activity.BindMobileActivity;
 import com.mingxuan.huaji.layout.four.activity.MyPhoneCardActivity;
@@ -42,16 +37,15 @@ import com.mingxuan.huaji.layout.four.model.InformationModel;
 import com.mingxuan.huaji.layout.two.activity.ChoosePhoneCardActivity;
 import com.mingxuan.huaji.utils.CircleImageView;
 import com.mingxuan.huaji.utils.Constants;
-import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.ToastUtil;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Administrator on 2017/10/9 0009.
@@ -104,9 +98,8 @@ public class MineFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_mine, null);
         unbinder = ButterKnife.bind(this, view);
 
-        sharedPreferences = getActivity().getSharedPreferences("huaji",Context.MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
         initView();
-
 
         return view;
     }
@@ -116,7 +109,7 @@ public class MineFragment extends Fragment {
         islogin = sharedPreferences.getBoolean("islogin", false);
         if (islogin){
             phone.setText(sharedPreferences.getString("phone", ""));
-            name.setText(sharedPreferences.getString("realName", ""));
+            name.setText(sharedPreferences.getString("create_name", ""));
             loginBack.setVisibility(View.VISIBLE);
 
             loginBack.setOnClickListener(onClickListener);
@@ -147,7 +140,6 @@ public class MineFragment extends Fragment {
     }
 
 
-    SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences = null;
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -249,11 +241,13 @@ public class MineFragment extends Fragment {
                     }
                     break;
                 case R.id.login_back:
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("islogin",false);
+                    SharedPreferences shared = getActivity().getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.clear();
                     editor.apply();
                     intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
+                    JPushInterface.deleteAlias(getActivity(), 0);//极光删除别名
                     getActivity().finish();
                     break;
             }

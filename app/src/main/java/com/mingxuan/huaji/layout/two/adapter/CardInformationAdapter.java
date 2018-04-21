@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.layout.two.model.CardInfoModel;
 import com.mingxuan.huaji.layout.two.model.CardInfor;
 
 import java.util.List;
@@ -20,10 +21,10 @@ import java.util.List;
 
 public class CardInformationAdapter extends RecyclerView.Adapter<CardInformationAdapter.ViewHolder> {
     Context context;
-    List<CardInfor> list;
+    List<CardInfoModel.ResultBean> list;
     LayoutInflater layoutInflater;
     MyOnClickListener myOnClickListener;
-    public CardInformationAdapter(Context context,List<CardInfor> list){
+    public CardInformationAdapter(Context context,List<CardInfoModel.ResultBean> list){
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
@@ -45,7 +46,7 @@ public class CardInformationAdapter extends RecyclerView.Adapter<CardInformation
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
-        holder.content.setText(list.get(position).getContent());
+//        holder.content.setText(list.get(position).getContent());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

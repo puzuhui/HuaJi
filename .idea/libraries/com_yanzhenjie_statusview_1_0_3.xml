@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.yanzhenjie:statusview-1.0.3">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/statusview-1.0.3.aar/1fd2bbaab4657b3f08fd140606ded3ed/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/statusview-1.0.3.aar/1fd2bbaab4657b3f08fd140606ded3ed/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/statusview-1.0.3.aar/e7f13c3016fead5bed154d69aba43c3a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/statusview-1.0.3.aar/e7f13c3016fead5bed154d69aba43c3a/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

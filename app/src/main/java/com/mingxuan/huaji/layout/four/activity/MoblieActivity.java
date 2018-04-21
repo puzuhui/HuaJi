@@ -76,7 +76,7 @@ public class MoblieActivity extends Activity {
     String phonenumber;
     SharedPreferences sharedPreferences;
     private void initView() {
-        sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("create_id", "");
 
         Bundle bundle =getIntent().getExtras();

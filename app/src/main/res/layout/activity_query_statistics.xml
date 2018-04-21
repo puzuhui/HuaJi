@@ -139,7 +139,7 @@
         android:text="暂未统计更新过"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:padding="10dp"/>
+        android:padding="10dp" />
 
     <View
         android:layout_width="match_parent"
@@ -151,7 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
+        android:visibility="gone">
         <TextView
             android:id="@+id/tv_add"
             android:layout_width="match_parent"

@@ -41,71 +41,65 @@
             android:text="@string/no_receiving_address"
             android:visibility="gone"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/default_adress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/white"
-            >
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/nameconsignee"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="5dp">
+                android:text="@string/consignee"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/consignee"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_toRightOf="@id/nameconsignee"
+                android:layout_alignBottom="@id/nameconsignee"/>
 
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1654654454"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_toLeftOf="@id/imageback"
+                android:layout_alignTop="@id/imageback"
+                android:layout_marginRight="5dp"/>
+            <TextView
+                android:id="@+id/adress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text=""
+                android:textSize="12sp"
+                android:drawableLeft="@mipmap/adress"
+                android:drawablePadding="5dp"
+                android:layout_below="@id/name"
+                android:layout_marginTop="5dp"/>
 
-                    <TextView
-                        android:id="@+id/phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/adress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="5dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:text=""
-                    android:textSize="12sp"
-                    android:drawableLeft="@mipmap/adress"
-                    android:drawablePadding="5dp"/>
-            </LinearLayout>
             <ImageView
+                android:id="@+id/imageback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/back"
                 android:layout_gravity="center"
-                android:layout_marginRight="15dp"/>
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,7 +124,9 @@
                     android:textColor="@color/transparent80"
                     android:drawableLeft="@mipmap/adress"
                     android:drawablePadding="5dp"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="15dp"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -221,13 +217,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="快递"
-                    android:textSize="14sp"
-                    android:layout_marginRight="5dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="包邮"
+                    android:text="顺丰快递 ￥9"
                     android:textSize="14sp"/>
             </LinearLayout>
 
@@ -263,20 +253,22 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/phone_confrim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="签署协议"
                     android:textSize="14sp"
-                    android:layout_marginBottom="5dp"/>
+                    android:layout_marginBottom="10dp"/>
 
                 <CheckBox
                     android:id="@+id/cb_choose"
@@ -333,6 +325,14 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tv_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:padding="15dp"/>
         </LinearLayout>
 
 

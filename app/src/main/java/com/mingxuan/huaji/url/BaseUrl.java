@@ -7,11 +7,11 @@ public class BaseUrl {
 
 //    public final static String baseurl = "http://118.190.204.1:8080/huaji/index.php/Home/index/";//根地址
 
-    public final static String javaurl = "http://www.hjhp.cn/ws/user/";//根地址
+//    public final static String javaurl = "http://www.hjhp.cn/ws/user/";//根地址
 
     public final static String baseurl = "http://192.168.188.122/huaji/index.php/Home/index/";//根地址
 
-//    public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
+    public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
 
     public final static String login = javaurl + "login?";//登录
 
@@ -26,6 +26,16 @@ public class BaseUrl {
     public final static String olduser = javaurl + "olduser?";//完善资料
 
     public final static String bindphone = javaurl + "bindphone?";//绑定手机
+
+    public final static String phoneCardInfo = javaurl + "phoneCardInfo?";//手机套餐信息
+
+    public final static String choosephoneNumb = javaurl + "choosephoneNumb?";//16个随机号码
+
+    public final static String updateNumberState = javaurl + "updateNumberState?";//16个随机号码
+
+    public final static String savePhoneCardOrder = javaurl + "savePhoneCardOrder?";//保存电话卡订单
+
+    public final static String findPhoneCardOrder = javaurl + "findPhoneCardOrder?";//查找未支付电话卡订单
 
     public final static String wxpay = javaurl + "wechatpay?";
 
@@ -48,6 +58,8 @@ public class BaseUrl {
     public final static String myfridends = baseurl + "myfridends?";//我的伙伴
 
     public final static String myintegral = baseurl + "myintegral?";//我的积分
+
+    public final static String tixian = javaurl + "point?";//我的积分
 
     public final static String myproducts_cart = baseurl + "myproducts_cart?";//我的购物车
 

@@ -30,7 +30,9 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="@color/grey"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,8 +54,7 @@
             android:background="@drawable/size_black"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            />
 
         <TextView
             android:id="@+id/tvdate"

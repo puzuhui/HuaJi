@@ -54,7 +54,7 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
         setContentView(R.layout.activity_my_address);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         create_id = sharedPreferences.getString("create_id","");
         update_id = sharedPreferences.getString("create_id","");
         update_name = sharedPreferences.getString("create_name","");

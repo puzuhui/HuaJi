@@ -1,6 +1,8 @@
 package com.mingxuan.huaji.layout.two.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,12 +102,16 @@ public class PhoneCardActivity extends Activity {
     TextView content;
     TextView confirmBtn;
     TextView cancelBtn;
+    ScrollView sv_content;
     private void showPopupWindow(final int index,int titlehint,int hint){
         View view = LayoutInflater.from(this).inflate(R.layout.layout_phone_window,null);
         title = (TextView) view.findViewById(R.id.title);
         content = (TextView) view.findViewById(R.id.content);
         confirmBtn = (TextView) view.findViewById(R.id.confirm_btn);
         cancelBtn = (TextView) view.findViewById(R.id.cancel_btn);
+        sv_content = (ScrollView) view.findViewById(R.id.sv_content);
+
+        sv_content.setVisibility(View.VISIBLE);
 
         title.setText(titlehint);
         content.setText(hint);
@@ -122,9 +129,11 @@ public class PhoneCardActivity extends Activity {
                     linearLayout.setVisibility(View.VISIBLE);
                 }else if(index == 2){
                     Intent intent = new Intent(PhoneCardActivity.this,ChoosePhoneCardActivity.class);
+                    intent.putExtra("index",1);
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(PhoneCardActivity.this,ChoosePhoneCardActivity.class);
+                    intent.putExtra("index",2);
                     startActivity(intent);
                 }
 

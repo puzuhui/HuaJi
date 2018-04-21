@@ -6,12 +6,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
@@ -31,9 +33,12 @@ import com.mingxuan.huaji.layout.four.activity.MyInformationActivity;
 import com.mingxuan.huaji.layout.four.model.InformationModel;
 import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.NotificationsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Administrator on 2017/10/9 0009.
@@ -54,13 +59,25 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_viewpager);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
+
+        if (NotificationsUtils.isNotificationEnabled(this)) {
+            Log.e("====", "onCreate: 通知权限 已开启");
+            //JPushInterface.setAlias(this, 0, sharedPreferences.getString("phone",""));//极光设置别名
+            JPushInterface.setAlias(this, 0, sharedPreferences.getString("create_id",""));//极光设置别名
+        } else {
+            Log.e("====", "onCreate: 通知权限 未开启");
+            //提示用户去设置，跳转到应用信息界面
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+            startActivity(intent);
+        }
         initView();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
+        initView();
     }
 
     private void initView() {

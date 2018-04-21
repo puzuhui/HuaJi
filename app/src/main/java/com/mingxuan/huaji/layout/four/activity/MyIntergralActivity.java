@@ -59,7 +59,7 @@ public class MyIntergralActivity extends Activity {
         setContentView(R.layout.activity_my_intergral);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         login_id =sharedPreferences.getString("create_id","");
 
         initViiew();
@@ -83,6 +83,7 @@ public class MyIntergralActivity extends Activity {
                 finish();
                 break;
             case R.id.tv_withdrawals:
+                getTixan();
                 break;
             case R.id.tv_consumption_integral:
                 tv_consumption_integral.setTextColor(getResources().getColor(R.color.white));
@@ -105,6 +106,24 @@ public class MyIntergralActivity extends Activity {
     String login_id;
     private void getIntegral() {
         FourApi.getInstance(this).myintegralApi(login_id, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if (type == Constants.TYPE_SUCCESS) {
+                    List<IntergralMolder.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(), result, IntergralMolder.ResultBean.class);
+                    list.clear();
+                    list.addAll(resultBeans);
+
+                    tv_numb.setText(list.get(0).getMoney());
+
+                    intergralAdapter.notifyDataSetChanged();
+                } else BaseApi.showErrMsg(MyIntergralActivity.this, result);
+            }
+        });
+    }
+
+
+    private void getTixan() {
+        FourApi.getInstance(this).tixian(login_id, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
                 if (type == Constants.TYPE_SUCCESS) {

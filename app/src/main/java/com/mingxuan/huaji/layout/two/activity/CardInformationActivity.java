@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +12,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.layout.two.adapter.CardInformationAdapter;
+import com.mingxuan.huaji.layout.two.model.CardInfoModel;
 import com.mingxuan.huaji.layout.two.model.CardInfor;
+import com.mingxuan.huaji.utils.Constants;
 import com.mingxuan.huaji.utils.FullyLinearLayoutManager;
+import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.SpacesItemDecoration;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +45,7 @@ public class CardInformationActivity extends Activity {
     ImageView backBtn;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
-    List<CardInfor> list;
+    List<CardInfoModel.ResultBean> list;
     Boolean islogin;
 
     @Override
@@ -44,9 +54,10 @@ public class CardInformationActivity extends Activity {
         setContentView(R.layout.activity_card_information);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         islogin = sharedPreferences.getBoolean("islogin",false);
         initView();
+        getData();
     }
 
     private void initView() {
@@ -61,14 +72,7 @@ public class CardInformationActivity extends Activity {
         recyclerview.setLayoutManager(linearLayoutManager);
         recyclerview.addItemDecoration(new SpacesItemDecoration(10));
 
-        for(int i= 0;i< 7 ;i++){
-            CardInfor cardInfor = new CardInfor();
-            cardInfor.setName("乐享家"+(79+(2*i)*10));
-            cardInfor.setContent("月费"+(79+(2*i)*10)+"元，国内流量3.3g");
-            list.add(cardInfor);
-        }
-
-        CardInformationAdapter cardInformationAdapter = new CardInformationAdapter(this,list);
+        cardInformationAdapter = new CardInformationAdapter(this,list);
         recyclerview.setAdapter(cardInformationAdapter);
         cardInformationAdapter.setOnClickListener(new CardInformationAdapter.MyOnClickListener() {
             @Override
@@ -89,5 +93,20 @@ public class CardInformationActivity extends Activity {
     @OnClick(R.id.back_btn)
     public void OnClick(View view){
         finish();
+    }
+
+    CardInformationAdapter cardInformationAdapter;
+    private void getData(){
+        MainApi.getInstance(this).phoneCardInfoApi(1, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                if(type == Constants.TYPE_SUCCESS){
+                    List<CardInfoModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result, CardInfoModel.ResultBean.class);
+                    list.addAll(resultBeans);
+
+                    cardInformationAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 }

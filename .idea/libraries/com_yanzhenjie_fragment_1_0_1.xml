@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.yanzhenjie:fragment-1.0.1">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/fragment-1.0.1.aar/59caecf91d361d56b3efb37fd99f0998/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/fragment-1.0.1.aar/59caecf91d361d56b3efb37fd99f0998/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/fragment-1.0.1.aar/310fff1ece078b4a898f14c95e092f3d/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/fragment-1.0.1.aar/310fff1ece078b4a898f14c95e092f3d/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -107,7 +107,7 @@ public class IncomeStatisticsActivity extends Activity {
         setContentView(R.layout.activity_income_statistics);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         user_phone = sharedPreferences.getString("phone","");
 
         initView();

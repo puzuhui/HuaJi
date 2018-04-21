@@ -72,7 +72,7 @@ public class ServiceChannelActivity extends Activity {
         list = new ArrayList<>();
         datelist = new ArrayList<>();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
         Calendar calendar = Calendar.getInstance();

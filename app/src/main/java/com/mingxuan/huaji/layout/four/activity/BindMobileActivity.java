@@ -54,7 +54,7 @@ public class BindMobileActivity extends Activity {
         setContentView(R.layout.activity_bindmobile);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji",Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
         id = sharedPreferences.getString("create_id","");
         initView();
     }
@@ -70,7 +70,7 @@ public class BindMobileActivity extends Activity {
         list = new ArrayList<>();
 
         getInformation();
-//        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+//        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
 //        String phonenumber =sharedPreferences.getString("phone","");
 //        if(!TextUtils.isEmpty(phonenumber)){
 //            linear.setVisibility(View.VISIBLE);

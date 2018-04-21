@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
+        android:name=".utils.App"
         android:allowBackup="true"
         android:icon="@mipmap/hjhplogo64"
         android:label="@string/app_name"
@@ -37,7 +38,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -139,6 +140,21 @@
                 <data android:scheme="wxa08821893494a1a5"/>
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".utils.MyReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.mingxuan.huaji" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

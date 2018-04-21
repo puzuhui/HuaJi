@@ -45,7 +45,7 @@ public class ServiceUserActivity extends Activity {
         setContentView(R.layout.activity_service_user);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         pid = sharedPreferences.getString("create_id", "");
         initView();
         showDate();

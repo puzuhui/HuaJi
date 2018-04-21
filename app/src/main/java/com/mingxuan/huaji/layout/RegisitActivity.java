@@ -192,6 +192,9 @@ public class RegisitActivity extends Activity {
                         jsonObject = new JSONObject(result);
                         String message = jsonObject.getString("message");
                         ToastUtil.makeToast(RegisitActivity.this,""+message);
+
+                        Intent intent = new Intent(RegisitActivity.this,LoginActivity.class);
+                        startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

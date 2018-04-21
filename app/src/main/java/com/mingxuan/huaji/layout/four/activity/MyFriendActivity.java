@@ -49,7 +49,7 @@ public class MyFriendActivity extends Activity {
         setContentView(R.layout.activity_myfriend);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         p_id = sharedPreferences.getString("create_id","");
         initView();
         getFriend();

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +49,7 @@ public class MyPhoneCardActivity extends Activity {
     }
 
     private void initView() {
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         tvName.setText(sharedPreferences.getString("realName", ""));
         tvCard.setText(sharedPreferences.getString("idCard", ""));
         tvPhone.setText(sharedPreferences.getString("phone", ""));

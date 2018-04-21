@@ -101,7 +101,7 @@ public class ShoppingMallFragment extends Fragment {
         iv_three.setOnClickListener(onClickListener);
         iv_four.setOnClickListener(onClickListener);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         islogin = sharedPreferences.getBoolean("islogin",false);
         if(islogin){
             login.setVisibility(View.INVISIBLE);

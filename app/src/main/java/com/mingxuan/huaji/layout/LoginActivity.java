@@ -94,6 +94,7 @@ public class LoginActivity extends Activity {
             public void getResult(String result, int type) {
                 if(type == Constants.TYPE_SUCCESS){
                     List<LoginModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,LoginModel.ResultBean.class);
+                    loginlist.clear();
                     loginlist.addAll(resultBeans);
                     Intent intent = new Intent(LoginActivity.this,HomePageViewPagerActivity.class);
                     startActivity(intent);
@@ -102,9 +103,11 @@ public class LoginActivity extends Activity {
                     realName = loginlist.get(0).getRealName();
                     idCard = loginlist.get(0).getIdCard();
                     phone = loginlist.get(0).getPhone();
+                    pid =loginlist.get(0).getPId();
                     islogin = true;
                     saveSharedPreferences();
                     submit.setText(R.string.login);
+                    finish();
                 }else {
                     ToastUtil.makeToast(LoginActivity.this,"输入用户名或者密码错误");
                     submit.setText(R.string.login);
@@ -114,16 +117,17 @@ public class LoginActivity extends Activity {
     }
 
     String create_id;
-    String create_name,realName,idCard,phone;
+    String create_name,realName,idCard,phone,pid;
     boolean islogin = false;
     private void saveSharedPreferences(){
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("create_id",create_id);
         editor.putString("create_name",create_name);
         editor.putString("realName",realName);
         editor.putString("idCard",idCard);
         editor.putString("phone",phone);
+        editor.putString("pid",pid);
         editor.putBoolean("islogin",islogin);
         editor.apply();
     }

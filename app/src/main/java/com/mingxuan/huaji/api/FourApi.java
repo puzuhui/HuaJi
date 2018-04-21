@@ -56,6 +56,12 @@ public class FourApi extends BaseApi {
         getLoad(BaseUrl.myintegral, map, callBack);
     }
 
+    public void tixian(String login_id,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("login_id", login_id);
+        getLoad(BaseUrl.tixian, map, callBack);
+    }
+
     /**
      * 我的订单
      * @param create_id

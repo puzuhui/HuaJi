@@ -2,28 +2,26 @@ package com.mingxuan.huaji.layout.two.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.layout.two.model.CardInfoModel;
+import com.mingxuan.huaji.layout.two.model.CardInfor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Admin on 2018/2/8.
+ * Created by Admin on 2018/4/16.
  * 公司：铭轩科技
  */
 
-public class PhoneCardAdapter extends RecyclerView.Adapter<PhoneCardAdapter.ViewHolder> {
-    private List<CardInfoModel.ResultBean> list;
+public class ChoosePhoneAdapter extends RecyclerView.Adapter<ChoosePhoneAdapter.ViewHolder> {
+    private List<CardInfor.ResultBean> list;
     private Context context;
     LayoutInflater layoutInflater;
-//    private List<Boolean> isClicks;//控件是否被点击,默认为false，如果被点击，改变值，控件根据值改变自身颜色
+    //    private List<Boolean> isClicks;//控件是否被点击,默认为false，如果被点击，改变值，控件根据值改变自身颜色
     private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener{
@@ -34,22 +32,22 @@ public class PhoneCardAdapter extends RecyclerView.Adapter<PhoneCardAdapter.View
         this.onItemClickListener = onItemClickListener;
     }
 
-    public PhoneCardAdapter(List<CardInfoModel.ResultBean> list,Context context){
+    public ChoosePhoneAdapter(List<CardInfor.ResultBean> list,Context context){
         this.list = list;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChoosePhoneAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(layoutInflater.inflate(R.layout.item_phone,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ChoosePhoneAdapter.ViewHolder holder, int position) {
         if(list.size() > 0){
-            final CardInfoModel.ResultBean resultBean= list.get(position);
-            holder.textView.setText(resultBean.getName());
+            final CardInfor.ResultBean resultBean= list.get(position);
+            holder.textView.setText(resultBean.getNumber());
 
             if( resultBean.isIschecked() ){
                 holder.textView.setTextColor(context.getResources().getColor(R.color.redDark));

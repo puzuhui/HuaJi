@@ -48,7 +48,7 @@ public class MyInformationActivity extends Activity {
         setContentView(R.layout.activity_my_information);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("create_id","");
 
         initView();

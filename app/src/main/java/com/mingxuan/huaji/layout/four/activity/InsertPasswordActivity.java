@@ -48,7 +48,7 @@ public class InsertPasswordActivity extends Activity {
         setContentView(R.layout.activity_insertpassword);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("huaji", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         cid = sharedPreferences.getString("create_id","");
 
         Bundle bundle =getIntent().getExtras();
