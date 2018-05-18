@@ -3,7 +3,7 @@
     package="com.mingxuan.huaji">
 
     <!-- Required -->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.mingxuan.huaji.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,21 +24,22 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
-        android:name=".utils.App"
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/hjhplogo64"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".layout.HomePageViewPagerActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,112 +47,170 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".layout.LoginActivity" android:launchMode="singleTask"
-            android:screenOrientation="portrait"/><!--登录页面-->
-        <activity android:name=".layout.RegisitActivity" android:launchMode="singleTask"
-            android:screenOrientation="portrait" /><!--注册页面-->
-        <activity android:name=".layout.four.activity.MyFriendActivity"
-            android:screenOrientation="portrait"/><!--我的伙伴-->
-        <activity android:name=".layout.two.activity.ListOfGoodsActivity"
-            android:screenOrientation="portrait"/><!--商品列表-->
-        <activity android:name=".layout.two.activity.CommodityDetailsActivity"
-            android:screenOrientation="portrait"/><!--商品详情-->
-        <activity android:name=".layout.four.activity.MyShoppingCartActivity"
-            android:screenOrientation="portrait"/><!--我的购物车-->
-        <activity android:name=".layout.four.activity.MyAdressActivity"
-            android:launchMode="singleTask" android:screenOrientation="portrait"/><!--我的地址-->
-        <activity android:name=".layout.four.activity.AddAddressActivity"
-            android:screenOrientation="portrait"/><!--编辑收货地址-->
-        <activity android:name=".layout.four.activity.MyIntergralActivity"
-            android:screenOrientation="portrait"/><!--我的积分-->
-        <activity android:name=".layout.four.activity.MyPhoneCardActivity"
-            android:screenOrientation="portrait"/><!--我的电话卡-->
-        <activity android:name=".layout.four.activity.MyBankCardActivity"
-            android:screenOrientation="portrait"/><!--我的银行卡-->
-        <activity android:name=".layout.four.activity.MyQrcodeActivity"
-            android:screenOrientation="portrait"/><!--我的二维码-->
-        <activity android:name=".layout.four.activity.AddBankCardActivity"
-            android:screenOrientation="portrait"/><!--添加银行卡-->
-        <activity android:name=".layout.four.activity.MyInformationActivity"
-            android:screenOrientation="portrait"/><!--我的信息-->
-        <activity android:name=".layout.four.activity.MyOrderActivity"
-            android:launchMode="singleTask" android:screenOrientation="portrait"/><!--我的订单-->
-        <activity android:name=".layout.four.activity.ProductsReviewsActivity"
-            android:screenOrientation="portrait"/><!--商品评论-->
-        <activity android:name=".layout.two.activity.ConfirmAnOrderActivity"
-            android:screenOrientation="portrait"/><!--确认订单-->
-        <activity android:name=".layout.two.activity.CommentActivity"
-            android:screenOrientation="portrait"/><!--评论-->
-        <activity android:name=".layout.two.activity.PhoneCardActivity"
-            android:screenOrientation="portrait"/><!--电话卡-->
-        <activity android:name=".layout.two.activity.ChoosePhoneCardActivity"
-            android:screenOrientation="portrait"/><!--选择电话卡-->
-        <activity android:name=".layout.two.activity.ChoosePhoneNumberActivity"
+        <activity
+            android:name=".layout.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /> <!-- 登录页面 -->
+        <activity
+            android:name=".layout.RegisitActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /> <!-- 注册页面 -->
+        <activity
+            android:name=".layout.mine.activity.MyFriendActivity"
+            android:screenOrientation="portrait" /> <!-- 我的伙伴 -->
+        <activity
+            android:name=".layout.homepage.activity.ListOfGoodsActivity"
+            android:screenOrientation="portrait" /> <!-- 商品列表 -->
+        <activity
+            android:name=".layout.homepage.activity.CommodityDetailsActivity"
+            android:screenOrientation="portrait" /> <!-- 商品详情 -->
+        <activity
+            android:name=".layout.mine.activity.MyShoppingCartActivity"
+            android:screenOrientation="portrait" /> <!-- 我的购物车 -->
+        <activity
+            android:name=".layout.mine.activity.MyAdressActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /> <!-- 我的地址 -->
+        <activity
+            android:name=".layout.mine.activity.AddAddressActivity"
+            android:screenOrientation="portrait" /> <!-- 编辑收货地址 -->
+        <activity
+            android:name=".layout.mine.activity.MyIntergralActivity"
+            android:screenOrientation="portrait" /> <!-- 我的积分 -->
+        <activity
+            android:name=".layout.mine.activity.MyPhoneCardActivity"
+            android:screenOrientation="portrait" /> <!-- 我的电话卡 -->
+        <activity
+            android:name=".layout.mine.activity.MyBankCardActivity"
+            android:screenOrientation="portrait" /> <!-- 我的银行卡 -->
+        <activity
+            android:name=".layout.mine.activity.MyQrcodeActivity"
+            android:screenOrientation="portrait" /> <!-- 我的二维码 -->
+        <activity
+            android:name=".layout.mine.activity.QrcodeActivity"
+            android:screenOrientation="portrait" /> <!-- 我的二维码 -->
+        <activity
+            android:name=".layout.mine.activity.AddBankCardActivity"
+            android:screenOrientation="portrait" /> <!-- 添加银行卡 -->
+        <activity
+            android:name=".layout.mine.activity.MyInformationActivity"
+            android:screenOrientation="portrait" /> <!-- 我的信息 -->
+        <activity
+            android:name=".layout.mine.activity.MyOrderActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /> <!-- 我的订单 -->
+        <activity
+            android:name=".layout.mine.activity.ProductsReviewsActivity"
+            android:screenOrientation="portrait" /> <!-- 商品评论 -->
+        <activity
+            android:name=".layout.homepage.activity.ConfirmAnOrderActivity"
+            android:screenOrientation="portrait" /> <!-- 确认订单 -->
+        <activity
+            android:name=".layout.homepage.activity.CommentActivity"
+            android:screenOrientation="portrait" /> <!-- 评论 -->
+        <activity
+            android:name=".layout.homepage.activity.PhoneCardActivity"
+            android:screenOrientation="portrait" /> <!-- 电话卡 -->
+        <activity
+            android:name=".layout.homepage.activity.ChoosePhoneCardActivity"
+            android:screenOrientation="portrait" /> <!-- 选择电话卡 -->
+        <activity
+            android:name=".layout.homepage.activity.ChoosePhoneNumberActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/><!--选择电话号码-->
-        <activity android:name=".layout.four.activity.PasswordManageActivity"
-            android:screenOrientation="portrait"/><!--密码管理-->
-        <activity android:name=".layout.four.activity.InsertPasswordActivity"
-            android:screenOrientation="portrait"/><!--修改密码-->
-        <activity android:name=".layout.ForgetThePasswordActivity"
-            android:screenOrientation="portrait"/><!--找回密码-->
-        <activity android:name=".layout.OldUserActivity"
-            android:screenOrientation="portrait"/><!--老用户完善资料-->
-        <activity android:name=".layout.four.activity.BindMobileActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/><!--绑定手机号-->
-        <activity android:name=".layout.four.activity.MoblieActivity"
-            android:screenOrientation="portrait"/><!--手机号-->
-        <activity android:name=".layout.two.activity.CardInformationActivity"
-            android:screenOrientation="portrait"/><!--办卡信息-->
-        <activity android:name=".layout.four.activity.ServiceUserActivity"
-            android:screenOrientation="portrait"/><!--服务用户-->
-        <activity android:name=".layout.four.activity.QueryStatisticsActivity"
-            android:screenOrientation="portrait"/><!--查询统计-->
-        <activity android:name=".layout.four.activity.IncomeStatisticsActivity"
-            android:screenOrientation="portrait"/><!--收益统计-->
-        <activity android:name=".layout.four.activity.ServiceChannelActivity"
-            android:screenOrientation="portrait"/><!--服务渠道-->
+            android:windowSoftInputMode="adjustPan" /> <!-- 选择电话号码 -->
+        <activity
+            android:name=".layout.mine.activity.PasswordManageActivity"
+            android:screenOrientation="portrait" /> <!-- 密码管理 -->
+        <activity
+            android:name=".layout.mine.activity.InsertPasswordActivity"
+            android:screenOrientation="portrait" /> <!-- 修改密码 -->
+        <activity
+            android:name=".layout.ForgetThePasswordActivity"
+            android:screenOrientation="portrait" /> <!-- 找回密码 -->
+        <activity
+            android:name=".layout.OldUserActivity"
+            android:screenOrientation="portrait" /> <!-- 老用户完善资料 -->
+        <activity
+            android:name=".layout.mine.activity.BindMobileActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" /> <!-- 绑定手机号 -->
+        <activity
+            android:name=".layout.mine.activity.MoblieActivity"
+            android:screenOrientation="portrait" /> <!-- 手机号 -->
+        <activity
+            android:name=".layout.homepage.activity.CardInformationActivity"
+            android:screenOrientation="portrait" /> <!-- 办卡信息 -->
+        <activity
+            android:name=".layout.mine.activity.ServiceUserActivity"
+            android:screenOrientation="portrait" /> <!-- 服务用户 -->
+        <activity
+            android:name=".layout.mine.activity.QueryStatisticsActivity"
+            android:screenOrientation="portrait" /> <!-- 查询统计 -->
+        <activity
+            android:name=".layout.mine.activity.IncomeStatisticsActivity"
+            android:screenOrientation="portrait" /> <!-- 收益统计 -->
+        <activity
+            android:name=".layout.mine.activity.ServiceChannelActivity"
+            android:screenOrientation="portrait" /> <!-- 服务渠道 -->
+        <activity
+            android:name=".layout.homepage.activity.RechargeActivity"
+            android:screenOrientation="portrait" /> <!-- 充值 -->
+        <activity
+            android:name=".layout.news.activity.NotificationActivity"
+            android:screenOrientation="portrait" /> <!-- 通知 -->
+        <activity
+            android:name=".layout.news.activity.MaterialActivity"
+            android:screenOrientation="portrait" /> <!-- 下载 -->
 
-        <!--支付宝-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.cameraalbumtest.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- 支付宝 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
-        <!--微信支付-->
+        <!-- 微信支付 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wxa08821893494a1a5"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxa08821893494a1a5" />
             </intent-filter>
         </activity>
 
         <receiver
             android:name=".utils.MyReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
-                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.mingxuan.huaji" />
             </intent-filter>
         </receiver>

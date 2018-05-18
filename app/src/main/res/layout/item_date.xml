@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="@dimen/dp_10">
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="@drawable/checkbox_selector"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
         android:focusableInTouchMode="false"
         android:focusable="false"/>
     <TextView
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/date"
-        android:textSize="14sp"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/transparent80"/>
 
 </LinearLayout>

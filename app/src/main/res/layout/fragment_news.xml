@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_marginTop="@dimen/dp_10">
+        <TextView
+            android:id="@+id/tv_notification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/nav_05"
+            android:gravity="center"
+            android:text="通知公告"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_logistics"
+            app:layout_constraintTop_toTopOf="parent"
+            android:drawablePadding="@dimen/dp_5"
+            android:padding="@dimen/dp_5"/>
+
+        <TextView
+            android:id="@+id/tv_logistics"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/nav_05"
+            android:gravity="center"
+            android:text="号卡物流"
+            app:layout_constraintLeft_toRightOf="@id/tv_notification"
+            app:layout_constraintRight_toLeftOf="@id/tv_material"
+            app:layout_constraintTop_toTopOf="parent"
+            android:drawablePadding="@dimen/dp_5"
+            android:padding="@dimen/dp_5"/>
+
+        <TextView
+            android:id="@+id/tv_material"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/nav_05"
+            android:gravity="center"
+            android:text="资料下载"
+            android:textSize="@dimen/sp_14"
+            android:drawablePadding="@dimen/dp_5"
+            app:layout_constraintLeft_toRightOf="@id/tv_logistics"
+            app:layout_constraintRight_toLeftOf="@id/tv_introduce"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/dp_5"/>
+
+        <TextView
+            android:id="@+id/tv_introduce"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableTop="@mipmap/nav_05"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text="资费介绍"
+            app:layout_constraintLeft_toRightOf="@id/tv_material"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/greylight"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_notification" />
+
+        <TextView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/notification"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text=":最近通知"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintTop_toBottomOf="@id/line" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            app:layout_constraintTop_toBottomOf="@id/next" />
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</ScrollView>

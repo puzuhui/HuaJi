@@ -9,12 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="165/84Y"
-        android:textSize="12sp"
+        android:textSize="@dimen/sp_12"
         android:textColor="@color/transparent80"
         android:background="@drawable/size_background"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"/>
+        android:paddingTop="@dimen/dp_2"
+        android:paddingBottom="@dimen/dp_2"
+        android:paddingRight="@dimen/dp_8"
+        android:paddingLeft="@dimen/dp_8"/>
 
 </LinearLayout>

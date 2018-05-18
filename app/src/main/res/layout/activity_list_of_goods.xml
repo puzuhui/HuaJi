@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/redDark"
-            android:padding="10dp"
+            android:padding="@dimen/dp_10"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
             <ImageView
                 android:id="@+id/back_btn"
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/store_list"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="@dimen/sp_18"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
@@ -38,11 +38,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/top_recyclerview"
-            android:padding="2dp"/>
+            android:padding="@dimen/dp_2"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/greylight"/>
     </android.support.design.widget.AppBarLayout>
 
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/swipe"
-        android:padding="5dp"
+        android:padding="@dimen/dp_5"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView

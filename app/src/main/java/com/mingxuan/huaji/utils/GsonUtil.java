@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/7/15.
  */
 public class GsonUtil {
-
     public static <T> ArrayList<T> fromJsonList(Gson gson, String json, Class<T> cls) {//这个跟fromJSONDataResult方法同理，只是result为数组getAsJsonArray
         ArrayList<T> mList = new ArrayList<>();
         JsonObject object = new JsonParser().parse(json).getAsJsonObject();

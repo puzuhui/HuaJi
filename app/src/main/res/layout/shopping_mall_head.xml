@@ -13,13 +13,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/red"
-            android:padding="10dp"
+            android:padding="@dimen/dp_10"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/mall_log_03"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="@dimen/dp_10"/>
 
             <TextView
                 android:id="@+id/head_edit"
@@ -30,24 +30,24 @@
                 android:text="搜索商品、品牌"
                 android:lines="1"
                 android:gravity="center"
-                android:textSize="12sp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"/>
+                android:textSize="@dimen/sp_12"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"/>
             <TextView
                 android:id="@+id/login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="@dimen/sp_16"
+                android:layout_marginLeft="@dimen/dp_10"/>
         </LinearLayout>
 
         <com.bigkoo.convenientbanner.ConvenientBanner
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/converientBanner"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="@dimen/dp_180"
             app:canLoop="true" /><!--是否循环-->
 
         <LinearLayout
@@ -55,86 +55,64 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10">
 
             <TextView
                 android:id="@+id/one"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/dp_5"
                 android:drawableTop="@mipmap/nav_01"
                 android:gravity="center_horizontal"
                 android:text="@string/home_life"
-                android:textSize="12sp" />
+                android:textSize="@dimen/sp_12" />
 
             <TextView
                 android:id="@+id/two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/dp_5"
                 android:drawableTop="@mipmap/nav_02"
                 android:gravity="center_horizontal"
                 android:text="@string/mother_to_child_toy"
-                android:textSize="12sp" />
+                android:textSize="@dimen/sp_12" />
 
             <TextView
                 android:id="@+id/three"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@mipmap/nav_03"
-                android:gravity="center_horizontal"
-                android:text="@string/clothes_and_bags"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/fore"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/dp_5"
                 android:drawableTop="@mipmap/nav_04"
                 android:gravity="center_horizontal"
                 android:text="@string/food_drink"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/five"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@mipmap/nav_05"
-                android:gravity="center_horizontal"
-                android:text="@string/digital_technology"
-                android:textSize="12sp" />
+                android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="@dimen/dp_10"
             android:background="@color/grey"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="@dimen/dp_5"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="精选商品"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_16"
             android:textColor="@color/red"
-            android:padding="10dp"/>
+            android:padding="@dimen/dp_10"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/grey" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="@dimen/dp_180"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/iv_one"
@@ -143,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter" />
             <View
-                android:layout_width="1dp"
+                android:layout_width="@dimen/dp_1"
                 android:layout_height="match_parent"
                 android:background="@color/grey"/>
             <LinearLayout
@@ -154,33 +132,33 @@
                 <ImageView
                     android:id="@+id/iv_two"
                     android:layout_width="wrap_content"
-                    android:layout_height="90dp"
+                    android:layout_height="@dimen/dp_90"
                     android:scaleType="fitXY"
                     android:layout_gravity="center" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/dp_1"
                     android:background="@color/grey" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="90dp">
+                    android:layout_height="@dimen/dp_90">
                     <ImageView
                         android:id="@+id/iv_three"
                         android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="90dp"
+                        android:layout_height="@dimen/dp_90"
                         android:scaleType="fitCenter"/>
                     <View
-                        android:layout_width="1dp"
+                        android:layout_width="@dimen/dp_1"
                         android:layout_height="match_parent"
                         android:background="@color/grey" />
                     <ImageView
                         android:id="@+id/iv_four"
                         android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="90dp"
+                        android:layout_height="@dimen/dp_90"
                         android:scaleType="fitCenter"/>
                 </LinearLayout>
             </LinearLayout>
@@ -188,7 +166,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/grey" />
 
     </LinearLayout>

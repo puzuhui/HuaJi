@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    android:layout_marginLeft="10dp">
+    android:padding="@dimen/dp_5"
+    android:layout_marginLeft="@dimen/dp_10">
 
     <com.mingxuan.huaji.utils.CircleImageView
         android:id="@+id/circleimage"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
         android:src="@mipmap/ic_launcher"
         android:layout_centerVertical="true"/>
     <TextView
@@ -17,31 +17,31 @@
         android:layout_height="wrap_content"
         android:text="韦淋"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/sp_14"
         android:layout_alignTop="@+id/circleimage"
         android:layout_toRightOf="@+id/circleimage"
         android:layout_toEndOf="@+id/circleimage" 
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginLeft="@dimen/dp_5"/>
     
     <TextView
         android:id="@+id/from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="来自"
-        android:textSize="12sp"
+        android:textSize="@dimen/sp_12"
         android:layout_toRightOf="@+id/circleimage"
         android:layout_toEndOf="@+id/circleimage"
         android:layout_below="@+id/name" 
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginLeft="@dimen/dp_5"/>
     
     <TextView
         android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="江苏"
-        android:textSize="12sp" 
+        android:textSize="@dimen/sp_12"
         android:layout_toRightOf="@id/from"
         android:layout_toEndOf="@id/from"
         android:layout_alignTop="@id/from"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="15823903420"
-        android:textSize="12sp"
+        android:textSize="@dimen/sp_12"
         android:layout_alignBaseline="@+id/city"
         android:layout_alignBottom="@+id/city"
         android:layout_toRightOf="@+id/city"

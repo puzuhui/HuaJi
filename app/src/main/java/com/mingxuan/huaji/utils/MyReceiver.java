@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.mingxuan.huaji.layout.HomePageViewPagerActivity;
-import com.mingxuan.huaji.layout.LoginActivity;
-import com.mingxuan.huaji.layout.four.activity.MyFriendActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyFriendActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

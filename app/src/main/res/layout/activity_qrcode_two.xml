@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/weim2">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="@dimen/dp_150"
+        android:layout_height="@dimen/dp_160"
+        android:layout_marginBottom="@dimen/dp_100"
+        android:src="@mipmap/i001"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintDimensionRatio="w,5:3"/>
+
+</android.support.constraint.ConstraintLayout>

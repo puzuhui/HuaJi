@@ -7,14 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/redDark"
-        android:padding="10dp">
+        android:background="@color/redDark">
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/back_left"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,25 +22,25 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="@dimen/dp_10">
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="@dimen/dp_80"
             android:layout_height="wrap_content"
             android:text="@string/consignee"
-            android:textSize="14sp"/>
+            android:textSize="@dimen/sp_14"/>
         <EditText
             android:id="@+id/consignee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="请输入收货人姓名"
             android:textColorHint="@color/greylight"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             android:background="@null"/>
     </LinearLayout>
 
@@ -52,13 +52,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="@dimen/dp_10">
 
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="@dimen/dp_80"
             android:layout_height="wrap_content"
             android:text="@string/phone_number"
-            android:textSize="14sp"/>
+            android:textSize="@dimen/sp_14"/>
 
         <EditText
             android:id="@+id/phone_number"
@@ -67,7 +67,7 @@
             android:background="@null"
             android:hint="请输入收货人电话"
             android:textColorHint="@color/greylight"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             android:inputType="phone"/>
     </LinearLayout>
 
@@ -78,19 +78,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="@dimen/dp_10">
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="@dimen/dp_80"
             android:layout_height="wrap_content"
             android:text="@string/address"
-            android:textSize="14sp"/>
+            android:textSize="@dimen/sp_14"/>
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="请选择地址"
             android:textColor="@color/greylight"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             android:background="@null"/>
     </LinearLayout>
 
@@ -101,19 +101,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="@dimen/dp_10">
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="@dimen/dp_80"
             android:layout_height="wrap_content"
             android:text="@string/detailed_address"
-            android:textSize="14sp"/>
+            android:textSize="@dimen/sp_14"/>
         <EditText
             android:id="@+id/addaddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="请输入详细地址（街道楼牌号等）"
             android:textColorHint="@color/greylight"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             android:background="@null"/>
     </LinearLayout>
 
@@ -132,12 +132,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/redDark"
-        android:paddingBottom="10dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="10dp"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_50"
+        android:paddingRight="@dimen/dp_50"
+        android:paddingTop="@dimen/dp_10"
         android:text="@string/save"
+        android:textSize="@dimen/sp_16"
         android:textColor="@color/white"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="@dimen/dp_25"/>
 
 </LinearLayout>

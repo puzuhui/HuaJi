@@ -1,10 +1,7 @@
 package com.mingxuan.huaji.layout;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -12,10 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.api.BaseApi;
-import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.network.api.BaseApi;
+import com.mingxuan.huaji.network.api.MainApi;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
-import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.NewEditText;
 import com.mingxuan.huaji.utils.ToastUtil;
@@ -25,7 +23,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -33,7 +30,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class OldUserActivity extends Activity {
+public class OldUserActivity extends BaseActivity {
     @BindView(R.id.login)
     TextView login;
     @BindView(R.id.login_numb)
@@ -62,16 +59,22 @@ public class OldUserActivity extends Activity {
     TextView submit;
     LoadingDialog loadingDialog;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_old_user);
-        ButterKnife.bind(this);
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_old_user);
+//        ButterKnife.bind(this);
+//
+//        initView();
+//    }
 
-        initView();
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_old_user;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         loadingDialog = new LoadingDialog(this);
         loginNumb.addTextChangedListener(new NewEditText(loginNumb));
         pleaseEnterIdNumber.addTextChangedListener(new NewEditText(pleaseEnterIdNumber));

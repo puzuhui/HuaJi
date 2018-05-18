@@ -8,21 +8,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/redDark"
-        android:padding="10dp">
+        >
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/back_left"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_order"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_18"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
     <LinearLayout
@@ -36,45 +37,50 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/all_commodity"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/transparent80"
             android:gravity="center"
-            android:padding="5dp"/>
+            android:padding="@dimen/dp_5"/>
         <TextView
             android:id="@+id/obligation"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/obligation"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/transparent80"
             android:gravity="center"
-            android:padding="5dp"/>
+            android:padding="@dimen/dp_5"/>
         <TextView
             android:id="@+id/to_send_the_goods"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/to_send_the_goods"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/transparent80"
             android:gravity="center"
-            android:padding="5dp"/>
+            android:padding="@dimen/dp_5"/>
         <TextView
             android:id="@+id/wait_for_receiving"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/wait_for_receiving"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/transparent80"
             android:gravity="center"
-            android:padding="5dp"/>
+            android:padding="@dimen/dp_5"/>
         <TextView
             android:id="@+id/off_the_stocks"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/off_the_stocks"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/transparent80"
             android:gravity="center"
-            android:padding="5dp"/>
+            android:padding="@dimen/dp_5"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,46 +90,46 @@
             android:id="@+id/line1"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dp_2"
             android:background="@color/red"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_2"
             android:visibility="visible"/>
         <View
             android:id="@+id/line2"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dp_2"
             android:background="@color/red"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_2"
             android:visibility="invisible"/>
         <View
             android:id="@+id/line3"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dp_2"
             android:background="@color/red"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_2"
             android:visibility="invisible"/>
         <View
             android:id="@+id/line4"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dp_2"
             android:background="@color/red"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_2"
             android:visibility="invisible"/>
         <View
             android:id="@+id/line5"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dp_2"
             android:background="@color/red"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_2"
             android:visibility="invisible"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView

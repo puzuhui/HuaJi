@@ -1,39 +1,34 @@
 package com.mingxuan.huaji.layout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.network.api.MainApi;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
-import com.mingxuan.huaji.layout.two.model.LoginModel;
-import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.layout.homepage.bean.LoginModel;
+import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
-import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/10/12 0012.
  */
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
     @BindView(R.id.register)
     TextView register;
     @BindView(R.id.please_enter_proof_of_identity)
@@ -48,11 +43,21 @@ public class LoginActivity extends Activity {
     TextView oldUser;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_login;
     }
+
+    @Override
+    protected void initView() {
+
+    }
+
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_login);
+//        ButterKnife.bind(this);
+//    }
 
 
     @OnClick({R.id.register,R.id.submit,R.id.forget_the_password,R.id.old_user})
@@ -131,4 +136,6 @@ public class LoginActivity extends Activity {
         editor.putBoolean("islogin",islogin);
         editor.apply();
     }
+
+
 }

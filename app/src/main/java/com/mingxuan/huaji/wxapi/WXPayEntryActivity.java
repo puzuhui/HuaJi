@@ -2,14 +2,12 @@ package com.mingxuan.huaji.wxapi;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.base.Constants;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;

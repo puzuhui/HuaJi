@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.mingxuan.huaji.base.BaseApplication;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -22,11 +24,11 @@ import java.util.Enumeration;
  */
 public class UIUtils {
     public static Context getContext(){
-        return BaseActivity.context;
+        return BaseApplication.context;
     }
 
     public static Handler getHandler(){
-        return BaseActivity.handler;
+        return BaseApplication.handler;
     }
 
     //返回指定colorId对应的颜色值
@@ -65,7 +67,7 @@ public class UIUtils {
     //判断当前线程是否是主线程
     private static boolean isInMainThread() {
         int currentThreadId = android.os.Process.myTid();
-        return BaseActivity.mainThreadId == currentThreadId;
+        return BaseApplication.mainThreadId == currentThreadId;
     }
 
     /**

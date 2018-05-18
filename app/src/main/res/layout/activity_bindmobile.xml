@@ -8,22 +8,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/redDark"
-        android:padding="10dp">
+        android:background="@color/redDark">
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/back_left"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="绑定手机"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_18"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -31,16 +31,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dp_10"
         android:background="@drawable/login_btn_red"
-        android:padding="10dp"
+        android:padding="@dimen/dp_10"
         android:visibility="gone">
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="绑定手机号"
         android:textColor="@color/white"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/sp_16"/>
 
         <TextView
             android:id="@+id/phone"
@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp"/>
+            android:textSize="@dimen/sp_16"
+            android:layout_marginTop="@dimen/dp_5"/>
     </LinearLayout>
 
     <TextView
@@ -57,15 +57,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="绑定手机号"
-        android:textSize="14sp"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/black"
         android:background="@drawable/add_card"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:paddingLeft="@dimen/dp_25"
+        android:paddingRight="@dimen/dp_25"
         android:gravity="center"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/dp_15"
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

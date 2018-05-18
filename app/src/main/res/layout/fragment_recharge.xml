@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/redDark"
-        android:padding="10dp"
+        android:padding="@dimen/dp_10"
         android:gravity="center">
         <TextView
             android:id="@+id/head_shop"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="@string/recharge"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/sp_20" />
     </LinearLayout>
 
     <View
@@ -28,17 +28,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="充值号码："
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:padding="@dimen/dp_10"
         android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
         android:gravity="center_vertical">
         <EditText
             android:id="@+id/et_find"
@@ -48,7 +48,7 @@
             android:background="@drawable/size_black"
             android:inputType="phone"
             android:maxLines="1"
-            android:padding="3dp"/>
+            android:padding="@dimen/dp_3"/>
         <TextView
             android:id="@+id/tv_find"
             android:layout_width="wrap_content"
@@ -57,8 +57,8 @@
             android:background="@drawable/size_black"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_10"
             android:layout_marginLeft="5dp"/>
     </LinearLayout>
 
@@ -66,25 +66,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="充值选择："
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:padding="@dimen/dp_10"
         android:textColor="@color/black"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerview"
-        android:layout_margin="5dp"/>
+        android:layout_margin="@dimen/dp_10"/>
 
     <TextView
         android:id="@+id/tv_numb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="充值金额：0元"
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:padding="@dimen/dp_10"
         android:textColor="@color/black"/>
 
     <TextView
@@ -93,10 +93,10 @@
         android:layout_height="wrap_content"
         android:text="@string/immediate_payment"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="@dimen/sp_14"
         android:gravity="center"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dp_10"
         android:background="@drawable/login_btn_red"
-        android:padding="8dp"/>
+        android:padding="@dimen/dp_8"/>
 
 </LinearLayout>

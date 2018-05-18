@@ -1,12 +1,28 @@
 package com.mingxuan.huaji.fragment;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,23 +38,26 @@ import android.widget.ViewFlipper;
 
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.LoginActivity;
-import com.mingxuan.huaji.layout.four.activity.BindMobileActivity;
-import com.mingxuan.huaji.layout.four.activity.MyPhoneCardActivity;
-import com.mingxuan.huaji.layout.four.activity.PasswordManageActivity;
-import com.mingxuan.huaji.layout.four.activity.MyAdressActivity;
-import com.mingxuan.huaji.layout.four.activity.MyBankCardActivity;
-import com.mingxuan.huaji.layout.four.activity.MyFriendActivity;
-import com.mingxuan.huaji.layout.four.activity.MyInformationActivity;
-import com.mingxuan.huaji.layout.four.activity.MyIntergralActivity;
-import com.mingxuan.huaji.layout.four.activity.MyOrderActivity;
-import com.mingxuan.huaji.layout.four.activity.MyQrcodeActivity;
-import com.mingxuan.huaji.layout.four.activity.MyShoppingCartActivity;
-import com.mingxuan.huaji.layout.four.model.InformationModel;
-import com.mingxuan.huaji.layout.two.activity.ChoosePhoneCardActivity;
+import com.mingxuan.huaji.layout.mine.activity.BindMobileActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyPhoneCardActivity;
+import com.mingxuan.huaji.layout.mine.activity.PasswordManageActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyAdressActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyBankCardActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyFriendActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyInformationActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyIntergralActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyOrderActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyQrcodeActivity;
+import com.mingxuan.huaji.layout.mine.activity.MyShoppingCartActivity;
+import com.mingxuan.huaji.layout.mine.bean.InformationModel;
+import com.mingxuan.huaji.layout.homepage.activity.ChoosePhoneCardActivity;
 import com.mingxuan.huaji.utils.CircleImageView;
-import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.utils.ToastUtil;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +65,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.jpush.android.api.JPushInterface;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Administrator on 2017/10/9 0009.
@@ -91,6 +112,10 @@ public class MineFragment extends Fragment {
     Unbinder unbinder;
     private View view;
     boolean islogin;
+    protected static final int CHOOSE_PICTURE = 0;
+    protected static final int TAKE_PICTURE = 1;
+    private static final int CROP_SMALL_PICTURE = 2;
+    protected static Uri tempUri;
 
     @Nullable
     @Override
@@ -98,16 +123,15 @@ public class MineFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_mine, null);
         unbinder = ButterKnife.bind(this, view);
 
-        sharedPreferences = getActivity().getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         initView();
-
         return view;
     }
 
     private void initView() {
         list = new ArrayList<>();
         islogin = sharedPreferences.getBoolean("islogin", false);
-        if (islogin){
+        if (islogin) {
             phone.setText(sharedPreferences.getString("phone", ""));
             name.setText(sharedPreferences.getString("create_name", ""));
             loginBack.setVisibility(View.VISIBLE);
@@ -119,13 +143,14 @@ public class MineFragment extends Fragment {
         }
 
         //轮播
-        for(int i = 0;i<3;i++){
-            View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_viewflipper,null);
+        for (int i = 0; i < 3; i++) {
+            View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_viewflipper, null);
             TextView textView = (TextView) view1.findViewById(R.id.text);
-            textView.setText("厉害了我的哥，你又中奖了"+i);
+            textView.setText("厉害了我的哥，你又中奖了" + i);
             viewFlipper.addView(view1);
         }
 
+        circle.setOnClickListener(onClickListener);
         myFriends.setOnClickListener(onClickListener);
         myShoppingCart.setOnClickListener(onClickListener);
         myOrder.setOnClickListener(onClickListener);
@@ -146,6 +171,21 @@ public class MineFragment extends Fragment {
         public void onClick(View v) {
             Intent intent;
             switch (v.getId()) {
+                case R.id.circle:
+//                    if(islogin){
+                    if(ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                        // 权限还没有授予，进行申请
+                        checkPermisson();
+                    }else {
+                        showChoosePicDialog();
+                    }
+//                    }else {
+//                        ToastUtil.makeToast(getContext(), "你还没有登录");
+//                    }
+                    break;
                 case R.id.login:
                     intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
@@ -241,7 +281,7 @@ public class MineFragment extends Fragment {
                     }
                     break;
                 case R.id.login_back:
-                    SharedPreferences shared = getActivity().getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
+                    SharedPreferences shared = getActivity().getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = shared.edit();
                     editor.clear();
                     editor.apply();
@@ -254,6 +294,144 @@ public class MineFragment extends Fragment {
         }
     };
 
+    //修改头像
+    private void showChoosePicDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("设置头像");
+        String[] items = {"选择本地照片", "拍照"};
+        builder.setNegativeButton("取消", null);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case CHOOSE_PICTURE: // 选择本地照片
+                        Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                        openAlbumIntent.setType("image/*");
+                        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
+                        break;
+                    case TAKE_PICTURE:// 拍照
+                        File outputImage = new File(getActivity().getExternalCacheDir(), "output_image.jpg");
+                        try {
+                            if (outputImage.exists()) {
+                                outputImage.delete();
+                            }
+                            outputImage.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            tempUri = FileProvider.getUriForFile(getActivity(), "com.example.cameraalbumtest.fileprovider", outputImage);
+                        } else {
+                            tempUri = Uri.fromFile(outputImage);
+                        }
+                        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+                        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+                        break;
+                }
+            }
+        });
+        builder.create().show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) { // 如果返回码是可以用的
+            switch (requestCode) {
+                case CHOOSE_PICTURE:
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        handleImageOnKitKat(data);
+                    } else {
+                        handleImageBeforKitKat(data);
+                    }
+                    break;
+                case TAKE_PICTURE:
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(tempUri));
+                        circle.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CROP_SMALL_PICTURE:
+                    if (data != null) {
+                        Bundle extras = data.getExtras();
+                        Bitmap photo = extras.getParcelable("data");
+                        circle.setImageBitmap(photo);
+                    }
+                    break;
+            }
+        }
+    }
+
+    @TargetApi(19)
+    private void handleImageOnKitKat(Intent date) {
+        String imagePath = null;
+        Uri uri = date.getData();
+        if (DocumentsContract.isDocumentUri(getActivity(), uri)) {
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                String id = docId.split(":")[1];
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                imagePath = getImagePath(contentUri, null);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            imagePath = getImagePath(uri, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            imagePath = uri.getPath();
+        }
+        displayImage(imagePath);
+    }
+
+    private void handleImageBeforKitKat(Intent date) {
+        Uri uri = date.getData();
+        String imagePath = getImagePath(uri, null);
+        displayImage(imagePath);
+    }
+
+    private void displayImage(String imagePath) {
+        if (imagePath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            circle.setImageBitmap(bitmap);
+        } else {
+            ToastUtil.makeToast(getActivity(), "failed to get image");
+        }
+    }
+
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        //通过URi和selection来获取真实的图片路径
+        Cursor cursor = getActivity().getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+    /**
+     * 动态权限的请求
+     */
+    public void checkPermisson() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            ActivityCompat.requestPermissions(getActivity(),//上下文
+                    new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},//权限数组
+                    1001);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     TextView title;
     TextView content;
     TextView confirmBtn;
@@ -262,8 +440,8 @@ public class MineFragment extends Fragment {
     ScrollView sv_content;
     EditText et_mima;
     int index = 0;
-    private void showPopupWindow(){
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_phone_window,null);
+    private void showPopupWindow() {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_phone_window, null);
         title = (TextView) view.findViewById(R.id.title);
         content = (TextView) view.findViewById(R.id.content);
         confirmBtn = (TextView) view.findViewById(R.id.confirm_btn);
@@ -274,27 +452,27 @@ public class MineFragment extends Fragment {
 
 
         title.setText(R.string.hint_title);
-        if(index == 0){
+        if (index == 0) {
             ll_mima.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             sv_content.setVisibility(View.VISIBLE);
         }
         content.setText(R.string.phone_hint);
 
         //获取屏幕宽高
-        int weight = getResources().getDisplayMetrics().widthPixels*4/5;
-        int height = getResources().getDisplayMetrics().heightPixels*2/7;
-        final PopupWindow popupWindow = new PopupWindow(view,weight,height,true);
+        int weight = getResources().getDisplayMetrics().widthPixels * 4 / 5;
+        int height = getResources().getDisplayMetrics().heightPixels * 2 / 7;
+        final PopupWindow popupWindow = new PopupWindow(view, weight, height, true);
         popupWindow.setFocusable(true);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                if(index == 0){
-                    intent = new Intent(getActivity(),MyPhoneCardActivity.class);
-                }else {
-                    intent = new Intent(getActivity(),ChoosePhoneCardActivity.class);
+                if (index == 0) {
+                    intent = new Intent(getActivity(), MyPhoneCardActivity.class);
+                } else {
+                    intent = new Intent(getActivity(), ChoosePhoneCardActivity.class);
                 }
 
                 startActivity(intent);
@@ -325,7 +503,7 @@ public class MineFragment extends Fragment {
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = 0.5f;
         getActivity().getWindow().setAttributes(lp);
-        popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
 
 

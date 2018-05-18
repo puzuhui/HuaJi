@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dp_10"
         android:background="@color/redDark">
         <TextView
             android:id="@+id/register"
@@ -15,13 +15,13 @@
             android:layout_height="wrap_content"
             android:text="@string/register"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="@dimen/sp_16"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_18"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
@@ -35,57 +35,57 @@
 
         <EditText
             android:id="@+id/please_enter_proof_of_identity"
-            android:layout_width="200dp"
+            android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
             android:hint="@string/please_enter_proof_of_identity"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="@dimen/sp_12"
             android:background="@drawable/login_edit_white"
-            android:padding="5dp"
-            android:layout_marginBottom="10dp"
+            android:padding="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_10"
             android:maxLines="1"/>
 
         <EditText
             android:id="@+id/please_enter_possword"
-            android:layout_width="200dp"
+            android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="@dimen/dp_35"
             android:background="@drawable/login_edit_white"
             android:hint="@string/please_enter_possword"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="12sp"
+            android:textSize="@dimen/sp_12"
             android:maxLength="20"
             android:inputType="textPassword"
             android:maxLines="1"/>
 
         <TextView
             android:id="@+id/submit"
-            android:layout_width="200dp"
+            android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             android:gravity="center"
             android:background="@drawable/login_edit_reddark"
-            android:padding="8dp"/>
+            android:padding="@dimen/dp_8"/>
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="@dimen/dp_20">
             <TextView
                 android:id="@+id/forget_the_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="忘记密码"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_12"
                 android:textColor="@color/orange"
-                android:padding="5dp"/>
+                android:padding="@dimen/dp_5"/>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -96,9 +96,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我是老用户"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp_12"
                 android:textColor="@color/orange"
-                android:padding="5dp"/>
+                android:padding="@dimen/dp_5"/>
         </LinearLayout>
 
     </LinearLayout>

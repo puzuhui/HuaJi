@@ -1,28 +1,19 @@
 package com.mingxuan.huaji.layout;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.api.BaseApi;
-import com.mingxuan.huaji.api.FourApi;
-import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.network.api.BaseApi;
+import com.mingxuan.huaji.network.api.MainApi;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
-import com.mingxuan.huaji.layout.four.activity.InsertPasswordActivity;
-import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.ToastUtil;
 import com.mingxuan.huaji.utils.UIUtils;
@@ -31,14 +22,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/10/12 0012.
  */
 
-public class RegisitActivity extends Activity {
+public class RegisitActivity extends BaseActivity {
     @BindView(R.id.login)
     TextView login;
     @BindView(R.id.please_enter_username)
@@ -63,19 +53,28 @@ public class RegisitActivity extends Activity {
     TextView loginTx;
     LoadingDialog loadingDialog;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_register);
+//        ButterKnife.bind(this);
+//
+//        //ScrollView压缩背景图片解决
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//
+//        initView();
+//    }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_register;
+    }
+
+    @Override
+    protected void initView() {
         //ScrollView压缩背景图片解决
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        initView();
-    }
-
-    private void initView() {
         loadingDialog = new LoadingDialog(this);
     }
 

@@ -1,9 +1,6 @@
 package com.mingxuan.huaji.layout;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,10 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.api.BaseApi;
-import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.network.api.BaseApi;
+import com.mingxuan.huaji.network.api.MainApi;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
-import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.utils.NewEditText;
 import com.mingxuan.huaji.utils.ToastUtil;
 import com.mingxuan.huaji.utils.UIUtils;
@@ -23,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -31,7 +28,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class ForgetThePasswordActivity extends Activity {
+public class ForgetThePasswordActivity extends BaseActivity {
     @BindView(R.id.back_btn)
     ImageView backBtn;
     @BindView(R.id.please_enter_phone_number)
@@ -47,16 +44,22 @@ public class ForgetThePasswordActivity extends Activity {
     @BindView(R.id.submit)
     TextView submit;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gorgetthe_password);
-        ButterKnife.bind(this);
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_gorgetthe_password);
+//        ButterKnife.bind(this);
+//
+//        initView();
+//    }
 
-        initView();
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_gorgetthe_password;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         pleaseEnterPhoneNumber.addTextChangedListener(new NewEditText(pleaseEnterPhoneNumber));
         pleaseEnterVerificationCode.addTextChangedListener(new NewEditText(pleaseEnterVerificationCode));
         setPossword.addTextChangedListener(new NewEditText(setPossword));

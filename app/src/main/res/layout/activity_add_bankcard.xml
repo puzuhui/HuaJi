@@ -3,27 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/greylight">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/redDark"
-        android:padding="10dp">
+        >
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/back_left"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_bank_card"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_18"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -31,9 +31,9 @@
         android:text="@string/risk"
         android:drawableLeft="@mipmap/risk"
         android:gravity="center"
-        android:drawablePadding="5dp"
-        android:layout_margin="15dp"
-        android:textSize="14sp"/>
+        android:drawablePadding="@dimen/dp_5"
+        android:layout_margin="@dimen/dp_15"
+        android:textSize="@dimen/sp_14"/>
 
     <EditText
         android:id="@+id/bank_account"
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/bank_account"
         android:textColorHint="@color/greylight"
-        android:textSize="16sp"
-        android:padding="15dp"
+        android:textSize="@dimen/sp_16"
+        android:padding="@dimen/dp_15"
         android:background="@color/white"/>
 
     <View
@@ -56,9 +56,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/belongs_to_the_bank"
         android:textColorHint="@color/greylight"
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:background="@color/white"
-        android:padding="15dp"/>
+        android:padding="@dimen/dp_15"/>
 
     <View
         android:layout_width="match_parent"
@@ -71,9 +71,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/card_type"
         android:textColorHint="@color/greylight"
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:background="@color/white"
-        android:padding="15dp"/>
+        android:padding="@dimen/dp_15"/>
 
     <View
         android:layout_width="match_parent"
@@ -86,8 +86,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/card_person"
         android:textColorHint="@color/greylight"
-        android:textSize="16sp"
-        android:padding="15dp"
+        android:textSize="@dimen/sp_16"
+        android:padding="@dimen/dp_15"
         android:background="@color/white"/>
 
     <View
@@ -101,8 +101,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/reserved_phone_number"
         android:textColorHint="@color/greylight"
-        android:textSize="16sp"
-        android:padding="15dp"
+        android:textSize="@dimen/sp_16"
+        android:padding="@dimen/dp_15"
         android:background="@color/white"
         android:inputType="phone"/>
     <View
@@ -116,13 +116,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/redDark"
-        android:paddingBottom="10dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="10dp"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_50"
+        android:paddingRight="@dimen/dp_50"
+        android:paddingTop="@dimen/dp_10"
         android:text="@string/binding_acknowledgement"
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:textColor="@color/white"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="@dimen/dp_25"/>
 
 </LinearLayout>

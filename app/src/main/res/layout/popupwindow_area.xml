@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="@dimen/dp_5">
         <TextView
             android:id="@+id/shen"
             android:layout_weight="1"
@@ -62,33 +62,33 @@
             android:id="@+id/line1"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/redDark"/>
         <View
             android:id="@+id/line2"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/redDark"
             android:visibility="invisible"/>
         <View
             android:id="@+id/line3"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/redDark"
             android:visibility="invisible"/>
         <View
             android:id="@+id/line4"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/redDark"
             android:visibility="invisible"/>
         <View
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/redDark"
             android:visibility="invisible"/>
     </LinearLayout>

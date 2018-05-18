@@ -18,15 +18,15 @@
         android:layout_height="wrap_content"
         android:text="购物车竟然是空的"
         android:textColor="@color/black"
-        android:textSize="14sp"/>
+        android:textSize="@dimen/sp_14"/>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
         android:text="主人再忙，也要买点什么犒赏自己"
-        android:textSize="12sp"/>
+        android:textSize="@dimen/sp_12"/>
 
 </LinearLayout>

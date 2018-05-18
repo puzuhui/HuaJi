@@ -13,30 +13,20 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.api.BaseApi;
-import com.mingxuan.huaji.api.FourApi;
-import com.mingxuan.huaji.fragment.HomePageFragment;
 import com.mingxuan.huaji.fragment.MineFragment;
-import com.mingxuan.huaji.fragment.RechargeFragment;
+import com.mingxuan.huaji.fragment.NewsFragment;
 import com.mingxuan.huaji.fragment.ShoppingMallFragment;
-import com.mingxuan.huaji.interfaces.GetResultCallBack;
-import com.mingxuan.huaji.layout.four.activity.MyInformationActivity;
-import com.mingxuan.huaji.layout.four.model.InformationModel;
-import com.mingxuan.huaji.utils.Constants;
-import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.utils.NotificationsUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -51,7 +41,7 @@ public class HomePageViewPagerActivity extends FragmentActivity{
     private RadioButton recharge;
     private ArrayList<Fragment> fragmentArrayList;
     private MineFragment mineFragment;
-    private RechargeFragment rechargeFragment;
+    private NewsFragment newsFragment;
     private ShoppingMallFragment shoppingFragment;
 
     @Override
@@ -60,17 +50,19 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         setContentView(R.layout.activity_homepage_viewpager);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
+        boolean islogin = sharedPreferences.getBoolean("islogin",false);
 
-        if (NotificationsUtils.isNotificationEnabled(this)) {
-            Log.e("====", "onCreate: 通知权限 已开启");
-            //JPushInterface.setAlias(this, 0, sharedPreferences.getString("phone",""));//极光设置别名
-            JPushInterface.setAlias(this, 0, sharedPreferences.getString("create_id",""));//极光设置别名
-        } else {
-            Log.e("====", "onCreate: 通知权限 未开启");
-            //提示用户去设置，跳转到应用信息界面
-            Intent intent = new Intent(Settings.ACTION_SETTINGS);
-            startActivity(intent);
+        if(islogin){
+            if (NotificationsUtils.isNotificationEnabled(this)) {
+                //JPushInterface.setAlias(this, 0, sharedPreferences.getString("phone",""));//极光设置别名
+                JPushInterface.setAlias(this, 0, sharedPreferences.getString("create_id",""));//极光设置别名
+            } else {
+                //提示用户去设置，跳转到应用信息界面
+                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                startActivity(intent);
+            }
         }
+
         initView();
     }
 
@@ -87,10 +79,10 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         viewPager = (ViewPager) findViewById(R.id.id_viewpage);
         fragmentArrayList = new ArrayList<>();
         mineFragment = new MineFragment();
-        rechargeFragment = new RechargeFragment();
+        newsFragment = new NewsFragment();
         shoppingFragment = new ShoppingMallFragment();
         fragmentArrayList.add(shoppingFragment);
-        fragmentArrayList.add(rechargeFragment);
+        fragmentArrayList.add(newsFragment);
         fragmentArrayList.add(mineFragment);
 
         HuaJiPagerAdapter instantaneousPagerAdapter = new HuaJiPagerAdapter(getSupportFragmentManager());
@@ -99,7 +91,7 @@ public class HomePageViewPagerActivity extends FragmentActivity{
         shopping_mall.setChecked(true);
         viewPager.setOffscreenPageLimit(fragmentArrayList.size());
         shopping_mall.setTextColor(getResources().getColor(R.color.red));
-        shopping_mall.setTextSize(14);
+        shopping_mall.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_14));
         shopping_mall.setOnClickListener(onClickListener);
         shopping_mall.setOnClickListener(onClickListener);
         recharge.setOnClickListener(onClickListener);
@@ -138,27 +130,27 @@ public class HomePageViewPagerActivity extends FragmentActivity{
                     shopping_mall.setTextColor(getResources().getColor(R.color.red));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
-                    shopping_mall.setTextSize(14);
-                    recharge.setTextSize(12);
-                    me.setTextSize(12);
+                    shopping_mall.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_14));
+                    recharge.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_12));
+                    me.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_12));
                     break;
                 case 1:
                     recharge.setChecked(true);
                     recharge.setTextColor(getResources().getColor(R.color.red));
                     me.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
-                    shopping_mall.setTextSize(12);
-                    recharge.setTextSize(14);
-                    me.setTextSize(12);
+                    shopping_mall.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_12));
+                    recharge.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_14));
+                    me.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_12));
                     break;
                 case 2:
                     me.setChecked(true);
                     me.setTextColor(getResources().getColor(R.color.red));
                     recharge.setTextColor(getResources().getColor(R.color.transparent80));
                     shopping_mall.setTextColor(getResources().getColor(R.color.transparent80));
-                    shopping_mall.setTextSize(12);
-                    recharge.setTextSize(12);
-                    me.setTextSize(14);
+                    shopping_mall.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_12));
+                    recharge.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_12));
+                    me.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_14));
                     break;
             }
         }

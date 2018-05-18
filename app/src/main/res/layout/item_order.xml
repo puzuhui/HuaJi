@@ -3,16 +3,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="@dimen/dp_10"
     android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/shop_name"
@@ -20,10 +20,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="后台管理员"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/transparent80"
             android:drawableLeft="@mipmap/del"
-            android:drawablePadding="5dp"
+            android:drawablePadding="@dimen/dp_5"
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/order_type"
@@ -49,40 +49,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10">
             <TextView
                 android:id="@+id/content"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="考个会计埃里克噶结构胶离开家噶过来金刚狼科技噶机构"
+                android:textSize="@dimen/sp_14"
                 android:lines="2"
                 android:ellipsize="end"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="@dimen/dp_10"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="@dimen/dp_10">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="共" />
+                    android:text="共"
+                    android:textSize="@dimen/sp_14"/>
                 <TextView
                     android:id="@+id/number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6" />
+                    android:text="6"
+                    android:textSize="@dimen/sp_14"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="件商品  需付款：￥" />
+                    android:text="件商品  需付款：￥"
+                    android:textSize="@dimen/sp_14"/>
                 <TextView
                     android:id="@+id/money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6000" />
+                    android:text="6000"
+                    android:textSize="@dimen/sp_14"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -90,7 +95,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="@dimen/dp_5"
         android:orientation="horizontal">
         <View
             android:layout_width="0dp"
@@ -101,9 +106,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/size_red"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:text="@string/cancellation_of_order"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/dp_5"
             android:visibility="gone"/>
 
         <TextView
@@ -111,9 +116,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/size_red"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:text="@string/delete_order"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/dp_5"
             android:visibility="gone"/>
 
         <TextView
@@ -121,9 +126,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/size_red"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:text="@string/additional_comments"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/dp_5"
             android:visibility="gone"/>
 
         <TextView
@@ -131,9 +136,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/size_red"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:text="@string/evaluate"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/dp_5"
             android:visibility="gone"/>
 
         <TextView
@@ -141,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/size_red"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:text="@string/check_the_logistics"
             android:visibility="gone"/>
 
@@ -150,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/size_red"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:text="@string/payment"
             android:visibility="gone"/>
 
@@ -159,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/size_red"
-            android:padding="5dp"
+            android:padding="@dimen/dp_5"
             android:text="@string/confirm_receipt"
             android:visibility="gone"/>
     </LinearLayout>

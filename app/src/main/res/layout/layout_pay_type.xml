@@ -15,22 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/choose_pay"
-            android:padding="15dp"
-            android:textSize="18sp"
+            android:padding="@dimen/dp_15"
+            android:textSize="@dimen/sp_18"
             android:textColor="@color/black"/>
         <LinearLayout
             android:id="@+id/linear_wx"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="15dp"
+            android:padding="@dimen/dp_15"
             android:background="@color/white">
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/wx_pay"
-                android:textSize="14sp"
+                android:textSize="@dimen/sp_14"
                 android:textColor="@color/black"/>
             <CheckBox
                 android:id="@+id/check_wx"
@@ -48,14 +48,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="15dp"
+            android:padding="@dimen/dp_15"
             android:background="@color/white">
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/al_pay"
-                android:textSize="14sp"
+                android:textSize="@dimen/sp_14"
                 android:textColor="@color/black"/>
             <CheckBox
                 android:id="@+id/check_al"
@@ -72,13 +72,13 @@
         android:layout_height="wrap_content"
         android:text="@string/immediate_payment"
         android:layout_gravity="center"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:textSize="18sp"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:paddingLeft="@dimen/dp_30"
+        android:paddingRight="@dimen/dp_30"
+        android:textSize="@dimen/sp_16"
         android:textColor="@color/white"
         android:background="@drawable/login_btn_red"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dp_10"
         />
 </LinearLayout>

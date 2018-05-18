@@ -6,46 +6,34 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.mingxuan.huaji.api.BaseApi;
-import com.mingxuan.huaji.api.MainApi;
+import com.mingxuan.huaji.layout.homepage.activity.RechargeActivity;
+import com.mingxuan.huaji.network.api.BaseApi;
+import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.R;
-import com.mingxuan.huaji.layout.two.activity.CardInformationActivity;
-import com.mingxuan.huaji.layout.two.activity.CommodityDetailsActivity;
-import com.mingxuan.huaji.layout.two.activity.ListOfGoodsActivity;
-import com.mingxuan.huaji.layout.two.activity.PhoneCardActivity;
-import com.mingxuan.huaji.layout.two.adapter.ShoppingMallAdapter;
-import com.mingxuan.huaji.layout.two.model.BannerModel;
-import com.mingxuan.huaji.layout.two.model.ShoppingMallModel;
-import com.mingxuan.huaji.utils.Constants;
+import com.mingxuan.huaji.layout.homepage.activity.CardInformationActivity;
+import com.mingxuan.huaji.layout.homepage.activity.CommodityDetailsActivity;
+import com.mingxuan.huaji.layout.homepage.activity.ListOfGoodsActivity;
+import com.mingxuan.huaji.layout.homepage.activity.PhoneCardActivity;
+import com.mingxuan.huaji.layout.homepage.bean.BannerModel;
+import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.NetImageLocadHolder;
-import com.mingxuan.huaji.utils.ToastUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Created by Administrator on 2017/10/9 0009.
@@ -58,7 +46,7 @@ public class ShoppingMallFragment extends Fragment {
     //网络图片加载地址的集合
     private List<String> bean;
     private View view;
-    private TextView login,one,two,three,fore,five;
+    private TextView login,one,two,three;
     private TextView head_edit;
     private ImageView iv_one,iv_two,iv_three,iv_four;
     private List<BannerModel.ResultBean> list;
@@ -82,8 +70,6 @@ public class ShoppingMallFragment extends Fragment {
         one = (TextView) view.findViewById(R.id.one);
         two = (TextView) view.findViewById(R.id.two);
         three = (TextView) view.findViewById(R.id.three);
-        fore = (TextView) view.findViewById(R.id.fore);
-        five = (TextView) view.findViewById(R.id.five);
         head_edit = (TextView) view.findViewById(R.id.head_edit);
         iv_one = (ImageView) view.findViewById(R.id.iv_one);
         iv_two = (ImageView) view.findViewById(R.id.iv_two);
@@ -93,8 +79,6 @@ public class ShoppingMallFragment extends Fragment {
         one.setOnClickListener(onClickListener);
         two.setOnClickListener(onClickListener);
         three.setOnClickListener(onClickListener);
-        fore.setOnClickListener(onClickListener);
-        five.setOnClickListener(onClickListener);
         head_edit.setOnClickListener(onClickListener);
         iv_one.setOnClickListener(onClickListener);
         iv_two.setOnClickListener(onClickListener);
@@ -170,13 +154,13 @@ public class ShoppingMallFragment extends Fragment {
                     }
                     break;
                 case R.id.three:
-                    ToastUtil.makeToast(getActivity(),"此功能还未开通！！！");
-                    break;
-                case R.id.fore:
-                    ToastUtil.makeToast(getActivity(),"此功能还未开通！！！");
-                    break;
-                case R.id.five:
-                    ToastUtil.makeToast(getActivity(),"此功能还未开通！！！");
+                    if(islogin){
+                        intent = new Intent(getActivity(), RechargeActivity.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                    }
                     break;
                 case R.id.iv_one:
                     intent = new Intent(getActivity(), CommodityDetailsActivity.class);

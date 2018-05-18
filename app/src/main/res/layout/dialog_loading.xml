@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="12sp"
-            android:layout_marginTop="8dp"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginTop="@dimen/dp_8"
             android:text="加载中..."/>
 
     </LinearLayout>
