@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.news.bean.MaterialModer;
+import com.mingxuan.huaji.utils.LoadingDialog;
 
 import java.util.List;
 
@@ -45,11 +46,11 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.ViewHo
         holder.tvMessage.setText(resultBean.getIntro());
 
         if(onItemClickListener != null){
-            holder.ivDownload.setOnClickListener(new View.OnClickListener() {
+            holder.tvDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = holder.getLayoutPosition();
-                    onItemClickListener.onItemClick(holder.ivDownload,position);
+                    onItemClickListener.onItemClick(holder.tvDownload,position);
                 }
             });
         }
@@ -76,8 +77,8 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.ViewHo
         TextView tvTitle;
         @BindView(R.id.tv_message)
         TextView tvMessage;
-        @BindView(R.id.iv_download)
-        ImageView ivDownload;
+        @BindView(R.id.tv_download)
+        TextView tvDownload;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

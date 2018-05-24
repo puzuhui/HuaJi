@@ -9,9 +9,9 @@ public class BaseUrl {
 
 //    public final static String javaurl = "http://www.hjhp.cn/ws/user/";//根地址
 
-    public final static String baseurl = "http://192.168.188.123/huaji/index.php/Home/index/";//根地址
+    public final static String baseurl = "http://192.168.188.122/huaji/index.php/Home/index/";//根地址
 
-    public final static String javaurl = "http://192.168.188.122:8080/huaji/ws/user/";//根地址
+    public final static String javaurl = "http://192.168.188.123:8080/huaji/ws/user/";//根地址
 
     public final static String login = javaurl + "login?";//登录
 
@@ -114,4 +114,10 @@ public class BaseUrl {
     public final static String serviceChannel = baseurl + "serviceChannel?";//服务查询
 
     public final static String download = baseurl + "download";//资料下载
+
+    public final static String  notification = baseurl + "notification?";//通知
+
+    public final static String  introduce = baseurl + "introduce?";//通知
+
+    public final static String  logisticsno = baseurl + "logisticsno?";//号卡物流
 }

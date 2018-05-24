@@ -1,13 +1,23 @@
 package com.mingxuan.huaji.layout.news.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.base.BaseActivity;
+import com.mingxuan.huaji.base.Constants;
+import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.news.adpter.NotificationAdapter;
 import com.mingxuan.huaji.layout.news.bean.NotificationModel;
+import com.mingxuan.huaji.network.api.TwoApi;
+import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +31,13 @@ import butterknife.OnClick;
  */
 
 public class NotificationActivity extends BaseActivity {
-
     @BindView(R.id.back_btn)
     ImageView backBtn;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
-    List<NotificationModel> list;
+    List<NotificationModel.ResultBean> list;
+    NotificationAdapter notificationAdapter;
+    LoadingDialog loadingDialog;
 
     @Override
     protected int getLayoutId() {
@@ -35,24 +46,51 @@ public class NotificationActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        list = new ArrayList<>();
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
 
-        for (int i = 0; i < 20; i++) {
-            NotificationModel notificationModel = new NotificationModel();
-            notificationModel.setTitile("第一天的标题啊第一天的标题啊第一天的标题啊第一天的标题啊第一天的标题啊第一天的标题啊啊第一天的标题啊第一天的标题啊");
-            notificationModel.setMessage("关于补发分子佳节我公司名义开展超市名义来重庆滑稽换购离开家里空间关于补发分子佳节我公司名义开展超市名义来重庆滑稽换购离开家里空间关于补发分子佳节我公司名义开展超市名义来重庆滑稽换购离开家里空间关于补发分子佳节我公司名义开展超市名义来重庆滑稽换购离开家里空间");
-            notificationModel.setTime("2018-12-17");
-            list.add(notificationModel);
-        }
+        receiveId = sharedPreferences.getString("create_id","");
+        list = new ArrayList<>();
+        loadingDialog = new LoadingDialog(this);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotificationActivity.this);
         recyclerview.setLayoutManager(linearLayoutManager);
 
-        NotificationAdapter notificationAdapter = new NotificationAdapter(NotificationActivity.this,list,1);
+        notificationAdapter = new NotificationAdapter(NotificationActivity.this,list,1);
         recyclerview.setAdapter(notificationAdapter);
+
+        notificationAdapter.setOnClickListenter(new NotificationAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int i) {
+                Intent intent = new Intent(NotificationActivity.this, NotificationDetailsActivity.class);
+                intent.putExtra("details",list.get(i).getContent());
+                startActivity(intent);
+            }
+        });
+
+        getData();
     }
 
     @OnClick(R.id.back_btn)
     public void onViewClicked() {
         finish();
+    }
+
+    String receiveId;
+    private void getData(){
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
+        TwoApi.getInstance(this).notificationApi(receiveId, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                loadingDialog.dismiss();
+                if(type == Constants.TYPE_SUCCESS){
+                    List<NotificationModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),result,NotificationModel.ResultBean.class);
+                    list.clear();
+                    list.addAll(resultBeans);
+
+                    notificationAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 }

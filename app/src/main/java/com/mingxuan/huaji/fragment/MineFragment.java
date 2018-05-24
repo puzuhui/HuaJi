@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -23,6 +24,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +39,16 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.InvokeParam;
+import com.jph.takephoto.model.TContextWrap;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.permission.InvokeListener;
+import com.jph.takephoto.permission.PermissionManager;
+import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.layout.mine.activity.BindMobileActivity;
@@ -72,7 +85,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by Administrator on 2017/10/9 0009.
  */
 
-public class MineFragment extends Fragment {
+public class MineFragment extends Fragment implements TakePhoto.TakeResultListener,InvokeListener {
     @BindView(R.id.circle)
     CircleImageView circle;
     @BindView(R.id.my_friends)
@@ -115,7 +128,10 @@ public class MineFragment extends Fragment {
     protected static final int CHOOSE_PICTURE = 0;
     protected static final int TAKE_PICTURE = 1;
     private static final int CROP_SMALL_PICTURE = 2;
-    protected static Uri tempUri;
+    private Uri imageUri;  //图片保存路径
+    private CropOptions cropOptions;  //裁剪参数
+    TakePhoto takePhoto;
+    InvokeParam invokeParam;
 
     @Nullable
     @Override
@@ -147,8 +163,11 @@ public class MineFragment extends Fragment {
             View view1 = LayoutInflater.from(getContext()).inflate(R.layout.item_viewflipper, null);
             TextView textView = (TextView) view1.findViewById(R.id.text);
             textView.setText("厉害了我的哥，你又中奖了" + i);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.sp_14));
             viewFlipper.addView(view1);
         }
+
+        initData();
 
         circle.setOnClickListener(onClickListener);
         myFriends.setOnClickListener(onClickListener);
@@ -172,19 +191,19 @@ public class MineFragment extends Fragment {
             Intent intent;
             switch (v.getId()) {
                 case R.id.circle:
-//                    if(islogin){
-                    if(ContextCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                            || ContextCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-                        // 权限还没有授予，进行申请
-                        checkPermisson();
-                    }else {
-                        showChoosePicDialog();
+                    if (islogin) {
+                        if (ContextCompat.checkSelfPermission(getActivity(),
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                                || ContextCompat.checkSelfPermission(getActivity(),
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            // 权限还没有授予，进行申请
+                            checkPermisson();
+                        } else {
+                            showChoosePicDialog();
+                        }
+                    } else {
+                        ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
-//                    }else {
-//                        ToastUtil.makeToast(getContext(), "你还没有登录");
-//                    }
                     break;
                 case R.id.login:
                     intent = new Intent(getActivity(), LoginActivity.class);
@@ -294,7 +313,7 @@ public class MineFragment extends Fragment {
         }
     };
 
-    //修改头像
+    ///////////////修改头像///////////////
     private void showChoosePicDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("设置头像");
@@ -305,28 +324,14 @@ public class MineFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case CHOOSE_PICTURE: // 选择本地照片
-                        Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                        openAlbumIntent.setType("image/*");
-                        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
+                        imageUri = getImageCropUri();
+                        //从相册中选取图片并裁剪
+                        takePhoto.onPickFromGalleryWithCrop(imageUri, cropOptions);
                         break;
                     case TAKE_PICTURE:// 拍照
-                        File outputImage = new File(getActivity().getExternalCacheDir(), "output_image.jpg");
-                        try {
-                            if (outputImage.exists()) {
-                                outputImage.delete();
-                            }
-                            outputImage.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        if (Build.VERSION.SDK_INT >= 24) {
-                            tempUri = FileProvider.getUriForFile(getActivity(), "com.example.cameraalbumtest.fileprovider", outputImage);
-                        } else {
-                            tempUri = Uri.fromFile(outputImage);
-                        }
-                        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-                        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+                        //拍照并裁剪
+                        imageUri = getImageCropUri();
+                        takePhoto.onPickFromCaptureWithCrop(imageUri, cropOptions);
                         break;
                 }
             }
@@ -335,84 +340,40 @@ public class MineFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        getTakePhoto().onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void initData() {
+        //获取TakePhoto实例
+        takePhoto = getTakePhoto();
+        //设置裁剪参数
+        cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(false).create();
+//        //设置压缩参数
+//        compressConfig=new CompressConfig.Builder().setMaxSize(50*1024).setMaxPixel(800).create();
+//        takePhoto.onEnableCompress(compressConfig,true);  //设置为需要压缩
+    }
+
+    //获得照片的输出保存Uri
+    private Uri getImageCropUri() {
+        File file=new File(Environment.getExternalStorageDirectory(), "/temp/"+System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists())file.getParentFile().mkdirs();
+        return Uri.fromFile(file);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) { // 如果返回码是可以用的
-            switch (requestCode) {
-                case CHOOSE_PICTURE:
-                    if (Build.VERSION.SDK_INT >= 19) {
-                        handleImageOnKitKat(data);
-                    } else {
-                        handleImageBeforKitKat(data);
-                    }
-                    break;
-                case TAKE_PICTURE:
-                    try {
-                        Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(tempUri));
-                        circle.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case CROP_SMALL_PICTURE:
-                    if (data != null) {
-                        Bundle extras = data.getExtras();
-                        Bitmap photo = extras.getParcelable("data");
-                        circle.setImageBitmap(photo);
-                    }
-                    break;
-            }
-        }
     }
 
-    @TargetApi(19)
-    private void handleImageOnKitKat(Intent date) {
-        String imagePath = null;
-        Uri uri = date.getData();
-        if (DocumentsContract.isDocumentUri(getActivity(), uri)) {
-            String docId = DocumentsContract.getDocumentId(uri);
-            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                String id = docId.split(":")[1];
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
-                imagePath = getImagePath(contentUri, null);
-            }
-        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            imagePath = getImagePath(uri, null);
-        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            imagePath = uri.getPath();
+    /** * 获取TakePhoto实例 * @return */
+    public TakePhoto getTakePhoto(){
+        if (takePhoto==null){
+            takePhoto= (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this,this));
         }
-        displayImage(imagePath);
-    }
-
-    private void handleImageBeforKitKat(Intent date) {
-        Uri uri = date.getData();
-        String imagePath = getImagePath(uri, null);
-        displayImage(imagePath);
-    }
-
-    private void displayImage(String imagePath) {
-        if (imagePath != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            circle.setImageBitmap(bitmap);
-        } else {
-            ToastUtil.makeToast(getActivity(), "failed to get image");
-        }
-    }
-
-    private String getImagePath(Uri uri, String selection) {
-        String path = null;
-        //通过URi和selection来获取真实的图片路径
-        Cursor cursor = getActivity().getContentResolver().query(uri, null, selection, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-            cursor.close();
-        }
-        return path;
+        return takePhoto;
     }
 
     /**
@@ -430,7 +391,39 @@ public class MineFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //以下代码为处理Android6.0、7.0动态权限所需
+        PermissionManager.TPermissionType type=PermissionManager.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        PermissionManager.handlePermissionsResult(getActivity(),type,invokeParam,this);
     }
+
+
+    @Override
+    public void takeSuccess(TResult result) {
+        String iconPath = result.getImage().getOriginalPath();
+        //Toast显示图片路径
+        Log.e("成功======", "imagePath:" + iconPath);
+        //Google Glide库 用于加载图片资源
+        Glide.with(this).load(iconPath).into(circle);
+    }
+
+    @Override
+    public void takeFail(TResult result, String msg) {
+        Log.e("失败======", "msg:" + msg);
+    }
+
+    @Override
+    public void takeCancel() {}
+
+    @Override
+    public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
+        PermissionManager.TPermissionType type=PermissionManager.checkPermission(TContextWrap.of(this),invokeParam.getMethod());
+        if(PermissionManager.TPermissionType.WAIT.equals(type)){
+            this.invokeParam=invokeParam;
+        }
+        return type;
+    }
+
+    ///////////////修改头像///////////////
 
     TextView title;
     TextView content;
@@ -512,4 +505,5 @@ public class MineFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 }

@@ -3,14 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@mipmap/notification1"
-        android:id="@+id/image"
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="5dp"/>
+        app:layout_constraintLeft_toLeftOf="parent">
+        <ImageView
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:src="@mipmap/notification1"
+            android:id="@+id/image"
+            android:padding="@dimen/dp_2"/>
+        <ImageView
+            android:id="@+id/iv_notification"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_10"
+            android:src="@drawable/notification_shape"
+            android:layout_gravity="right"/>
+    </FrameLayout>
+
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"
@@ -21,9 +36,9 @@
         android:text=""
         android:textSize="@dimen/sp_14"
         android:textColor="@color/black"
-        app:layout_constraintLeft_toRightOf="@id/image"
+        app:layout_constraintLeft_toRightOf="@id/framelayout"
         app:layout_constraintRight_toLeftOf="@id/tv_time"
-        app:layout_constraintTop_toTopOf="@id/image" />
+        app:layout_constraintTop_toTopOf="@id/framelayout" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -34,7 +49,7 @@
         android:maxLines="1"
         android:text=""
         android:textSize="@dimen/sp_12"
-        app:layout_constraintLeft_toRightOf="@id/image"
+        app:layout_constraintLeft_toRightOf="@id/framelayout"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
@@ -46,7 +61,7 @@
         android:text=""
         app:layout_constraintLeft_toRightOf="@id/tv_title"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/image"
+        app:layout_constraintTop_toTopOf="@id/framelayout"
         android:layout_marginRight="@dimen/dp_5"/>
 
 </android.support.constraint.ConstraintLayout>

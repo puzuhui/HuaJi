@@ -59,15 +59,6 @@ public class OldUserActivity extends BaseActivity {
     TextView submit;
     LoadingDialog loadingDialog;
 
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_old_user);
-//        ButterKnife.bind(this);
-//
-//        initView();
-//    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_old_user;

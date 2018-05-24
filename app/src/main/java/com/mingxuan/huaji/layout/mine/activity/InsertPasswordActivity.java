@@ -105,8 +105,7 @@ public class InsertPasswordActivity extends Activity {
             public void getResult(String result, int type) {
                 if(type ==  Constants.TYPE_SUCCESS){
                     ToastUtil.makeToast(InsertPasswordActivity.this,"修改密码成功");
-                }else
-                    BaseApi.showErrMsg(InsertPasswordActivity.this,result);
+                }else BaseApi.showErrMsg(InsertPasswordActivity.this,result);
             }
         });
     }

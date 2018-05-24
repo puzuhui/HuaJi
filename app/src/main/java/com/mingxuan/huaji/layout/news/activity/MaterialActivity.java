@@ -22,6 +22,7 @@ import com.mingxuan.huaji.layout.news.bean.MaterialModer;
 import com.mingxuan.huaji.network.api.TwoApi;
 import com.mingxuan.huaji.utils.DownloadUtil;
 import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class MaterialActivity extends BaseActivity {
     List<MaterialModer.ResultBean> list;
     MaterialAdapter materialAdapter;
     boolean isDownLoad = false;
+    LoadingDialog loadingDialog;
 
     @Override
     protected int getLayoutId() {
@@ -48,13 +50,10 @@ public class MaterialActivity extends BaseActivity {
     @Override
     protected void initView() {
         list = new ArrayList<>();
+        loadingDialog = new LoadingDialog(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(linearLayoutManager);
-
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this,R.drawable.custom_divider));
-//        recyclerview.addItemDecoration(dividerItemDecoration);
 
         materialAdapter = new MaterialAdapter(this, list);
         recyclerview.setAdapter(materialAdapter);
@@ -113,9 +112,12 @@ public class MaterialActivity extends BaseActivity {
     }
 
     private void getDownLoad(){
+        loadingDialog.setLoadingContent("加载中...");
+        loadingDialog.show();
         TwoApi.getInstance(this).getdownloadApi(new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
+                loadingDialog.dismiss();
                 if(type == Constants.TYPE_SUCCESS){
                     List<MaterialModer.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(), result, MaterialModer.ResultBean.class);
                     list.addAll(resultBeans);

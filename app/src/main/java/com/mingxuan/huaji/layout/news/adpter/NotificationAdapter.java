@@ -23,13 +23,14 @@ import butterknife.ButterKnife;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
     private final Context mContext;
-    private final List<NotificationModel> mList;
-    int index;
+    private final List<NotificationModel.ResultBean> mList;
+    int index;//   =1 公告通知  =2 最近通知（显示最近10条）
     private final static int TYPE_NORMAL = 1;//所有的消息
     private final static int TYPE_RECENTLY = 2;//最近的消息
     LayoutInflater layoutInflater;
+    private OnItemClickListener mOnItemClickListener;
 
-    public NotificationAdapter(Context context, List<NotificationModel> list,int index) {
+    public NotificationAdapter(Context context, List<NotificationModel.ResultBean> list,int index) {
         this.mContext = context;
         this.mList = list;
         this.index = index;
@@ -38,18 +39,39 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public NotificationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(getItemViewType(viewType) == TYPE_NORMAL){
-            return new ViewHolder(layoutInflater.inflate(R.layout.item_notification_all, parent, false));
+        if(viewType == TYPE_NORMAL){
+            return new ViewHolder(layoutInflater.inflate(R.layout.item_notification_all, parent, false),TYPE_NORMAL);
         }
-        return new ViewHolder(layoutInflater.inflate(R.layout.item_notification, parent, false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.item_notification, parent, false),TYPE_RECENTLY);
     }
 
     @Override
-    public void onBindViewHolder(NotificationAdapter.ViewHolder holder, int position) {
-        NotificationModel notificationModel = mList.get(position);
-        holder.tvTitle.setText(notificationModel.getTitile());
-        holder.tvMessage.setText(notificationModel.getMessage());
-        holder.tvTime.setText(notificationModel.getTime());
+    public void onBindViewHolder(final NotificationAdapter.ViewHolder holder, int position) {
+        NotificationModel.ResultBean notificationModel = mList.get(position);
+        holder.tvTitle.setText(notificationModel.getTitle());
+        holder.tvMessage.setText(notificationModel.getIntro());
+        holder.tvTime.setText(notificationModel.getCreate_time().substring(0,10));
+        if(mList.get(position).getState().equals("2") && index==2){
+            holder.ivNotification.setVisibility(View.GONE);
+        }
+
+        if(mOnItemClickListener != null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int i = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(holder.itemView,i);
+                }
+            });
+        }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view,int i);
+    }
+
+    public void setOnClickListenter(OnItemClickListener onItemClickListener){
+        this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -77,7 +99,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         TextView tvMessage;
         @BindView(R.id.tv_time)
         TextView tvTime;
-        public ViewHolder(View itemView) {
+        @BindView(R.id.iv_notification)
+        ImageView ivNotification;
+        public ViewHolder(View itemView,int viewtype) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

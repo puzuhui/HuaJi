@@ -22,9 +22,9 @@
             android:layout_height="wrap_content"
             android:text="@string/commodity_details"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_18"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
     <ScrollView
@@ -34,7 +34,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.bigkoo.convenientbanner.ConvenientBanner
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="￥"
                     android:textColor="@color/red"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/money"
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="会员价"
-                android:textSize="14sp"
+                android:textSize="@dimen/sp_14"
                 android:textColor="@color/red"
                 android:layout_marginLeft="@dimen/dp_10"/>
 
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="数量  :"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp_14" />
 
                 <com.mingxuan.huaji.utils.NumberAddSubView
                     android:id="@+id/numberAddSubView"

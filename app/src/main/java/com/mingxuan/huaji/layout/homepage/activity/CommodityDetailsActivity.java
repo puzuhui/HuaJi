@@ -37,6 +37,7 @@ import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.NetImageLocadHolder;
 import com.mingxuan.huaji.utils.NumberAddSubView;
+import com.mingxuan.huaji.utils.UIUtils;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -169,7 +170,7 @@ public class CommodityDetailsActivity extends Activity {
 
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setDefaultFontSize(25);
+        webSettings.setDefaultFontSize(UIUtils.px2dp(16));
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小

@@ -158,20 +158,19 @@
         <activity
             android:name=".layout.news.activity.NotificationActivity"
             android:screenOrientation="portrait" /> <!-- 通知 -->
+
+        <activity android:name=".layout.news.activity.NotificationDetailsActivity"
+            android:screenOrientation="portrait"/><!--通知详情-->
+
         <activity
             android:name=".layout.news.activity.MaterialActivity"
             android:screenOrientation="portrait" /> <!-- 下载 -->
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.cameraalbumtest.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+        <activity android:name=".layout.news.activity.LogisticsActivity"
+            android:screenOrientation="portrait"/><!--号卡物流-->
 
+        <activity android:name=".layout.news.activity.IntroduceActivity"
+            android:screenOrientation="portrait"/><!--资费介绍-->
         <!-- 支付宝 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

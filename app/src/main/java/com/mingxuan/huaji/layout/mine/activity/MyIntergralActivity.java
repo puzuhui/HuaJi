@@ -133,6 +133,5 @@ public class MyIntergralActivity extends Activity {
             }
         });
     }
-
 }
 
