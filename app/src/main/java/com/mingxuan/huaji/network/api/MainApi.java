@@ -51,7 +51,7 @@ public class MainApi extends BaseApi {
     public void duanxin(String phone,GetResultCallBack callBack){
         Map<String, String> map = new HashMap<>();
         map.put("phone", phone);
-        postLoad(BaseUrl.duanxin, map, callBack);
+        getLoad(BaseUrl.duanxin, map, callBack);
     }
 
     /**
@@ -59,7 +59,6 @@ public class MainApi extends BaseApi {
      * @param pid
      * @param idcard
      * @param name
-     * @param mobile
      * @param password
      * @param getcode
      * @param callBack
@@ -77,7 +76,6 @@ public class MainApi extends BaseApi {
 
     /**
      * 找回密码
-     * @param id
      * @param newPassword
      * @param callBack
      */

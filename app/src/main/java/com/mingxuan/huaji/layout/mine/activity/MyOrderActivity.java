@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.FourApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -40,9 +41,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/10/26 0026.
  */
 
-public class MyOrderActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class MyOrderActivity extends BaseActivity {
     @BindView(R.id.all_commodity)
     TextView allCommodity;
     @BindView(R.id.obligation)
@@ -71,20 +70,8 @@ public class MyOrderActivity extends Activity {
     private LoadingDialog loadingDialog;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_order);
-        ButterKnife.bind(this);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
-        create_id = sharedPreferences.getString("create_id","");
-        update_id = sharedPreferences.getString("create_id","");
-        update_name  = sharedPreferences.getString("create_name","");
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-        update_time = simpleDateFormat.format(new Date());
-        initView();
-        getOrder();
+    protected int getLayoutId() {
+        return R.layout.activity_my_order;
     }
 
     @Override
@@ -93,7 +80,22 @@ public class MyOrderActivity extends Activity {
         getOrder();
     }
 
-    private void initView() {
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle(getString(R.string.my_order));
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        update_id = sharedPreferences.getString("create_id","");
+        update_name  = sharedPreferences.getString("realName","");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        update_time = simpleDateFormat.format(new Date());
+
         loadingDialog = new LoadingDialog(this);
         list =new ArrayList<>();
         list1 =new ArrayList<>();
@@ -104,77 +106,84 @@ public class MyOrderActivity extends Activity {
 
         myOrderAdapter = new MyOrderAdapter(list5,MyOrderActivity.this);
         recyclerview.setAdapter(myOrderAdapter);
-        myOrderAdapter.setMyOnItemClickListener(new MyOrderAdapter.MyOnItemClickListener() {
-            @Override
-            public void onItemClickListener(View view, final int i) {
-                Intent intent;
-                String[] imageurl = list5.get(i).getProduct_intr().split(",");
-                switch (view.getId()){
-                    case R.id.evaluate://评价
-                        intent = new Intent(MyOrderActivity.this, ProductsReviewsActivity.class);
-                        intent.putExtra("index",1);
-                        intent.putExtra("id", list5.get(i).getId());
-                        intent.putExtra("pid", list5.get(i).getProducts_id());
-                        intent.putExtra("imageurl", Constants.IMAGE_URL+imageurl[0]);
-                        intent.putExtra("content", list5.get(i).getProducts_name());
-                        startActivity(intent);
-                        break;
-                    case R.id.additional_comments://追加评价
-                        intent = new Intent(MyOrderActivity.this, ProductsReviewsActivity.class);
-                        intent.putExtra("index",2);
-                        intent.putExtra("id", list5.get(i).getId());
-                        intent.putExtra("pid", list5.get(i).getProducts_id());
-                        intent.putExtra("imageurl", Constants.IMAGE_URL+imageurl[0]);
-                        intent.putExtra("content", list5.get(i).getProducts_name());
-                        startActivity(intent);
-                        break;
-                    case R.id.btn://查看物流
-                        Toast.makeText(MyOrderActivity.this, "你点击了物流", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.delete_order://删除订单
-                        dialotitle = "删除订单";
-                        dialogmessage = "确认删除该订单？";
-                        showDialog();
-                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                del_flag = "1";
-                                id = list5.get(i).getId();
-                                list5.remove(i);
-                                updateOrderType();
-                            }
-                        });
-                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        builder.create().show();
-                        break;
-                    case R.id.cancellation_of_order://取消订单
-                        orders_flag = "5";
-                        id = list5.get(i).getId();
-                        list5.remove(i);
-                        updateOrderType();
-                        break;
-                    case R.id.payment://付款
-                        break;
-                    case R.id.confirm_receipt://确认收货
-                        break;
-                    case R.id.layout:
-                        intent = new Intent(MyOrderActivity.this, CommodityDetailsActivity.class);
-                        intent.putExtra("id",list5.get(i).getProducts_id());
-                        startActivity(intent);
-                        break;
-
-                }
-
-            }
-        });
+        myOrderAdapter.setMyOnItemClickListener(myOnItemClickListener);
         LinearLayoutManager linearLayoutMange = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(linearLayoutMange);
     }
+
+    @Override
+    protected void initData() {
+        getOrder();
+    }
+
+    MyOrderAdapter.MyOnItemClickListener myOnItemClickListener = new MyOrderAdapter.MyOnItemClickListener() {
+        @Override
+        public void onItemClickListener(View view, final int i) {
+            Intent intent;
+            String[] imageurl = list5.get(i).getProduct_intr().split(",");
+            switch (view.getId()){
+                case R.id.evaluate://评价
+                    intent = new Intent(MyOrderActivity.this, ProductsReviewsActivity.class);
+                    intent.putExtra("index",1);
+                    intent.putExtra("id", list5.get(i).getId());
+                    intent.putExtra("pid", list5.get(i).getProducts_id());
+                    intent.putExtra("imageurl", Constants.IMAGE_URL+imageurl[0]);
+                    intent.putExtra("content", list5.get(i).getProducts_name());
+                    startActivity(intent);
+                    break;
+                case R.id.additional_comments://追加评价
+                    intent = new Intent(MyOrderActivity.this, ProductsReviewsActivity.class);
+                    intent.putExtra("index",2);
+                    intent.putExtra("id", list5.get(i).getId());
+                    intent.putExtra("pid", list5.get(i).getProducts_id());
+                    intent.putExtra("imageurl", Constants.IMAGE_URL+imageurl[0]);
+                    intent.putExtra("content", list5.get(i).getProducts_name());
+                    startActivity(intent);
+                    break;
+                case R.id.btn://查看物流
+                    Toast.makeText(MyOrderActivity.this, "你点击了物流", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.delete_order://删除订单
+                    dialotitle = "删除订单";
+                    dialogmessage = "确认删除该订单？";
+                    showDialog();
+                    builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            del_flag = "1";
+                            id = list5.get(i).getId();
+                            list5.remove(i);
+                            updateOrderType();
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.create().show();
+                    break;
+                case R.id.cancellation_of_order://取消订单
+                    orders_flag = "5";
+                    id = list5.get(i).getId();
+                    list5.remove(i);
+                    updateOrderType();
+                    break;
+                case R.id.payment://付款
+                    break;
+                case R.id.confirm_receipt://确认收货
+                    break;
+                case R.id.layout:
+                    intent = new Intent(MyOrderActivity.this, CommodityDetailsActivity.class);
+                    intent.putExtra("id",list5.get(i).getProducts_id());
+                    startActivity(intent);
+                    break;
+
+            }
+
+        }
+    };
 
     private String dialotitle;
     private String dialogmessage;
@@ -185,12 +194,9 @@ public class MyOrderActivity extends Activity {
         builder.setMessage(dialogmessage);
     }
 
-    @OnClick({R.id.back_btn,R.id.all_commodity,R.id.obligation,R.id.to_send_the_goods,R.id.wait_for_receiving,R.id.off_the_stocks})
+    @OnClick({R.id.all_commodity,R.id.obligation,R.id.to_send_the_goods,R.id.wait_for_receiving,R.id.off_the_stocks})
     public void setOnClick(View view){
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.all_commodity:
                 index = 0;
                 setListData();

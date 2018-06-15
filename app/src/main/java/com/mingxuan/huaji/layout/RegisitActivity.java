@@ -29,8 +29,6 @@ import butterknife.OnClick;
  */
 
 public class RegisitActivity extends BaseActivity {
-    @BindView(R.id.login)
-    TextView login;
     @BindView(R.id.please_enter_username)
     EditText pleaseEnterUsername;
     @BindView(R.id.please_enter_id_number)
@@ -51,23 +49,18 @@ public class RegisitActivity extends BaseActivity {
     TextView submit;
     @BindView(R.id.login_tx)
     TextView loginTx;
+    @BindView(R.id.tv_enter_username)
+    TextView tvEnterUsername;
     LoadingDialog loadingDialog;
-
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_register);
-//        ButterKnife.bind(this);
-//
-//        //ScrollView压缩背景图片解决
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-//
-//        initView();
-//    }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_register;
+    }
+
+    @Override
+    protected boolean showSubtitle() {
+        return true;
     }
 
     @Override
@@ -76,13 +69,22 @@ public class RegisitActivity extends BaseActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         loadingDialog = new LoadingDialog(this);
+
+        setToolbarTitle("注册");
+        setSubtitle("登录");
     }
 
-    @OnClick({R.id.login,R.id.get_code,R.id.submit,R.id.login_tx})
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @OnClick({R.id.toolbar_subtitle,R.id.get_code,R.id.submit,R.id.login_tx})
     public void setOnClick(View view){
         Intent intent;
         switch (view.getId()){
-            case R.id.login:
+            case R.id.toolbar_subtitle:
                 intent = new Intent(RegisitActivity.this,LoginActivity.class);
                 startActivity(intent);
                 break;
@@ -132,7 +134,6 @@ public class RegisitActivity extends BaseActivity {
                 }else {
                     ToastUtil.makeToast(RegisitActivity.this,"请填写完所有资料");
                 }
-
                 break;
         }
     }
@@ -184,6 +185,9 @@ public class RegisitActivity extends BaseActivity {
                 loadingDialog.dismiss();
                 if(type ==  Constants.TYPE_SUCCESS){
                     ToastUtil.makeToast(RegisitActivity.this,"注册成功");
+
+                    Intent intent = new Intent(RegisitActivity.this,LoginActivity.class);
+                    startActivity(intent);
                 }else{
                     BaseApi.showErrMsg(RegisitActivity.this,result);
                     JSONObject jsonObject = null;
@@ -191,9 +195,6 @@ public class RegisitActivity extends BaseActivity {
                         jsonObject = new JSONObject(result);
                         String message = jsonObject.getString("message");
                         ToastUtil.makeToast(RegisitActivity.this,""+message);
-
-                        Intent intent = new Intent(RegisitActivity.this,LoginActivity.class);
-                        startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

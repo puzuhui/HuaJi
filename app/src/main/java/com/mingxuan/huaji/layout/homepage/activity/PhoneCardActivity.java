@@ -20,6 +20,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -40,11 +41,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class PhoneCardActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
-    @BindView(R.id.head_shop)
-    TextView headShop;
+public class PhoneCardActivity extends BaseActivity {
     @BindView(R.id.converientBanner)
     ConvenientBanner converientBanner;
     @BindView(R.id.phone_btn)
@@ -63,26 +60,30 @@ public class PhoneCardActivity extends Activity {
     private List<BannerModel.ResultBean> list;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone_card);
-        ButterKnife.bind(this);
-
-        initView();
-        getImage("2");
+    protected int getLayoutId() {
+        return R.layout.activity_phone_card;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        setToolbarTitle("我的电话卡");
         bean = new ArrayList<>();
         list = new ArrayList<>();
     }
 
-    @OnClick({R.id.back_btn,R.id.phone_btn,R.id.telecom_phone_btn,R.id.link_phone_btn})
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initData() {
+        getImage("2");
+    }
+
+    @OnClick({R.id.phone_btn,R.id.telecom_phone_btn,R.id.link_phone_btn})
     public void OnClic(View view){
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.phone_btn:
                 showPopupWindow(1,R.string.hint_title,R.string.business_hint);
                 break;

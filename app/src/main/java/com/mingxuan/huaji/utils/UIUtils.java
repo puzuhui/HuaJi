@@ -85,6 +85,17 @@ public class UIUtils {
         else return mobiles.matches(telRegex);
     }
 
+    /**
+     * 电信号码
+     * @param mobiles
+     * @return
+     */
+    public static boolean isMobile(String mobiles){
+        String telRegex = "^(1[3,5,8,9][0,3,9])\\d{8}$";
+        if (TextUtils.isEmpty(mobiles)) return false;
+        else return mobiles.matches(telRegex);
+    }
+
     // 判断是否符合身份证号码的规范
     public static boolean isIDCard(String IDCard) {
         if (IDCard != null) {

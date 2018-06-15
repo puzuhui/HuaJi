@@ -14,8 +14,10 @@ import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.news.adpter.LogisticsAdapter;
 import com.mingxuan.huaji.layout.news.bean.LogisticsModel;
+import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.TwoApi;
 import com.mingxuan.huaji.utils.GsonUtil;
+import com.mingxuan.huaji.utils.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +27,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LogisticsActivity extends BaseActivity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     List<LogisticsModel.ResultBean> list;
     LogisticsAdapter logisticsAdapter;
+    LoadingDialog loadingDialog;
 
     @Override
     protected int getLayoutId() {
@@ -39,6 +40,8 @@ public class LogisticsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setToolbarTitle("号卡物流");
+        loadingDialog = new LoadingDialog(this);
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         createId = sharedPreferences.getString("create_id","");
         list = new ArrayList<>();
@@ -48,21 +51,33 @@ public class LogisticsActivity extends BaseActivity {
         logisticsAdapter = new LogisticsAdapter(this,list);
         recyclerview.setAdapter(logisticsAdapter);
 
+    }
+
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initData() {
         getData();
     }
 
     String createId;
     private void getData(){
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
         TwoApi.getInstance(this).logisticsnoApi(createId, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
+                loadingDialog.dismiss();
                 if(type == Constants.TYPE_SUCCESS){
                     ArrayList<LogisticsModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(), result, LogisticsModel.ResultBean.class);
                     list.clear();
                     list.addAll(resultBeans);
 
                     logisticsAdapter.notifyDataSetChanged();
-                }
+                }else BaseApi.showErrMsg(LogisticsActivity.this,result);
             }
         });
     }

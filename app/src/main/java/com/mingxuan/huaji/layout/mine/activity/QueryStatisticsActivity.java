@@ -92,6 +92,7 @@ public class QueryStatisticsActivity extends Activity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         user_phone = sharedPreferences.getString("phone","");
+        fw_id = sharedPreferences.getString("create_id","");
         loadingDialog = new LoadingDialog(this);
         list = new ArrayList<>();
 
@@ -173,11 +174,12 @@ public class QueryStatisticsActivity extends Activity {
     }
 
     String user_phone;
+    String fw_id;
     String for_date;
     public void showData(){
         loadingDialog.setLoadingContent("查询中...");
         loadingDialog.show();
-        FourApi.getInstance(this).upDateQueryStatistics(user_phone, for_date, new GetResultCallBack() {
+        FourApi.getInstance(this).upDateQueryStatistics(fw_id,new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
                 loadingDialog.dismiss();
@@ -186,10 +188,10 @@ public class QueryStatisticsActivity extends Activity {
                     List<QueryStatisticsModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),
                             result,QueryStatisticsModel.ResultBean.class);
                     list.addAll(resultBeans);
-                    tvAdd.setText("本月新增开户："+list.get(0).getNewxj()+"户");
-                    tvRental.setText("本月套餐总额："+list.get(0).getNewxjje()+"户");
-                    tvAddUp.setText("累计开户："+list.get(0).getXjsl()+"户");
-                    tvAddUpRental.setText("累计套餐总额："+list.get(0).getSljl_ljyxze()+"元");
+                    tvAdd.setText("本月新增开户："+list.get(0).getByxzkh()+"户");
+                    tvRental.setText("本月套餐总额："+list.get(0).getBytcze()+"元");
+                    tvAddUp.setText("累计开户："+list.get(0).getLjkh()+"户");
+                    tvAddUpRental.setText("累计套餐总额："+list.get(0).getLjtcze()+"元");
                 }else BaseApi.showErrMsg(QueryStatisticsActivity.this,result);
             }
         });

@@ -2,19 +2,23 @@ package com.mingxuan.huaji.layout.mine.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.FourApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -25,7 +29,9 @@ import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.ToastUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,9 +41,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/10/23 0023.
  */
 
-public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class MyAdressActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     @BindView(R.id.add_address)
@@ -48,19 +52,10 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
     private MyAdressAdapter myAdressAdapter;
     private LoadingDialog loadingDialog;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_address);
-        ButterKnife.bind(this);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
-        create_id = sharedPreferences.getString("create_id","");
-        update_id = sharedPreferences.getString("create_id","");
-        update_name = sharedPreferences.getString("create_name","");
-
-        initView();
-        getmyaddress();
+    protected int getLayoutId() {
+        return R.layout.activity_my_address;
     }
 
     @Override
@@ -69,10 +64,24 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
         getmyaddress();
     }
 
-    private void initView() {
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle(getString(R.string.my_address));
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        update_id = sharedPreferences.getString("create_id","");
+        update_name = sharedPreferences.getString("create_name","");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        update_time = simpleDateFormat.format(new Date());
+
         loadingDialog = new LoadingDialog(this);
         list = new ArrayList<>();
-        backBtn.setOnClickListener(onClickListener);
         addAddress.setOnClickListener(onClickListener);
         swipe.setOnRefreshListener(this);
 
@@ -101,10 +110,7 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
                         startActivity(intent);
                         break;
                     case R.id.del:
-                        id = list.get(position).getId();
-                        list.remove(position);
-                        del_flag = 1;
-                        xgaddress();
+                        delDialog(position);
                         break;
                 }
             }
@@ -114,13 +120,39 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
         recyclerview.setLayoutManager(linearLayoutManager);
     }
 
+    @Override
+    protected void initData() {
+        getmyaddress();
+    }
+
+    private void delDialog(final int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("确认删除地址");
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                id = list.get(position).getId();
+                list.remove(position);
+                del_flag = 1;
+                xgaddress();
+            }
+        });
+
+        builder.create();
+        builder.show();
+    }
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.back_btn:
-                    finish();
-                    break;
                 case R.id.add_address:
                     Intent intent = new Intent(MyAdressActivity.this, AddAddressActivity.class);
                     intent.putExtra("index", 101);
@@ -135,9 +167,12 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
      */
     private String create_id;
     private void getmyaddress() {
+        loadingDialog.setLoadingContent("正在加载...");
+        loadingDialog.show();
         FourApi.getInstance(this).getmyaddressApi(create_id, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
+                loadingDialog.dismiss();
                 swipe.setRefreshing(false);
                 if (type == Constants.TYPE_SUCCESS) {
                     List<MyAdressModel.ResultBean> resultBeen = GsonUtil.fromJsonList(new Gson(), result, MyAdressModel.ResultBean.class);
@@ -179,7 +214,7 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
     private String aaddress;
     private String update_id;
     private String update_name;
-    private String update_time = "1995-12-17";
+    private String update_time;
     private int del_flag;
     private int id;
     private void xgaddress() {
@@ -191,8 +226,8 @@ public class MyAdressActivity extends Activity implements SwipeRefreshLayout.OnR
                     public void getResult(String result, int type) {
                         loadingDialog.dismiss();
                         if (type == Constants.TYPE_SUCCESS) {
-                            ToastUtil.makeToast(MyAdressActivity.this, "设置默认地址成功！");
                             onRefresh();
+                            myAdressAdapter.notifyDataSetChanged();
                         } else BaseApi.showErrMsg(MyAdressActivity.this, result);
                     }
                 });

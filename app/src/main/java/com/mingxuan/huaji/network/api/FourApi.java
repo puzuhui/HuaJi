@@ -35,6 +35,19 @@ public class FourApi extends BaseApi {
     }
 
     /**
+     * 二级密码登录
+     * @param username
+     * @param password
+     * @param callBack
+     */
+    public void twologinApi(String username,String password,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("userName", username);
+        map.put("pwd", password);
+        getLoad(BaseUrl.twologin, map, callBack);
+    }
+
+    /**
      * 我的伙伴
      * @param p_id
      * @param callBack
@@ -56,10 +69,24 @@ public class FourApi extends BaseApi {
         getLoad(BaseUrl.myintegral, map, callBack);
     }
 
-    public void tixian(String login_id,GetResultCallBack callBack){
+    /**
+     * 提现
+     * @param txBanknumber
+     * @param txPrint
+     * @param createId
+     * @param createName
+     * @param callBack
+     */
+    public void tixian(String txBanknumber,String txPrint,String txPhone,
+                       String createId,String createName,String idcard,GetResultCallBack callBack){
         Map<String, String> map = new HashMap<>();
-        map.put("login_id", login_id);
-        getLoad(BaseUrl.tixian, map, callBack);
+        map.put("txBanknumber", txBanknumber);
+        map.put("txPrint", txPrint);
+        map.put("createId", createId);
+        map.put("createName", createName);
+        map.put("idcard", idcard);
+        map.put("txPhone", txPhone);
+        postLoad(BaseUrl.tixian, map, callBack);
     }
 
     /**
@@ -111,7 +138,6 @@ public class FourApi extends BaseApi {
 
     /**
      * 查询第一次评论的内容
-     * @param id
      * @param callBack
      */
     public void searchreviewsApi(String create_id,String products_id,String contingency_id,GetResultCallBack callBack){
@@ -124,7 +150,6 @@ public class FourApi extends BaseApi {
 
     /**
      * 查询评论id
-     * @param id
      * @param callBack
      */
     public void searchidApi(String create_id,String products_id,String contingency_id,String comment_type,GetResultCallBack callBack){
@@ -278,7 +303,7 @@ public class FourApi extends BaseApi {
     public void setaddressApi(String create_id,GetResultCallBack callBack) {
         Map<String, String> map = new HashMap<>();
         map.put("create_id", create_id);
-        postLoad(BaseUrl.setaddress, map, callBack);
+        getLoad(BaseUrl.setaddress, map, callBack);
     }
 
     /**
@@ -307,16 +332,19 @@ public class FourApi extends BaseApi {
     /**
      * 添加银行卡
      */
-    public void addbankcardApi(String login_id,String bank_for_name,String bank_number, String bank_type,
-                                    String bank,String phone,String create_id,String create_name,
-                               String create_time,GetResultCallBack callBack) {
+    public void addbankcardApi(String login_id,String bank_for_codetype,String bank_for_name,String bank_number, String bank_type,
+                               String addresss,String bankzh,String bank_code, String bank,
+                               String create_id,String create_name, String create_time,GetResultCallBack callBack) {
         Map<String, String> map = new HashMap<>();
         map.put("login_id", login_id);
+        map.put("bank_for_codetype", bank_for_codetype);
         map.put("bank_for_name", bank_for_name);
         map.put("bank_number", bank_number);
         map.put("bank_type", bank_type);
+        map.put("addresss", addresss);
+        map.put("bankzh", bankzh);
+        map.put("bank_code", bank_code);
         map.put("bank", bank);
-        map.put("phone", phone);
         map.put("create_id", create_id);
         map.put("create_name", create_name);
         map.put("create_time", create_time);
@@ -332,6 +360,18 @@ public class FourApi extends BaseApi {
         Map<String, String> map = new HashMap<>();
         map.put("create_id", create_id);
         getLoad(BaseUrl.searchbankcard, map, callBack);
+    }
+
+    /**
+     * 删除银行卡
+     * @param id
+     * @param callBack
+     */
+    public void delbankcardApi(String id,String del_flag,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("del_flag", del_flag);
+        postLoad(BaseUrl.delbankcard, map, callBack);
     }
 
     /**
@@ -368,19 +408,31 @@ public class FourApi extends BaseApi {
      * 修改密码
      * @param id
      * @param password
-     * @param two_password
      * @param callBack
      */
-    public void changePasswordApi(String id,String password,String two_password,GetResultCallBack callBack) {
+    public void changePasswordApi(String id, String password,int tag,String getcode,String phone,GetResultCallBack callBack) {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
-        if(!TextUtils.isEmpty(password)){
-            map.put("newPassword", password);
+        map.put("newPassword", password);
+        map.put("tag", "" + tag);
+        if(!TextUtils.isEmpty(getcode)){
+            map.put("getcode", getcode);
         }
-        if(!TextUtils.isEmpty(two_password)){
-            map.put("two_password", two_password);
+        if(!TextUtils.isEmpty(phone)){
+            map.put("phone", phone);
         }
         postLoad(BaseUrl.virifyPassword, map, callBack);
+    }
+
+    /**
+     * 充值查询
+     * @param mobile
+     * @param callBack
+     */
+    public void rechargeApi(String mobile,GetResultCallBack callBack) {
+        Map<String, String> map = new HashMap<>();
+        map.put("mobile", mobile);
+        getLoad(BaseUrl.recharge, map, callBack);
     }
 
     /**
@@ -408,14 +460,12 @@ public class FourApi extends BaseApi {
 
     /**
      * //查询统计(统计更新)
-     * @param user_phone
-     * @param for_date
+     * @param fw_id
      * @param callBack
      */
-    public void upDateQueryStatistics(String user_phone,String for_date,GetResultCallBack callBack) {
+    public void upDateQueryStatistics(String fw_id,GetResultCallBack callBack) {
         Map<String, String> map = new HashMap<>();
-        map.put("user_phone", user_phone);
-        map.put("for_date", for_date);
+        map.put("fw_id", fw_id);
         getLoad(BaseUrl.upDateQueryStatistics, map, callBack);
     }
 

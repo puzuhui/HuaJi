@@ -2,6 +2,7 @@ package com.mingxuan.huaji.layout.mine.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.FourApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -32,9 +34,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/10/26 0026.
  */
 
-public class MyIntergralActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class MyIntergralActivity extends BaseActivity {
     @BindView(R.id.tv_numb)
     TextView tv_numb;
     @BindView(R.id.tv_withdrawals)
@@ -51,36 +51,48 @@ public class MyIntergralActivity extends Activity {
     IntergralAdapter intergralAdapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_intergral);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_my_intergral;
+    }
 
+    @Override
+    protected void initView() {
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         login_id =sharedPreferences.getString("create_id","");
 
-        initViiew();
-        getIntegral();
-    }
-
-    private void initViiew() {
         list = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(linearLayoutManager);
 
         intergralAdapter = new IntergralAdapter(MyIntergralActivity.this,list);
         recyclerview.setAdapter(intergralAdapter);
+
+        setToolbarTitle("我的积分");
     }
 
+    @Override
+    protected void initData() {
+        getIntegral();
+    }
 
-    @OnClick({R.id.back_btn,R.id.tv_withdrawals,R.id.tv_consumption_integral,R.id.tv_commission_integral})
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        getIntegral();
+    }
+
+    @OnClick({R.id.tv_withdrawals,R.id.tv_consumption_integral,R.id.tv_commission_integral})
     public void OnClick(View view){
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.tv_withdrawals:
-                getTixan();
+                Intent intent = new Intent(MyIntergralActivity.this, TiXianActivity.class);
+                intent.putExtra("intergral",tv_numb.getText().toString() );
+                startActivity(intent);
                 break;
             case R.id.tv_consumption_integral:
                 tv_consumption_integral.setTextColor(getResources().getColor(R.color.white));
@@ -111,6 +123,7 @@ public class MyIntergralActivity extends Activity {
                     list.addAll(resultBeans);
 
                     tv_numb.setText(list.get(0).getMoney());
+                    tv_commission_integral.setText("佣金积分("+list.get(0).getMoney()+"）");
 
                     intergralAdapter.notifyDataSetChanged();
                 } else BaseApi.showErrMsg(MyIntergralActivity.this, result);
@@ -119,19 +132,5 @@ public class MyIntergralActivity extends Activity {
     }
 
 
-    private void getTixan() {
-        FourApi.getInstance(this).tixian(login_id, new GetResultCallBack() {
-            @Override
-            public void getResult(String result, int type) {
-                if (type == Constants.TYPE_SUCCESS) {
-                    List<IntergralMolder.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(), result, IntergralMolder.ResultBean.class);
-                    list.clear();
-                    list.addAll(resultBeans);
-
-                    intergralAdapter.notifyDataSetChanged();
-                } else BaseApi.showErrMsg(MyIntergralActivity.this, result);
-            }
-        });
-    }
 }
 

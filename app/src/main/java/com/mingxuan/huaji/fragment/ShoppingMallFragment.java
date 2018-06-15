@@ -185,10 +185,7 @@ public class ShoppingMallFragment extends Fragment {
         }
     };
 
-    /**
-     * 要改的太多，催的又急，只能先这样了，这不能怪我
-     *
-     */
+
     private void getlist(final String type){
         MainApi.getInstance(getActivity()).hotproductApi(type, new GetResultCallBack() {
             @Override

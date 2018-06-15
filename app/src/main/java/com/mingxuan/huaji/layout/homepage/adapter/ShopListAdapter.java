@@ -68,8 +68,8 @@ public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHo
 
             holder.shop_name.setText(shopListModel.getProduct_name());
             holder.money.setText(shopListModel.getProduct_price());
-//        holder.sales_volume.setText(shopListModel.getSales_volume());
-//        holder.evaluate.setText(shopListModel.getEvaluate());
+            holder.sales_volume.setText(shopListModel.getSale_count());
+            holder.evaluate.setText(shopListModel.getReview_count());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -31,8 +31,6 @@ import butterknife.OnClick;
  */
 
 public class NotificationActivity extends BaseActivity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     List<NotificationModel.ResultBean> list;
@@ -46,6 +44,7 @@ public class NotificationActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setToolbarTitle("消息公告");
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
 
         receiveId = sharedPreferences.getString("create_id","");
@@ -67,12 +66,16 @@ public class NotificationActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void initData() {
         getData();
     }
 
-    @OnClick(R.id.back_btn)
-    public void onViewClicked() {
-        finish();
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
     }
 
     String receiveId;

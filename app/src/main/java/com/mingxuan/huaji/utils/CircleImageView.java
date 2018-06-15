@@ -30,9 +30,9 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
 
     // 圆形边框的厚度默认值。
     // 如果是0，则没有天蓝色渐变的边框。
-    private static final int DEFAULT_BORDER_WIDTH = 5;
+    private static final int DEFAULT_BORDER_WIDTH = 0;
 
-    private static final int DEFAULT_BORDER_COLOR = Color.BLACK;
+    private static final int DEFAULT_BORDER_COLOR = Color.WHITE;
 
     private final RectF mDrawableRect = new RectF();
     private final RectF mBorderRect = new RectF();

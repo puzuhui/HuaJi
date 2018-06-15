@@ -7,7 +7,16 @@ package com.mingxuan.huaji.layout.mine.bean;
 
 public class DateMolder {
     String date;
+    String bank;
     boolean isselected = false;
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
 
     public String getDate() {
         return date;

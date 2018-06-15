@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -57,7 +59,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class ChoosePhoneCardActivity extends Activity{
+public class ChoosePhoneCardActivity extends BaseActivity{
     @BindView(R.id.price)
     TextView tvprice;
     @BindView(R.id.market_price)
@@ -94,18 +96,30 @@ public class ChoosePhoneCardActivity extends Activity{
     LoadingDialog loadingDialog;
     SimpleDateFormat simpleDateFormat;
     int index;
+    String mobile;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_phone_card);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_choose_phone_card;
+    }
 
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle("选择电话卡");
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         idCard = sharedPreferences.getString("idCard","");
         realName = sharedPreferences.getString("realName","");
         createId = sharedPreferences.getString("create_id","");
         parentCardId = sharedPreferences.getString("pid","");
+        mobile = sharedPreferences.getString("mobile","");
+        if(!TextUtils.isEmpty(mobile)){
+            buy.setBackgroundResource(R.color.greylight);
+        }
 
         Bundle bundle =getIntent().getExtras();
         index = bundle.getInt("index");
@@ -119,12 +133,7 @@ public class ChoosePhoneCardActivity extends Activity{
 
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         createTime = simpleDateFormat.format(new Date());
-        initView();
-        getData();
-        findOrder();
-    }
 
-    private void initView() {
         loadingDialog = new LoadingDialog(this);
         bean = new ArrayList<>();
         list = new ArrayList<>();
@@ -163,37 +172,44 @@ public class ChoosePhoneCardActivity extends Activity{
 
     }
 
-    @OnClick({R.id.back_btn,R.id.choose_number,R.id.buy})
+    @Override
+    protected void initData() {
+        getData();
+        findOrder();
+    }
+
+    @OnClick({R.id.choose_number,R.id.buy})
     public void OnClick(View view){
         Intent intent;
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.choose_number:
                 intent = new Intent(ChoosePhoneCardActivity.this,ChoosePhoneNumberActivity.class);
                 intent.putExtra("index",index);
                 startActivityForResult(intent,1001);
                 break;
             case R.id.buy:
-                if(chooseNumber.getText().toString().equals("选择号码")){
-                    ToastUtil.makeToast(this,"请选择号码");
-                }else {
-                    if(ischecked){
-                        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
-                        int day=aCalendar.getActualMaximum(Calendar.DATE) - aCalendar.get(Calendar.DAY_OF_MONTH);//当月剩余多少天
-                        double money = price / aCalendar.getActualMaximum(Calendar.DATE) * day ;
-                        if(index == 1){
-                            cardId = 1;
-                            orderInfo = "电信号码首次开通需要预存3个月套餐费和本月剩余"+day+"天共计"+ Math.ceil(money) +"元";
-                        }else {
-                            cardId = 2;
-                            orderInfo = "联通号码首次开通需要预存3个月套餐费和本月剩余"+day+"天共计"+ Math.ceil(money) +"元";
-                        }
-                        saveData();
+                if(TextUtils.isEmpty(mobile)){
+                    if(chooseNumber.getText().toString().equals("选择号码")){
+                        ToastUtil.makeToast(this,"请选择号码");
                     }else {
-                        ToastUtil.makeToast(this,"请选择套餐");
+                        if(ischecked){
+                            Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
+                            int day=aCalendar.getActualMaximum(Calendar.DATE) - aCalendar.get(Calendar.DAY_OF_MONTH);//当月剩余多少天
+                            double money = price / aCalendar.getActualMaximum(Calendar.DATE) * day ;
+                            if(index == 1){
+                                cardId = 1;
+                                orderInfo = "电信号码首次开通需要预存3个月套餐费和本月剩余"+day+"天共计"+ Math.ceil(money) +"元";
+                            }else {
+                                cardId = 2;
+                                orderInfo = "联通号码首次开通需要预存3个月套餐费和本月剩余"+day+"天共计"+ Math.ceil(money) +"元";
+                            }
+                            saveData();
+                        }else {
+                            ToastUtil.makeToast(this,"请选择套餐");
+                        }
                     }
+                }else {
+                    ToastUtil.makeToast(this,"每人只能购买一张卡");
                 }
                 break;
         }
@@ -292,7 +308,6 @@ public class ChoosePhoneCardActivity extends Activity{
         final AlertDialog.Builder builder = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setTitle("提示");
         builder.setMessage("您有未完成的订单，是否前往支付？");
-
         builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

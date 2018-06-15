@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.layout.LoginActivity;
 import com.mingxuan.huaji.layout.homepage.adapter.CardInformationAdapter;
 import com.mingxuan.huaji.layout.homepage.bean.CardInfoModel;
@@ -30,28 +31,29 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class CardInformationActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class CardInformationActivity extends BaseActivity {
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     List<CardInfoModel.ResultBean> list;
     Boolean islogin;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_information);
-        ButterKnife.bind(this);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
-        islogin = sharedPreferences.getBoolean("islogin",false);
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_card_information;
     }
 
-    private void initView() {
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle("办卡信息");
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
+        islogin = sharedPreferences.getBoolean("islogin",false);
+
         list = new ArrayList<>();
-//        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this){
             @Override
             public boolean canScrollVertically() {
@@ -101,9 +103,9 @@ public class CardInformationActivity extends Activity {
         });
     }
 
-    @OnClick(R.id.back_btn)
-    public void OnClick(View view){
-        finish();
+    @Override
+    protected void initData() {
+
     }
 
     CardInformationAdapter cardInformationAdapter;

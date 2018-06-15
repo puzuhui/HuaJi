@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -38,9 +39,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class ChoosePhoneNumberActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class ChoosePhoneNumberActivity extends BaseActivity {
     @BindView(R.id.search)
     EditText search;
     @BindView(R.id.search_btn)
@@ -57,18 +56,21 @@ public class ChoosePhoneNumberActivity extends Activity {
     LoadingDialog loadingDialog;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_phone_number);
-        ButterKnife.bind(this);
-
-        Bundle bundle = getIntent().getExtras();
-        cardId = bundle.getInt("index");
-        initView();
-        getData();
+    protected boolean showHomeAsUp() {
+        return true;
     }
 
-    private void initView() {
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_choose_phone_number;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle("选择电话号码");
+        Bundle bundle = getIntent().getExtras();
+        cardId = bundle.getInt("index");
+
         loadingDialog = new LoadingDialog(this);
         list = new ArrayList<>();
 
@@ -89,12 +91,14 @@ public class ChoosePhoneNumberActivity extends Activity {
         });
     }
 
-    @OnClick({R.id.back_btn,R.id.confirm,R.id.huan,R.id.search_btn})
+    @Override
+    protected void initData() {
+        getData();
+    }
+
+    @OnClick({R.id.confirm,R.id.huan,R.id.search_btn})
     public void OnClick(View view){
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.search_btn:
                 if(!TextUtils.isEmpty(search.getText())){
                     number = search.getText().toString();

@@ -65,6 +65,24 @@ public class ShopListModel {
         private String product_inventory;
         private String create_name;
         private String member_price;
+        private String sale_count;
+        private String review_count;
+
+        public String getSale_count() {
+            return sale_count;
+        }
+
+        public void setSale_count(String sale_count) {
+            this.sale_count = sale_count;
+        }
+
+        public String getReview_count() {
+            return review_count;
+        }
+
+        public void setReview_count(String review_count) {
+            this.review_count = review_count;
+        }
 
         public String getMember_price() {
             return member_price;

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -33,11 +34,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/4 0004.
  */
 
-public class CommentActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
-//    @BindView(R.id.recyclerview)
-//    RecyclerView recyclerview;
+public class CommentActivity extends BaseActivity {
     @BindView(R.id.expandable)
     ExpandableListView expandable;
     private List<PictureModel.ResultBean> list;
@@ -46,18 +43,22 @@ public class CommentActivity extends Activity {
     LoadingDialog loadingDialog;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_comment;
+    }
+
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle(getString(R.string.comments));
 
         Bundle bundle = getIntent().getExtras();
         products_id = bundle.getString("id");
-        initView();
-        getEvaluate();
-    }
 
-    private void initView() {
         loadingDialog = new LoadingDialog(this);
         list = new ArrayList<>();
 
@@ -81,9 +82,9 @@ public class CommentActivity extends Activity {
         }
     }
 
-    @OnClick(R.id.back_btn)
-    public void setBackBtn(View view) {
-        finish();
+    @Override
+    protected void initData() {
+        getEvaluate();
     }
 
     String products_id;

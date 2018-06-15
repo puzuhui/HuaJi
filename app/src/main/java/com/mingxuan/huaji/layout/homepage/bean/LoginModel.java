@@ -68,6 +68,15 @@ public class LoginModel {
         private String phone;
         private String pId;
         private boolean admin;
+        private String mobile;
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
 
         public boolean isSearchFromPage() {
             return searchFromPage;

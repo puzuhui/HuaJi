@@ -29,8 +29,6 @@ import butterknife.OnClick;
  */
 
 public class LoginActivity extends BaseActivity {
-    @BindView(R.id.register)
-    TextView register;
     @BindView(R.id.please_enter_proof_of_identity)
     EditText pleaseEnterProofOfIdentity;
     @BindView(R.id.please_enter_possword)
@@ -49,22 +47,25 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setToolbarTitle("登录");
+        setSubtitle("注册");
+    }
+
+    @Override
+    protected void initData() {
 
     }
 
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
-//        ButterKnife.bind(this);
-//    }
+    @Override
+    protected boolean showSubtitle() {
+        return true;
+    }
 
-
-    @OnClick({R.id.register,R.id.submit,R.id.forget_the_password,R.id.old_user})
+    @OnClick({R.id.toolbar_subtitle,R.id.submit,R.id.forget_the_password,R.id.old_user})
     public void setOnClick(View view){
         Intent intent;
         switch (view.getId()){
-            case R.id.register:
+            case R.id.toolbar_subtitle:
                 intent = new Intent(LoginActivity.this,RegisitActivity.class);
                 startActivity(intent);
                 break;
@@ -104,11 +105,11 @@ public class LoginActivity extends BaseActivity {
                     Intent intent = new Intent(LoginActivity.this,HomePageViewPagerActivity.class);
                     startActivity(intent);
                     create_id = loginlist.get(0).getId();
-                    create_name = loginlist.get(0).getName();
                     realName = loginlist.get(0).getRealName();
                     idCard = loginlist.get(0).getIdCard();
                     phone = loginlist.get(0).getPhone();
                     pid =loginlist.get(0).getPId();
+                    mobile = loginlist.get(0).getMobile();
                     islogin = true;
                     saveSharedPreferences();
                     submit.setText(R.string.login);
@@ -122,17 +123,17 @@ public class LoginActivity extends BaseActivity {
     }
 
     String create_id;
-    String create_name,realName,idCard,phone,pid;
+    String realName,idCard,phone,pid,mobile;
     boolean islogin = false;
     private void saveSharedPreferences(){
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("create_id",create_id);
-        editor.putString("create_name",create_name);
         editor.putString("realName",realName);
         editor.putString("idCard",idCard);
         editor.putString("phone",phone);
         editor.putString("pid",pid);
+        editor.putString("mobile",mobile);
         editor.putBoolean("islogin",islogin);
         editor.apply();
     }

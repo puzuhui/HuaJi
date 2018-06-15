@@ -33,7 +33,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".layout.HomePageViewPagerActivity"
             android:label="@string/app_name"
@@ -76,13 +76,15 @@
             android:screenOrientation="portrait" /> <!-- 编辑收货地址 -->
         <activity
             android:name=".layout.mine.activity.MyIntergralActivity"
-            android:screenOrientation="portrait" /> <!-- 我的积分 -->
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/> <!-- 我的积分 -->
         <activity
             android:name=".layout.mine.activity.MyPhoneCardActivity"
             android:screenOrientation="portrait" /> <!-- 我的电话卡 -->
         <activity
             android:name=".layout.mine.activity.MyBankCardActivity"
-            android:screenOrientation="portrait" /> <!-- 我的银行卡 -->
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/> <!-- 我的银行卡 -->
         <activity
             android:name=".layout.mine.activity.MyQrcodeActivity"
             android:screenOrientation="portrait" /> <!-- 我的二维码 -->
@@ -171,6 +173,19 @@
 
         <activity android:name=".layout.news.activity.IntroduceActivity"
             android:screenOrientation="portrait"/><!--资费介绍-->
+
+        <activity android:name=".layout.mine.activity.TiXianActivity"
+            android:screenOrientation="portrait"/><!--提现-->
+
+        <activity android:name=".layout.homepage.activity.AddressManageActivity"
+            android:screenOrientation="portrait" /><!--选择地址-->
+
+        <activity android:name=".layout.mine.activity.BankCardDetailsActivity"
+            android:screenOrientation="portrait"/><!--银行卡详情-->
+
+        <activity android:name=".layout.homepage.activity.AgreementDetailsActivty"
+            android:screenOrientation="portrait"/>
+
         <!-- 支付宝 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

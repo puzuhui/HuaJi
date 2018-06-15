@@ -2,6 +2,7 @@ package com.mingxuan.huaji.network;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.DisplayMetrics;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
+import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -65,6 +67,10 @@ import javax.net.ssl.X509TrustManager;
 public class OkHttpClientManager {
     private static final String TAG = "OkHttpClientManager";
 
+    private static final long cacheSize = 1024 * 1024 * 20;// 缓存文件最大限制大小20M
+    private static String cacheDirectory = Environment.getExternalStorageDirectory() + "/okhttpcaches"; // 设置缓存文件路径
+    private static Cache cache = new Cache(new File(cacheDirectory), cacheSize);  //
+
     private static OkHttpClientManager mInstance;
     private OkHttpClient mOkHttpClient;
     private Handler mDelivery;
@@ -83,6 +89,7 @@ public class OkHttpClientManager {
         mOkHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
         mOkHttpClient.setWriteTimeout(15, TimeUnit.SECONDS);
         mOkHttpClient.setReadTimeout(15, TimeUnit.SECONDS);
+        mOkHttpClient.setCache(cache);
         //cookie enabled
         mOkHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
         mDelivery = new Handler(Looper.getMainLooper());

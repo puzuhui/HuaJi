@@ -33,8 +33,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MaterialActivity extends BaseActivity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     List<MaterialModer.ResultBean> list;
@@ -49,6 +47,7 @@ public class MaterialActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setToolbarTitle("资料下载");
         list = new ArrayList<>();
         loadingDialog = new LoadingDialog(this);
 
@@ -87,7 +86,15 @@ public class MaterialActivity extends BaseActivity {
 
             }
         });
+    }
 
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initData() {
         getDownLoad();
     }
 
@@ -104,11 +111,6 @@ public class MaterialActivity extends BaseActivity {
             builder.setProgress(100,progress,false);
         }
         return  builder.build();
-    }
-
-    @OnClick(R.id.back_btn)
-    public void onViewClicked() {
-        finish();
     }
 
     private void getDownLoad(){

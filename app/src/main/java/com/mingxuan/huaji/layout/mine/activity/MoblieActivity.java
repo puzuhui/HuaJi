@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.FourApi;
 import com.mingxuan.huaji.network.api.MainApi;
@@ -36,9 +37,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class MoblieActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class MoblieActivity extends BaseActivity {
     @BindView(R.id.bind)
     TextView bind;
     @BindView(R.id.please_enter_verification_code)
@@ -63,19 +62,18 @@ public class MoblieActivity extends Activity {
     LinearLayout unbindingLinear;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mobile);
-        ButterKnife.bind(this);
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-        update_date = simpleDateFormat.format(new Date());
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_mobile;
     }
 
     String phonenumber;
     SharedPreferences sharedPreferences;
-    private void initView() {
+    @Override
+    protected void initView() {
+        setToolbarTitle("手机号");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        update_date = simpleDateFormat.format(new Date());
+
         sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("create_id", "");
 
@@ -92,12 +90,19 @@ public class MoblieActivity extends Activity {
 
     }
 
-    @OnClick({R.id.back_btn, R.id.get_code, R.id.binding,R.id.get_unbinding_code, R.id.unbinding})
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @OnClick({ R.id.get_code, R.id.binding,R.id.get_unbinding_code, R.id.unbinding})
     public void OnClick(View view) {
         switch (view.getId()) {
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.get_code:
                 if (UIUtils.isMobileNO(phonenumber)) {
                     choosePassword();
@@ -108,7 +113,6 @@ public class MoblieActivity extends Activity {
                 break;
             case R.id.binding://解除绑定
                 if (!TextUtils.isEmpty(pleaseEnterVerificationCode.getText().toString())) {
-                    Log.e("验证码=====",""+pleaseEnterVerificationCode.getText().toString());
                     ToastUtil.makeToast(MoblieActivity.this, "解除绑定");
                     codetype ="1";
                     code = pleaseEnterVerificationCode.getText().toString();
@@ -130,7 +134,6 @@ public class MoblieActivity extends Activity {
                 if (!TextUtils.isEmpty(pleaseEnterPhoneNumber.getText().toString())) {
                     ToastUtil.makeToast(MoblieActivity.this, "绑定");
                     phonenumber = pleaseEnterPhoneNumber.getText().toString();
-                    Log.e("手机号=====",""+phonenumber);
                     code = pleaseEnterVerificationUnbindingCode.getText().toString();
                     codetype ="2";
                     bindphone();

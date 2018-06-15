@@ -1,12 +1,15 @@
 package com.mingxuan.huaji.layout.mine.bean;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/27 0027.
  */
 
-public class MyBankCardModel {
+public class MyBankCardModel{
 
     /**
      * bank : CCB
@@ -20,16 +23,16 @@ public class MyBankCardModel {
     private String bank;
     private boolean validated;
     private String cardType;
-
     /**
      * status : 200
      * message : 获取成功
-     * result : [{"id":"73","login_id":"d1e964159cd04e0d909677bd72ab89e6","bank_for_name":"蒲祖辉","bank_number":"6236683760009754232","bank_type":"0","bank":"中国建设银行","phone":"15823903420","create_id":"d1e964159cd04e0d909677bd72ab89e6","create_name":"振宇","create_time":"2018-01-02 17:05:37","del_flag":"0"},{"id":"74","login_id":"d1e964159cd04e0d909677bd72ab89e6","bank_for_name":"苏琳","bank_number":"6236683760009754232","bank_type":"0","bank":"中国建设银行","phone":"15823903420","create_id":"d1e964159cd04e0d909677bd72ab89e6","create_name":"振宇","create_time":"2018-01-02 17:05:37","del_flag":"0"},{"id":"75","login_id":"d1e964159cd04e0d909677bd72ab89e6","bank_for_name":"蒲祖辉","bank_number":"6236683760009754232","bank_type":"1","bank":"中国建设银行","phone":"15823903420","create_id":"d1e964159cd04e0d909677bd72ab89e6","create_name":"振宇","create_time":"2018-01-02 17:33:28","del_flag":"0"}]
+     * result : [{"id":"102","login_id":"7","bank_for_codetype":"ICBC","bank_for_name":"李强","bank_number":"6222023100023706109","bank_type":"1","addresss":"","bankzh":"重庆市高科技歇台子支行","bank":"中国工商银行","phone":null,"create_id":"7","create_name":"李强","create_time":"2018-01-31 16:11:23","del_flag":"0"}]
      */
 
     private int status;
     private String message;
     private List<ResultBean> result;
+
 
     public String getBank() {
         return bank;
@@ -80,28 +83,35 @@ public class MyBankCardModel {
     }
 
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
-         * id : 73
-         * login_id : d1e964159cd04e0d909677bd72ab89e6
-         * bank_for_name : 蒲祖辉
-         * bank_number : 6236683760009754232
-         * bank_type : 0
-         * bank : 中国建设银行
-         * phone : 15823903420
-         * create_id : d1e964159cd04e0d909677bd72ab89e6
-         * create_name : 振宇
-         * create_time : 2018-01-02 17:05:37
+         * id : 102
+         * login_id : 7
+         * bank_for_codetype : ICBC
+         * bank_for_name : 李强
+         * bank_number : 6222023100023706109
+         * bank_type : 1
+         * addresss :
+         * bankzh : 重庆市高科技歇台子支行
+         * bank : 中国工商银行
+         * phone : null
+         * create_id : 7
+         * create_name : 李强
+         * create_time : 2018-01-31 16:11:23
          * del_flag : 0
          */
 
         private String id;
         private String login_id;
+        private String bank_for_codetype;
         private String bank_for_name;
         private String bank_number;
         private String bank_type;
-        private String bank;
-        private String phone;
+        private String addresss;
+        private String bankzh;
+        @SerializedName("bank")
+        private String bankX;
+        private Object phone;
         private String create_id;
         private String create_name;
         private String create_time;
@@ -121,6 +131,14 @@ public class MyBankCardModel {
 
         public void setLogin_id(String login_id) {
             this.login_id = login_id;
+        }
+
+        public String getBank_for_codetype() {
+            return bank_for_codetype;
+        }
+
+        public void setBank_for_codetype(String bank_for_codetype) {
+            this.bank_for_codetype = bank_for_codetype;
         }
 
         public String getBank_for_name() {
@@ -147,19 +165,35 @@ public class MyBankCardModel {
             this.bank_type = bank_type;
         }
 
-        public String getBank() {
-            return bank;
+        public String getAddresss() {
+            return addresss;
         }
 
-        public void setBank(String bankX) {
-            this.bank = bankX;
+        public void setAddresss(String addresss) {
+            this.addresss = addresss;
         }
 
-        public String getPhone() {
+        public String getBankzh() {
+            return bankzh;
+        }
+
+        public void setBankzh(String bankzh) {
+            this.bankzh = bankzh;
+        }
+
+        public String getBankX() {
+            return bankX;
+        }
+
+        public void setBankX(String bankX) {
+            this.bankX = bankX;
+        }
+
+        public Object getPhone() {
             return phone;
         }
 
-        public void setPhone(String phone) {
+        public void setPhone(Object phone) {
             this.phone = phone;
         }
 

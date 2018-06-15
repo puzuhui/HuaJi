@@ -12,6 +12,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,23 +26,30 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class QrcodeActivity extends Activity {
-
+public class QrcodeActivity extends BaseActivity {
     @BindView(R.id.iv)
     ImageView iv;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qrcode_two);
-        ButterKnife.bind(this);
-
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_qrcode_two;
     }
 
-    private void initView() {
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle("推广");
         Bitmap bitmap = generateBitmap("http://www.baidu.com", 500, 500);
         iv.setImageBitmap(bitmap);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
 

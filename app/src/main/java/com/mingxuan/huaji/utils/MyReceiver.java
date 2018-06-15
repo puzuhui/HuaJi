@@ -67,7 +67,6 @@ public class MyReceiver extends BroadcastReceiver {
 		} catch (Exception e){
 
 		}
-
 	}
 
 	// 打印所有的 intent extra 数据

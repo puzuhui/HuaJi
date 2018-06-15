@@ -9,11 +9,13 @@ public class BaseUrl {
 
 //    public final static String javaurl = "http://www.hjhp.cn/ws/user/";//根地址
 
-    public final static String baseurl = "http://192.168.188.122/huaji/index.php/Home/index/";//根地址
+    public final static String baseurl = "http://192.168.188.123/huaji/index.php/Home/index/";//根地址
 
     public final static String javaurl = "http://192.168.188.123:8080/huaji/ws/user/";//根地址
 
     public final static String login = javaurl + "login?";//登录
+
+    public final static String twologin = javaurl + "twologin?";//二级密码登录
 
     public final static String duanxin = javaurl + "duanxin?";//获取短信验证码
 
@@ -43,6 +45,8 @@ public class BaseUrl {
 
     public final static String virifyPassword = javaurl + "virifyPassword?";//修改密码
 
+    public final static String recharge = javaurl + "recharge?";//充值查询
+
     public final static String shoppinglisttop = baseurl + "shoppinglisttop?";//商品列表顶部标签
 
     public final static String shoppinglist = baseurl + "shoppinglist?";//商品列表
@@ -59,7 +63,7 @@ public class BaseUrl {
 
     public final static String myintegral = baseurl + "myintegral?";//我的积分
 
-    public final static String tixian = javaurl + "point?";//我的积分
+    public final static String tixian = javaurl + "tiXian?";//我的积分
 
     public final static String myproducts_cart = baseurl + "myproducts_cart?";//我的购物车
 
@@ -100,6 +104,8 @@ public class BaseUrl {
     public final static String addbankcard = baseurl + "addbankcard?";//添加银行卡
 
     public final static String searchbankcard = baseurl + "searchbankcard?";//添加银行卡
+
+    public final static String delbankcard = baseurl + "delbankcard?";//添加银行卡
 
     public final static String bankcard = "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?";//查询银行卡信息
 

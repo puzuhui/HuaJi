@@ -43,6 +43,7 @@ public class IntroduceActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setToolbarTitle("资费介绍");
         loadingDialog = new LoadingDialog(this);
         list = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -50,7 +51,15 @@ public class IntroduceActivity extends BaseActivity {
 
         introduceAdapter = new IntroduceAdapter(this,list);
         recyclerview.setAdapter(introduceAdapter);
+    }
 
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initData() {
         getData();
     }
 

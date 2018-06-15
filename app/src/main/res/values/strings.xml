@@ -136,6 +136,11 @@
     <string name="income_statistics">收益统计</string>
     <string name="service_channel">服务渠道</string>
 
+    <string name="intergral">现金积分:%1$s（1积分=1元）</string>
+    <string name="tianxian_numb">提现金额：</string>
+
+    <string name="recharge_numb"><Data><![CDATA[充值金额：<font color="#ee213a"><b>%1$s</b></font>元]]></Data></string>
+
     <string name="hint_title">【温馨提示】</string>
     <string name="phone_hint"><b>您暂无购买电话卡，确定去购买？</b></string>
     <string name="business_hint">尊敬的服务商:\n\t\t\t根据国家实名制要求，为加强实名风险管控，严厉打击犯罪份子盗用身份证虚假开卡进行违法诈骗等犯罪行为。1.凡在本平台下单选择号码入网时，必须填写正确的入网人的真实姓名及身份证号码。2.用户在翼开通APP自助实名时必须提交身份证原件拍照和本人活体认证，电信运营商将按照国家对实名制的相关要求对通过APP系统自主实名成功的激活用户进行二次人工审核，发现虚假违规用户直接进行拆机处理，且在本平台预存的话费不予以退费，情节严重者直接报公安机关处理！\n\t\t\t请广大服务商熟知并遵守！\n\n\t\t\t\t\t\t\t\t\t<b>华记黄埔（宣）</b></string>

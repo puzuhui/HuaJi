@@ -31,8 +31,6 @@ import butterknife.OnClick;
  */
 
 public class OldUserActivity extends BaseActivity {
-    @BindView(R.id.login)
-    TextView login;
     @BindView(R.id.login_numb)
     EditText loginNumb;
     @BindView(R.id.sure)
@@ -73,13 +71,26 @@ public class OldUserActivity extends BaseActivity {
         pleaseEnterVerificationCode.addTextChangedListener(new NewEditText(pleaseEnterVerificationCode));
         setPossword.addTextChangedListener(new NewEditText(setPossword));
         pleaseEnterPosswordTwo.addTextChangedListener(new NewEditText(pleaseEnterPosswordTwo));
+
+        setSubtitle("登录");
+        setToolbarTitle("老用户完善资料");
     }
 
-    @OnClick({R.id.login,R.id.sure,R.id.get_code,R.id.submit})
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected boolean showSubtitle() {
+        return true;
+    }
+
+    @OnClick({R.id.toolbar_subtitle,R.id.sure,R.id.get_code,R.id.submit})
     public void OnClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.login:
+            case R.id.toolbar_subtitle:
                 intent = new Intent(OldUserActivity.this,LoginActivity.class);
                 startActivity(intent);
                 break;

@@ -29,8 +29,6 @@ import butterknife.OnClick;
  */
 
 public class ForgetThePasswordActivity extends BaseActivity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
     @BindView(R.id.please_enter_phone_number)
     EditText pleaseEnterPhoneNumber;
     @BindView(R.id.please_enter_verification_code)
@@ -44,15 +42,6 @@ public class ForgetThePasswordActivity extends BaseActivity {
     @BindView(R.id.submit)
     TextView submit;
 
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_gorgetthe_password);
-//        ButterKnife.bind(this);
-//
-//        initView();
-//    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_gorgetthe_password;
@@ -64,14 +53,23 @@ public class ForgetThePasswordActivity extends BaseActivity {
         pleaseEnterVerificationCode.addTextChangedListener(new NewEditText(pleaseEnterVerificationCode));
         setPossword.addTextChangedListener(new NewEditText(setPossword));
         pleaseEnterPosswordTwo.addTextChangedListener(new NewEditText(pleaseEnterPosswordTwo));
+
+        setToolbarTitle("找回密码");
     }
 
-    @OnClick({R.id.back_btn,R.id.get_code,R.id.submit})
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @OnClick({R.id.get_code,R.id.submit})
     public void OnClick(View view){
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.get_code:
                 mobile = pleaseEnterPhoneNumber.getText().toString();
                 if(!TextUtils.isEmpty(mobile)){

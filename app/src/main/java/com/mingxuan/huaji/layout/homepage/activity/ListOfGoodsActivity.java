@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -36,11 +37,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/10/16 0016.
  */
 
-public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
-    @BindView(R.id.head_shop)
-    TextView headShop;
+public class ListOfGoodsActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
     @BindView(R.id.top_recyclerview)
     RecyclerView toprecyclerview;
     @BindView(R.id.recyclerview)
@@ -53,24 +50,22 @@ public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.
     int type;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_of_goods);
-        ButterKnife.bind(this);
-
-        getBundle();
-        initView();
-        getTopType();
-        getlist();
+    protected int getLayoutId() {
+        return R.layout.activity_list_of_goods;
     }
 
-    private void getBundle(){
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle("商城列表");
         Bundle bundle = getIntent().getExtras();
         type = bundle.getInt("type");
         parent_id = ""+type;
-    }
 
-    private void initView() {
         loadingDialog = new LoadingDialog(this);
         toplist = new ArrayList<>();
         list = new ArrayList<>();
@@ -113,6 +108,12 @@ public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.
         });
     }
 
+    @Override
+    protected void initData() {
+        getTopType();
+        getlist();
+    }
+
     /**
      * 顶部标签
      */
@@ -144,13 +145,10 @@ public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.
     String product_label;
     String id;
     private void getlist(){
-        loadingDialog.setLoadingContent("正在加载...");
-        loadingDialog.show();
         MainApi.getInstance(this).shoppinglistApi(id ,parent_id,product_label, new GetResultCallBack() {
             @Override
             public void getResult(String result, int type) {
                 swipe.setRefreshing(false);
-                loadingDialog.dismiss();
                 if(type == Constants.TYPE_SUCCESS){
                     List<ShopListModel.ResultBean> resultBeans = GsonUtil.fromJsonList(new Gson(),
                             result,ShopListModel.ResultBean.class);
@@ -163,17 +161,6 @@ public class ListOfGoodsActivity extends Activity implements SwipeRefreshLayout.
                     shopListAdapter.notifyDataSetChanged();
             }
         });
-    }
-
-
-    @OnClick(R.id.back_btn)
-     public void setOnClick(View v) {
-        switch (v.getId()) {
-            case R.id.back_btn:
-                finish();
-                break;
-
-        }
     }
 
     @Override

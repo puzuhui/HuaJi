@@ -21,14 +21,15 @@
             android:text=""
             android:textSize="@dimen/sp_14"
             android:textColor="@color/transparent80"
-            android:drawableLeft="@mipmap/del"
+            android:drawableLeft="@mipmap/shop"
             android:drawablePadding="@dimen/dp_5"
             android:gravity="center_vertical"/>
         <ImageView
             android:id="@+id/del_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/del"/>
+            android:src="@mipmap/del"
+            android:gravity="center_vertical"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -39,7 +40,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="wrap_content"
@@ -53,7 +55,7 @@
             android:id="@+id/image"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_100"
-            android:src="@mipmap/my_01"/>
+            />
 
         <LinearLayout
             android:layout_weight="1"
@@ -67,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="2"
-                android:text="华硕（ASUS）经典系列X554LP 15.6英寸笔记本 （i5-5200U 4G 500G R5-M230 1G独显 蓝牙 Win8.1 黑色）"
+                android:text=""
                 android:textColor="#404040"
                 android:textSize="@dimen/sp_14" />
 
@@ -91,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="0.0"
+            android:text=""
             android:textColor="#f00"
             android:textSize="@dimen/sp_14"
             android:layout_marginRight="@dimen/dp_10"/>

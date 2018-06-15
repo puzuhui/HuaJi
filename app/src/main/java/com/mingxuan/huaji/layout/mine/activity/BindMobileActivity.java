@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.FourApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -34,9 +35,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class BindMobileActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class BindMobileActivity extends BaseActivity {
     @BindView(R.id.linear)
     LinearLayout linear;
     @BindView(R.id.phone)
@@ -46,15 +45,15 @@ public class BindMobileActivity extends Activity {
     List<InformationModel.ResultBean> list;
     LoadingDialog loadingDialog;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bindmobile);
-        ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
-        id = sharedPreferences.getString("create_id","");
-        initView();
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_bindmobile;
+    }
+
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
     }
 
     @Override
@@ -63,11 +62,14 @@ public class BindMobileActivity extends Activity {
         getInformation();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        setToolbarTitle("绑定手机");
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI,Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("create_id","");
+
         loadingDialog = new LoadingDialog(this);
         list = new ArrayList<>();
-
-        getInformation();
 //        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
 //        String phonenumber =sharedPreferences.getString("phone","");
 //        if(!TextUtils.isEmpty(phonenumber)){
@@ -80,13 +82,15 @@ public class BindMobileActivity extends Activity {
 //        }
     }
 
-    @OnClick({R.id.back_btn,R.id.linear,R.id.binding})
+    @Override
+    protected void initData() {
+        getInformation();
+    }
+
+    @OnClick({R.id.linear,R.id.binding})
     public void OnClick(View view){
         Intent intent;
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.linear:
                 intent = new Intent(BindMobileActivity.this,MoblieActivity.class);
                 intent.putExtra("phone",phonenumber);

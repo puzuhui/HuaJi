@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.FourApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -31,40 +32,40 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/10/16 0016.
  */
 
-public class MyFriendActivity extends Activity {
-    @BindView(R.id.head_shop)
-    TextView headShop;
+public class MyFriendActivity extends BaseActivity {
     @BindView(R.id.listview)
     ListView listview;
-    @BindView(R.id.back_btn)
-    ImageView backbtn;
     @BindView(R.id.emptyview)
     View emptyview;
     private List<MyFriendsModel.ResultBean> list;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myfriend);
-        ButterKnife.bind(this);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
-        p_id = sharedPreferences.getString("create_id","");
-        initView();
-        getFriend();
+    protected int getLayoutId() {
+        return R.layout.activity_myfriend;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
+        p_id = sharedPreferences.getString("create_id","");
+
         list = new ArrayList<>();
 
         myFriendAdapter = new MyFriendAdapter(MyFriendActivity.this, list);
         listview.setAdapter(myFriendAdapter);
         listview.setEmptyView(emptyview);
+
+        setToolbarTitle("我的伙伴");
     }
 
-    @OnClick(R.id.back_btn)
-    public void setClick(View view){
-        finish();
+    @Override
+    protected void initData() {
+        getFriend();
+    }
+
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
     }
 
     MyFriendAdapter myFriendAdapter;

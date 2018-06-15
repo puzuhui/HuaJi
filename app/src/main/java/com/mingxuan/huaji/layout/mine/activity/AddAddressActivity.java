@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.FourApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -31,7 +32,9 @@ import com.mingxuan.huaji.utils.NewEditText;
 import com.mingxuan.huaji.utils.ToastUtil;
 import com.mingxuan.huaji.utils.UIUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,9 +44,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/10/24 0024.
  */
 
-public class AddAddressActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class AddAddressActivity extends BaseActivity {
     @BindView(R.id.consignee)
     EditText consignee;
     @BindView(R.id.phone_number)
@@ -57,19 +58,25 @@ public class AddAddressActivity extends Activity {
     private int index;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addaddress);
-        ButterKnife.bind(this);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
-        create_id = sharedPreferences.getString("create_id","");
-        create_name = sharedPreferences.getString("create_name","");
-
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_addaddress;
     }
 
-    private void initView() {
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle(getString(R.string.compile_address));
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
+        create_id = sharedPreferences.getString("create_id","");
+        create_name = sharedPreferences.getString("realName","");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        create_time = simpleDateFormat.format(new Date());
+
         list = new ArrayList<>();
         Bundle bundle =getIntent().getExtras();
         index = bundle.getInt("index");
@@ -86,16 +93,15 @@ public class AddAddressActivity extends Activity {
         setListener();
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
     private void setListener() {
         consignee.addTextChangedListener(new NewEditText(consignee));
         phoneNumber.addTextChangedListener(new NewEditText(phoneNumber));
         addaddress.addTextChangedListener(new NewEditText(addaddress));
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         address.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,11 +192,19 @@ public class AddAddressActivity extends Activity {
         final TextView city = (TextView) view.findViewById(R.id.city);
         final TextView xian = (TextView) view.findViewById(R.id.xian);
         final TextView zheng = (TextView) view.findViewById(R.id.zheng);
+        final TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
         final View line1 = view.findViewById(R.id.line1);
         final View line2 = view.findViewById(R.id.line2);
         final View line3 = view.findViewById(R.id.line3);
         final View line4 = view.findViewById(R.id.line4);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -206,20 +220,17 @@ public class AddAddressActivity extends Activity {
                     newcode += code+",";
                     areaname += list.get(i).getName()+" ";
                     choose_area();
-                    //Log.e("newcode====",newcode+"areaname======"+areaname);
                     if(level == 2){
                         shen.setText(list.get(i).getName());
                         city.setVisibility(View.VISIBLE);
                         line1.setVisibility(View.INVISIBLE);
                         line2.setVisibility(View.VISIBLE);
-
                     }else if(level == 3){
                         city.setText(list.get(i).getName());
                         xian.setVisibility(View.VISIBLE);
                         line1.setVisibility(View.INVISIBLE);
                         line2.setVisibility(View.INVISIBLE);
                         line3.setVisibility(View.VISIBLE);
-
                     }else if(level == 4){
                         xian.setText(list.get(i).getName());
                         zheng.setVisibility(View.VISIBLE);
@@ -230,18 +241,16 @@ public class AddAddressActivity extends Activity {
                     }else {
                         zheng.setText(list.get(i).getName());
                         line4.setVisibility(View.INVISIBLE);
+                        address.setText(areaname.substring(4));
+                        finishcode = newcode.substring(4,newcode.length()-1);
+                        address.setTextColor(getResources().getColor(R.color.black));
+                        popupWindow.dismiss();
+                        level = 1;
+                        code = null;
+                        areaname = null;
+                        newcode = null;
                     }
-                }else {
-                    address.setText(areaname.substring(4));
-                    finishcode = newcode.substring(4,newcode.length()-1);
-                    address.setTextColor(getResources().getColor(R.color.black));
-                    popupWindow.dismiss();
-                    level = 1;
-                    code = null;
-                    areaname = null;
-                    newcode = null;
                 }
-
             }
         });
 
@@ -291,7 +300,7 @@ public class AddAddressActivity extends Activity {
     String seleadd_name;
     String aaddress;
     String create_name;
-    String create_time = "1995-12-17";
+    String create_time;
     private void getmyaddress(){
         FourApi.getInstance(this).getaddaddressApi(aconsignee,phone, default_flag,selete_address, seleadd_name,aaddress,
                 create_id, create_name,create_time, new GetResultCallBack() {

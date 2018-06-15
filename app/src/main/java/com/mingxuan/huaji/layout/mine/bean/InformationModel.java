@@ -50,18 +50,9 @@ public class InformationModel {
          * id_card : 500382199609271944
          */
 
-        private String name;
         private String phone;
         private String real_name;
         private String id_card;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
 
         public String getPhone() {
             return phone;

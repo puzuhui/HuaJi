@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,28 +20,36 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class PasswordManageActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class PasswordManageActivity extends BaseActivity {
     @BindView(R.id.insertpassword)
     TextView insertpassword;
     @BindView(R.id.insertpassword_two)
     TextView insertpasswordTwo;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passwordmanage);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_passwordmanage;
     }
 
-    @OnClick({R.id.back_btn,R.id.insertpassword,R.id.insertpassword_two})
+    @Override
+    protected void initView() {
+        setToolbarTitle("密码管理");
+    }
+
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @OnClick({R.id.insertpassword,R.id.insertpassword_two})
     public void OnClick(View view){
         Intent intent;
         switch (view.getId()){
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.insertpassword:
                 intent = new Intent(this,InsertPasswordActivity.class);
                 intent.putExtra("index",1);

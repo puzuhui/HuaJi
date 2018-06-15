@@ -23,6 +23,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
@@ -53,7 +54,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/10/18 0018.
  */
 
-public class CommodityDetailsActivity extends Activity {
+public class CommodityDetailsActivity extends BaseActivity {
     @BindView(R.id.convenient)
     ConvenientBanner convenientBanner;
     @BindView(R.id.all_evaluate)
@@ -80,8 +81,6 @@ public class CommodityDetailsActivity extends Activity {
     TextView commentNumb;
     @BindView(R.id.comment_good)
     TextView commentGood;
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
     @BindView(R.id.comment_all)
     LinearLayout commentAll;
     @BindView(R.id.shopcar)
@@ -100,36 +99,33 @@ public class CommodityDetailsActivity extends Activity {
     private SimpleDateFormat simpleDateFormat;
     Boolean islogin;
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_commodity_details;
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_commodity_details);
-        ButterKnife.bind(this);
+    protected boolean showHomeAsUp() {
+        return true;
+    }
 
+    @Override
+    protected void initView() {
+        setToolbarTitle(getString(R.string.commodity_details));
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);
         create_id = sharedPreferences.getString("create_id","");
-        create_name = sharedPreferences.getString("create_name","");
+        create_name = sharedPreferences.getString("realName","");
         update_id = sharedPreferences.getString("create_id","");
-        update_name = sharedPreferences.getString("create_name","");
+        update_name = sharedPreferences.getString("realName","");
         islogin = sharedPreferences.getBoolean("islogin",false);
+
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getString("id");
 
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         create_time = simpleDateFormat.format(new Date());
         update_time = simpleDateFormat.format(new Date());
-        getBundle();
-        initView();
-        getlist();
-        getshopingevaluate();
-        getsearchshoppingcar();
-    }
 
-    private void getBundle() {
-        Bundle bundle = getIntent().getExtras();
-        id = bundle.getString("id");
-    }
-
-    private void initView() {
         shoppingcarlist = new ArrayList<>();
         goodlist = new ArrayList<>();
         list = new ArrayList<>();
@@ -161,34 +157,31 @@ public class CommodityDetailsActivity extends Activity {
 //                Toast.makeText(CommodityDetailsActivity.this, "点击了"+position, Toast.LENGTH_SHORT).show();
 //            }
 //        });
-
         addToShoppingCart.setOnClickListener(onClickListener);
         settleAccounts.setOnClickListener(onClickListener);
-        backBtn.setOnClickListener(onClickListener);
         allEvaluate.setOnClickListener(onClickListener);
         shopcar.setOnClickListener(onClickListener);
 
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setDefaultFontSize(UIUtils.px2dp(16));
+        webSettings.setDefaultFontSize(UIUtils.dp2px(16));
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
-        //缩放操作
-        webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-        webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
-        webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         // 屏幕自适应网页,如果没有这个，在低分辨率的手机上显示可能会异常
         webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-        webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-        webSettings.setBuiltInZoomControls(false); //设置内置的缩放控件。若为false，则该WebView不可缩放
         //处理各种通知请求和事件，如果不使用该句代码，将使用内置浏览器访问网页
         webview.setWebViewClient(new WebViewClient());
+    }
+
+    @Override
+    protected void initData() {
+        getlist();
+        getshopingevaluate();
+        getsearchshoppingcar();
     }
 
     private void showBanner() {
@@ -214,7 +207,7 @@ public class CommodityDetailsActivity extends Activity {
         convenientBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(CommodityDetailsActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CommodityDetailsActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -224,9 +217,6 @@ public class CommodityDetailsActivity extends Activity {
         public void onClick(View v) {
             Intent intent;
             switch (v.getId()) {
-                case R.id.back_btn:
-                    finish();
-                    break;
                 case R.id.all_evaluate://所有评论
                     intent = new Intent(CommodityDetailsActivity.this, CommentActivity.class);
                     intent.putExtra("id",id);

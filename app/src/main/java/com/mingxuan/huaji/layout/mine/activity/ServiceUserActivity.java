@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingxuan.huaji.R;
@@ -37,6 +38,8 @@ public class ServiceUserActivity extends Activity {
     ImageView backBtn;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
+    @BindView(R.id.tv_person_numb)
+    TextView tvPersonNumb;
     List<ServiceUserModel.ResultBean> list;
 
     @Override
@@ -76,6 +79,7 @@ public class ServiceUserActivity extends Activity {
                     list.addAll(resultBean);
 
                     serviceUserAdapter.notifyDataSetChanged();
+                    tvPersonNumb.setText("共"+list.size()+"人");
                 }else BaseApi.showErrMsg(ServiceUserActivity.this,result);
             }
         });

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@mipmap/weim2">
 
+    <include layout="@layout/layout_toolbar"/>
+
     <ImageView
         android:id="@+id/iv"
         android:layout_width="@dimen/dp_150"

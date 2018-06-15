@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mingxuan.huaji.R;
+import com.mingxuan.huaji.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,9 +19,7 @@ import butterknife.OnClick;
  * 公司：铭轩科技
  */
 
-public class MyQrcodeActivity extends Activity {
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
+public class MyQrcodeActivity extends BaseActivity {
     @BindView(R.id.iv1)
     ImageView iv1;
     @BindView(R.id.iv2)
@@ -29,20 +28,29 @@ public class MyQrcodeActivity extends Activity {
     ImageView iv3;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qrcode);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_qrcode;
+    }
+
+    @Override
+    protected void initView() {
+        setToolbarTitle("我的二维码");
+    }
+
+    @Override
+    protected void initData() {
 
     }
 
-    @OnClick({R.id.back_btn, R.id.iv1, R.id.iv2, R.id.iv3})
+    @Override
+    protected boolean showHomeAsUp() {
+        return true;
+    }
+
+    @OnClick({R.id.iv1, R.id.iv2, R.id.iv3})
     public void OnClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.back_btn:
-                finish();
-                break;
             case R.id.iv1:
                 intent =new Intent(MyQrcodeActivity.this,QrcodeActivity.class);
                 intent.putExtra("index",1);

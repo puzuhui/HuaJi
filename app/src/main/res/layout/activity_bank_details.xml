@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/greylight"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/layout_toolbar"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/dp_10">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            app:srcCompat="@mipmap/abc"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_bank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@id/imageView"
+            app:layout_constraintLeft_toRightOf="@id/imageView"
+            android:paddingTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_14"/>
+
+        <TextView
+            android:id="@+id/tv_bank_numb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/tv_bank_name"
+            app:layout_constraintLeft_toLeftOf="@id/tv_bank_name"
+            android:paddingBottom="@dimen/dp_10"
+            android:textSize="@dimen/sp_12"/>
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/tv_bank_numb"
+            app:layout_constraintTop_toTopOf="@id/tv_bank_numb"
+            android:paddingLeft="@dimen/dp_10"
+            android:textSize="@dimen/sp_12"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/dp_1"
+        android:padding="@dimen/dp_10">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所属支行:"
+            android:textSize="@dimen/sp_14"/>
+
+        <TextView
+            android:id="@+id/tv_bankzh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/sp_14"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/dp_1"
+        android:padding="@dimen/dp_10">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="持卡人姓名:"
+            android:textSize="@dimen/sp_14"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/sp_14"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="如果您更换了银行预留手机号，请先解除绑定，并在收银台付款时重新绑定"
+        android:textSize="@dimen/sp_12"
+        android:layout_margin="@dimen/dp_10"/>
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="wrap_content"
+        android:text="解除绑定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/login_edit_reddark"
+        android:padding="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+</LinearLayout>
