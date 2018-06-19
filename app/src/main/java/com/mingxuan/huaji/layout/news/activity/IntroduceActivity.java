@@ -27,9 +27,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class IntroduceActivity extends BaseActivity {
-
-    @BindView(R.id.back_btn)
-    ImageView backBtn;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     List<IntroduceModel.ResultBean> list;
@@ -61,11 +58,6 @@ public class IntroduceActivity extends BaseActivity {
     @Override
     protected void initData() {
         getData();
-    }
-
-    @OnClick(R.id.back_btn)
-    public void onViewClicked() {
-        finish();
     }
 
     private void getData(){

@@ -10,7 +10,22 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:background="@color/white">
-        <include layout="@layout/layout_toolbar"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/action_bar"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:background="@color/redDark"
+            app:layout_scrollFlags="scroll|enterAlways">
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </android.support.v7.widget.Toolbar>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

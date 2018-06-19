@@ -514,6 +514,43 @@
 
             <View
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:alpha="0.1"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/lianxi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/icon9"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:gravity="center"
+                    android:text="联系我们"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/transparent80" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/back" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
 

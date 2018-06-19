@@ -85,4 +85,5 @@ dependencies {
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 
     compile 'com.jph.takephoto:takephoto_library:4.0.3'
+    compile 'com.just.agentweb:agentweb:4.0.2'
 }

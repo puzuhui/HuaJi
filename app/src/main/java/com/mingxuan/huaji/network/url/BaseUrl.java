@@ -126,4 +126,6 @@ public class BaseUrl {
     public final static String  introduce = baseurl + "introduce?";//通知
 
     public final static String  logisticsno = baseurl + "logisticsno?";//号卡物流
+
+    public final static String  xgnotification = baseurl + "xgnotification?";//修改通知状态
 }

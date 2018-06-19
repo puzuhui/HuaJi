@@ -81,9 +81,4 @@ public class LogisticsActivity extends BaseActivity {
             }
         });
     }
-
-    @OnClick(R.id.back_btn)
-    public void onViewClicked() {
-        finish();
-    }
 }

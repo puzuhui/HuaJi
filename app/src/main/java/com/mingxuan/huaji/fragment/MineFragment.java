@@ -1,28 +1,20 @@
 package com.mingxuan.huaji.fragment;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,7 +33,6 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.model.CropOptions;
@@ -53,10 +44,9 @@ import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 import com.mingxuan.huaji.R;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
-import com.mingxuan.huaji.layout.HomePageViewPagerActivity;
 import com.mingxuan.huaji.layout.LoginActivity;
-import com.mingxuan.huaji.layout.homepage.bean.LoginModel;
 import com.mingxuan.huaji.layout.mine.activity.BindMobileActivity;
+import com.mingxuan.huaji.layout.mine.activity.LianXiActivity;
 import com.mingxuan.huaji.layout.mine.activity.MyPhoneCardActivity;
 import com.mingxuan.huaji.layout.mine.activity.PasswordManageActivity;
 import com.mingxuan.huaji.layout.mine.activity.MyAdressActivity;
@@ -70,16 +60,11 @@ import com.mingxuan.huaji.layout.mine.activity.MyShoppingCartActivity;
 import com.mingxuan.huaji.layout.mine.bean.InformationModel;
 import com.mingxuan.huaji.layout.homepage.activity.ChoosePhoneCardActivity;
 import com.mingxuan.huaji.network.api.FourApi;
-import com.mingxuan.huaji.network.api.MainApi;
 import com.mingxuan.huaji.utils.CircleImageView;
 import com.mingxuan.huaji.base.Constants;
-import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.LoadingDialog;
 import com.mingxuan.huaji.utils.ToastUtil;
-
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,8 +72,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.jpush.android.api.JPushInterface;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Administrator on 2017/10/9 0009.
@@ -129,6 +112,8 @@ public class MineFragment extends Fragment implements TakePhoto.TakeResultListen
     LinearLayout insertpassword;
     @BindView(R.id.view_filpper)
     ViewFlipper viewFlipper;
+    @BindView(R.id.lianxi)
+    LinearLayout lianxi;
     List<InformationModel.ResultBean> list;
 
     Unbinder unbinder;
@@ -192,9 +177,9 @@ public class MineFragment extends Fragment implements TakePhoto.TakeResultListen
         qrcode.setOnClickListener(onClickListener);
         phoneCard.setOnClickListener(onClickListener);
         insertpassword.setOnClickListener(onClickListener);
+        lianxi.setOnClickListener(onClickListener);
         bindingMobile.setOnClickListener(onClickListener);
     }
-
 
     SharedPreferences sharedPreferences = null;
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -299,7 +284,6 @@ public class MineFragment extends Fragment implements TakePhoto.TakeResultListen
                     } else {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
-
                     break;
                 case R.id.insertpassword:
                     if (islogin) {
@@ -308,6 +292,10 @@ public class MineFragment extends Fragment implements TakePhoto.TakeResultListen
                     } else {
                         ToastUtil.makeToast(getContext(), "你还没有登录");
                     }
+                    break;
+                case R.id.lianxi:
+                    intent = new Intent(getActivity(), LianXiActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.login_back:
                     SharedPreferences shared = getActivity().getSharedPreferences(Constants.HUAJI, Context.MODE_PRIVATE);

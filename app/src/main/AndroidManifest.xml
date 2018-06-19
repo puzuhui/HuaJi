@@ -186,6 +186,8 @@
         <activity android:name=".layout.homepage.activity.AgreementDetailsActivty"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".layout.mine.activity.LianXiActivity"/>
+
         <!-- 支付宝 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

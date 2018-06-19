@@ -15,6 +15,7 @@ import com.mingxuan.huaji.base.Constants;
 import com.mingxuan.huaji.interfaces.GetResultCallBack;
 import com.mingxuan.huaji.layout.news.adpter.NotificationAdapter;
 import com.mingxuan.huaji.layout.news.bean.NotificationModel;
+import com.mingxuan.huaji.network.api.BaseApi;
 import com.mingxuan.huaji.network.api.TwoApi;
 import com.mingxuan.huaji.utils.GsonUtil;
 import com.mingxuan.huaji.utils.LoadingDialog;
@@ -63,6 +64,11 @@ public class NotificationActivity extends BaseActivity {
                 Intent intent = new Intent(NotificationActivity.this, NotificationDetailsActivity.class);
                 intent.putExtra("details",list.get(i).getContent());
                 startActivity(intent);
+                //当通知状态为1时发送修改状态
+                if(list.get(i).getState().equals("1")){
+                    postState(list.get(i).getId(),"2");
+                    notificationAdapter.notifyItemChanged(i);
+                }
             }
         });
 
@@ -93,6 +99,19 @@ public class NotificationActivity extends BaseActivity {
 
                     notificationAdapter.notifyDataSetChanged();
                 }
+            }
+        });
+    }
+
+    //修改状态
+    private void postState(String id,String state){
+        TwoApi.getInstance(this).xgnotification(id,state, new GetResultCallBack() {
+            @Override
+            public void getResult(String result, int type) {
+                loadingDialog.dismiss();
+                if(type == Constants.TYPE_SUCCESS){
+
+                }else BaseApi.showErrMsg(NotificationActivity.this,result);
             }
         });
     }

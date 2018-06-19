@@ -68,4 +68,18 @@ public class TwoApi extends BaseApi{
         map.put("create_id",createId);
         getLoad(BaseUrl.logisticsno, map, callBack);
     }
+
+
+    /**
+     * 改变通知状态
+     * @param id
+     * @param state
+     * @param callBack
+     */
+    public void xgnotification(String id,String state,GetResultCallBack callBack){
+        Map<String, String> map = new HashMap<>();
+        map.put("id",id);
+        map.put("state",state);
+        postLoad(BaseUrl.xgnotification, map, callBack);
+    }
 }

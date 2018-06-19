@@ -134,29 +134,6 @@ public class CommodityDetailsActivity extends BaseActivity {
         bean = new ArrayList<>();
         piclist = new ArrayList<>();
 
-//        FullGridLayoutManager gridLayoutManager = new FullGridLayoutManager(this, 4);
-//        recyclerview.setNestedScrollingEnabled(false);
-//        recyclerview.setLayoutManager(gridLayoutManager);
-//        int spanCount = 4;//跟布局里面的spanCount属性是一致的
-//        int spacing = 5;//每一个矩形的间距
-//        GridSpacingItemDecoration gridSpacingItemDecoration = new GridSpacingItemDecoration(spanCount, spacing, false);
-//        recyclerview.addItemDecoration(gridSpacingItemDecoration);
-
-//        String[] s = {"185/64Y", "185/64Y", "185/64Y", "185/64Y", "185/64Y"};
-//        for (int i = 0; i < s.length; i++) {
-//            ShopSizeModel shopSizeModel = new ShopSizeModel();
-//            shopSizeModel.setSize(s[i]);
-//            sizelist.add(shopSizeModel);
-//        }
-//
-//        ShopSizeAdapter shopSizeAdapter = new ShopSizeAdapter(CommodityDetailsActivity.this, sizelist);
-//        recyclerview.setAdapter(shopSizeAdapter);
-//        shopSizeAdapter.setMyOnClickListener(new ShopSizeAdapter.MyOnClickListener() {
-//            @Override
-//            public void onclick(View view, int position) {
-//                Toast.makeText(CommodityDetailsActivity.this, "点击了"+position, Toast.LENGTH_SHORT).show();
-//            }
-//        });
         addToShoppingCart.setOnClickListener(onClickListener);
         settleAccounts.setOnClickListener(onClickListener);
         allEvaluate.setOnClickListener(onClickListener);
@@ -326,9 +303,6 @@ public class CommodityDetailsActivity extends BaseActivity {
                     }
                     float goodnumb = (float) goodlist.size() / piclist.size();
                     DecimalFormat decimalFormat = new DecimalFormat("0.0");
-                    Log.e("===", "" + decimalFormat.format(goodnumb));
-                    Log.e("===", "" + decimalFormat.format(goodnumb * 100));
-
 
                     commentNumb.setText("(" + piclist.size() + ")");
                     commentGood.setText("(" + decimalFormat.format(goodnumb * 100) + "%)");
